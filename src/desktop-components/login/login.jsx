@@ -3,8 +3,6 @@ const { useState } = require('react');
 const { TextField, Button } = require('@mui/material');
 
 const Login = props => {
-  if (props.isLogin === false) return <div></div>;
-
   const [usernameValidationError, setUsernameValidationError] = useState(false);
   const [passwordValidationError, setPasswordValidationError] = useState(false);
   const [usernameError, setUsernameError] = useState('');
@@ -14,14 +12,13 @@ const Login = props => {
     if (username.length <= 0) {
       setUsernameValidationError(true);
       setUsernameError('Please do not leave blank');
-      return;
     }
     if (password.length <= 0) {
       setPasswordValidationError(true);
       setPasswordError('Please do not leave blank');
-      return;
     }
 
+    if (username.length <= 0 || password.length <= 0) return;
     setUsernameValidationError(false);
     setPasswordValidationError(false);
     setUsernameError('');
@@ -37,10 +34,6 @@ const Login = props => {
     console.log({username, password});
   };
 
-  const signup = () => {
-    props.setIsLogin(false);
-  };
-
   return (
     <div>
       <div className="desktop-login-form-container">
@@ -49,7 +42,7 @@ const Login = props => {
         <TextField id="desktop-password-login" label="Password" variant="outlined" className={'desktop-password-login'} required fullWidth size={'small'} error={passwordValidationError} helperText={passwordError}/>
         <div className="desktop-login-button-container">
           <Button variant="outlined" className={'desktop-login-page-button desktop-login-button'} onClick={login}>Login</Button>
-          <Button variant="outlined" className={'desktop-login-page-button desktop-signup-button'} onClick={signup}>Create Account</Button>
+          <Button variant="outlined" className={'desktop-login-page-button desktop-signup-button'} >Create Account</Button>
         </div>
       </div>
     </div>

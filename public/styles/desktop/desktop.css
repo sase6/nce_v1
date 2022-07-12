@@ -48,6 +48,71 @@
 .desktop-nav {
   height: 100px;
   background-color: rgba(0, 0, 0, 0.85);
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: max-content max-content;
+      grid-template-columns: -webkit-max-content -webkit-max-content;
+      grid-template-columns: max-content max-content;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.desktop-nav-logo-container {
+  height: 100%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 100px max-content;
+      grid-template-columns: 100px -webkit-max-content;
+      grid-template-columns: 100px max-content;
+}
+
+.desktop-logo {
+  position: relative;
+  background: url("../../img/nce_logo.png");
+  background-size: cover;
+  width: 75px;
+  height: 75px;
+  top: calc(25px/2);
+  left: calc(25px/2);
+}
+
+.desktop-company-name-container * {
+  color: white;
+  font-family: roboto, sans-serif;
+}
+
+.desktop-company-name-container {
+  position: relative;
+  height: 75px;
+  top: 25px;
+}
+
+.desktop-company-name {
+  font-weight: 900;
+  font-size: 22px;
+}
+
+#desktop-nav-search {
+  color: white;
+  height: 40px;
+  border-radius: 8px;
+  outline: none;
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  text-align: center;
+  font-size: 18px;
+}
+
+.desktop-search-container {
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  max-width: 500px;
+  width: 40vw;
+  margin-right: 1vw;
 }
 
 * {
