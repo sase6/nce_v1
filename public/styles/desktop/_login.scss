@@ -1,0 +1,29 @@
+@import './variables';
+
+.desktop-login-form-container {
+  @include gridCenter();
+  max-width: 500px;
+  max-height: 300px;
+  width: 50vh;
+  height: 38%;
+  margin-top: 40%
+}
+
+.desktop-login-button-container {
+  @include spaceButtonContainer();
+}
+
+.desktop-login-page-container {
+  position: relative;
+  height: calc(100vh - 100px);
+  width: 100%;
+  display: grid;
+  justify-content: center;
+}
+
+.desktop-login-text {
+  color: $black75;
+  font-family: roboto, sans-serif;
+  display: grid;
+  place-self: center;
+}

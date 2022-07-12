@@ -1,0 +1,15 @@
+@mixin gridCenter {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  grid-template-columns: 100%;
+}
+
+@mixin spaceButtonContainer {
+  display: grid;
+  grid-template-columns: 45% 45%;
+  justify-content: space-between;
+};
+
+$black85: rgba(0,0,0,0.25);
+$black75: rgba(0,0,0,0.75);
