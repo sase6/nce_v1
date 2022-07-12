@@ -5,12 +5,17 @@
   "main": "index.js",
   "scripts": {
     "react-dev": "webpack --mode development -w",
-    "server-dev": "nodemon server/index.js"
+    "server-dev": "nodemon server/index.js",
+    "sass-dev": "sass --watch /public/styles/desktop/login.scss:/public/styles/desktop/login.css"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@emotion/react": "^11.9.3",
+    "@emotion/styled": "^11.9.3",
+    "@mui/icons-material": "^5.8.4",
+    "@mui/material": "^5.9.0",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "mongoose": "^6.4.4",
