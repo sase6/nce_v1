@@ -3,6 +3,12 @@ const { TextField } = require('@mui/material');
 const { useState } = require('react');
 
 const DesktopNav = props => {
+
+  const setQuery = () => {
+    let query = document.querySelector('#desktop-nav-search').value;
+    props.setQuery(query);
+  };
+
   return (
     <nav className="desktop-nav">
       <div className="desktop-nav-logo-container">
@@ -14,7 +20,7 @@ const DesktopNav = props => {
       </div>
 
       <div className="desktop-search-container">
-        <input id="desktop-nav-search" label="Search" placeholder="Search"/>
+        <input id="desktop-nav-search" label="Search" placeholder="Search" onChange={setQuery}/>
       </div>
     </nav>
   );

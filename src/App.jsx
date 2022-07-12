@@ -4,9 +4,11 @@ const DesktopLoginPage = require('./desktop-components/login/index.jsx');
 const DesktopNav = require('./desktop-components/navigation/desktopNav.jsx');
 
 const App = () => {
+  const [query, setQuery] = useState('');
+
   return (
     <div className="app">
-      <DesktopNav />
+      <DesktopNav setQuery={setQuery}/>
 
       <div className="main-content">
         <DesktopLoginPage />
