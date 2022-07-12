@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "react-dev": "webpack --mode development -w"
+    "react-dev": "webpack --mode development -w",
+    "server-dev": "nodemon server/index.js"
   },
   "keywords": [],
   "author": "",

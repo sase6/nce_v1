@@ -1,5 +1,5 @@
 const path = require('path');
-const publicUrl = path.join('..', 'public');
+const publicUrl = path.join(__dirname, '..', 'public');
 
 // Send HTML page
 const sendHtml = (req, res) => {
