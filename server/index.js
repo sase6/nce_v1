@@ -12,4 +12,9 @@ app.use(express.json());
 
 app.get('/', controller.sendHtml);
 
-app.listen(port, () => console.log('Server listening on port: ', port));
+app.post('/login', controller.login);
+
+app.listen(port, () => {
+  require('../database/index.js');
+  console.log('Server listening on port: ', port);
+});
