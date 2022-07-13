@@ -11,3 +11,35 @@ mongoose.connect(`mongodb+srv://${username}:${password}@nationalcompressor.ge84b
     console.log('Mongo Connection Successful!');
   }
 });
+
+// Users
+const USER = {
+  find: async (findBy) => {
+    let users = await model.User.find(findBy);
+    if (users.length <= 0) return [false, 'username or password is incorrect'];
+    return [true, users[0]];
+  },
+  create: async (login) => {
+    let userExist = (await USER.find({username: login.username}))[0];
+    if (userExist) return 'username taken';
+
+    let user = {
+      employeeId: 1,
+      dateJoined: (new Date()).toString(),
+      username: login.username,
+      password: login.password,
+      pending: true,
+      _isAdmin: false,
+      visibility: ['Job Book'],
+    };
+
+    if (await db.make(user)) {
+      return true;
+    }
+    return 'error creating user'
+  }
+};
+
+module.exports = {
+  USER,
+};

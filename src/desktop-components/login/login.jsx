@@ -1,6 +1,7 @@
 const React = require('react');
 const { useState } = require('react');
 const { TextField, Button } = require('@mui/material');
+const axios = require('axios');
 
 const Login = props => {
   const [usernameValidationError, setUsernameValidationError] = useState(false);
@@ -26,12 +27,42 @@ const Login = props => {
     return true;
   };
 
-  const login = () => {
+  const login = (e, signup=false) => {
     let username = document.querySelector('#desktop-username-login').value;
     let password = document.querySelector('#desktop-password-login').value;
     if (!validateInputs(username, password)) return;
 
-    console.log({username, password});
+    let url;
+    if (signup) {
+      url = '/signup'
+    } else {
+      url = '/login'
+    }
+
+    axios({
+      method: 'post',
+      url,
+      data: {username, password}
+    })
+    .then(result => {
+      if (!signup) {
+        props.setUser(result.data);
+      }
+      document.querySelector('#desktop-username-login').value = "";
+      document.querySelector('#desktop-password-login').value = "";
+    })
+    .catch(err => {
+      if (err.response.data === 'username taken') {
+        setUsernameValidationError(true);
+        setUsernameError('username taken');
+        return;
+      }
+
+      setUsernameValidationError(true);
+      setPasswordValidationError(true);
+      setUsernameError(err.response.data);
+      setPasswordError(err.response.data);
+    });
   };
 
   return (
@@ -42,7 +73,7 @@ const Login = props => {
         <TextField id="desktop-password-login" label="Password" variant="outlined" className={'desktop-password-login'} required fullWidth size={'small'} error={passwordValidationError} helperText={passwordError}/>
         <div className="desktop-login-button-container">
           <Button variant="outlined" className={'desktop-login-page-button desktop-login-button'} onClick={login}>Login</Button>
-          <Button variant="outlined" className={'desktop-login-page-button desktop-signup-button'} >Create Account</Button>
+          <Button variant="outlined" className={'desktop-login-page-button desktop-signup-button'} onClick={e => login(e, true)}>Create Account</Button>
         </div>
       </div>
     </div>

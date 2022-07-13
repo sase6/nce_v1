@@ -14,6 +14,8 @@ app.get('/', controller.sendHtml);
 
 app.post('/login', controller.login);
 
+app.post('/signup', controller.signup);
+
 app.listen(port, () => {
   require('../database/index.js');
   console.log('Server listening on port: ', port);
