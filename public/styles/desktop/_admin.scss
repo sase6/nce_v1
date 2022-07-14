@@ -10,9 +10,14 @@
   position: relative;
   height: calc(98vh - 100px);
   top: 1.25%;
-  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
   min-width: 325px;
+  max-width: 100%;
 }
+.desktop-admin-subtree::-webkit-scrollbar {
+  display: none;
+} 
 
 .desktop-admin-users {
   box-sizing: border-box;
@@ -65,4 +70,101 @@
   color: $black75;
   padding: 0 2% 0 2%;
   font-family: lato, roboto, sans-serif;
+}
+
+.pending-user-container {
+  height: 140px;
+  border: 1px solid black;
+  display: grid;
+  grid-template-rows: 75% 25%;
+  padding: 5px;
+}
+
+.pending-user-top-container {
+  display: grid;
+  grid-template-columns: 75% 21%;
+  grid-column-gap: 2%;
+}
+
+.pending-user-top-left-container {
+  position: relative;
+  display: grid;
+  grid-template-rows: max-content max-content;
+  grid-row-gap: 10px;
+  align-content: center;
+}
+
+.pending-user-top-right-container {
+  display: grid;
+  grid-template-columns: max-content max-content;
+  justify-content: space-around;
+  place-items: center;
+}
+
+.pending-user-top-right-container *{
+  background-color: transparent !important;
+  color: black !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  color: $black75;
+  font-size: 20px !important;
+  font-family: 'Times New Roman', Times, serif !important;
+}
+
+.pending-user-top-right-container *:hover {
+  border-radius: 0 !important;
+}
+
+.mui-check-icon:hover {
+  background-color: rgba(0,255,0,0.045) !important;
+}
+
+.mui-close-icon:hover {
+  background-color: rgba(255,0,0,0.045) !important;
+}
+
+.pending-user-visibility-lists {
+  background-color: rgba(188, 143, 143, 0.085);
+  border-radius: 5px;
+  height: 100%;
+  position: relative;
+  display: grid !important;
+  grid-template-columns: max-content max-content max-content max-content;
+  grid-column-gap: 10px;
+  align-items: center;
+}
+
+.pending-user-add-visibility {
+  width: 30px;
+  height: 30px !important;
+  border-radius: 100%;
+  display: grid;
+  place-items: center;
+  position: relative;
+  left: 2px;
+}
+
+.pending-user-add-visibility:hover {
+  background: rgba(0,0,0,0.045);
+  cursor: pointer;
+}
+
+.add-new-visibility {
+  height: 70%;
+  width: 0px;
+  border-radius: 15px;
+  border: none;
+  background: rgba(0,0,0,0.045);
+  text-align: center;
+  animation: 350ms ease-out growInput forwards;
+}
+.add-new-visibility:focus {
+  outline: none;
+}
+
+@keyframes growInput {
+  100% {
+    width: 100px;
+  }
 }

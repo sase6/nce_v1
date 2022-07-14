@@ -1,6 +1,7 @@
 const React = require('react');
 const { useState, useEffect } = require('react');
 const SectionComponent = require('./sectionComponent.jsx');
+const PendingUser = require('./pendingUserComponent.jsx');
 const axios = require('axios');
 
 const Users = props => {
@@ -45,9 +46,9 @@ const Users = props => {
 
       <div className="desktop-admin-section-body-container">
         <SectionComponent render={pendingUsers.length > 0} text="Pending"/>
-        {pendingUsers.map(user => <div>{JSON.stringify(user)}</div>)}
+        {pendingUsers.map((user, i) => <PendingUser key={`pendingUser-${i}`} user={user}/>)}
         <SectionComponent render={activeUsers.length > 0} text="Active"/>
-        {activeUsers.map(user => <div>{JSON.stringify(user)}</div>)}
+        {activeUsers.map((user, i) => <PendingUser key={`activeUser-${i}`} user={user}/>)}
       </div>
     </div>
   );
