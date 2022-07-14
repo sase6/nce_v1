@@ -32,11 +32,37 @@ const signup = async (req, res) => {
 const getUsers = async (req, res) => {
   try {
     let users = await db.USER.find({});
-    console.log('All Users: ', users);
     res.end(JSON.stringify(users[1]));
   } catch {
     res.status(500).end('Failed to fetch users');
   }
+};
+
+const acceptUser = async (req, res) => {
+  let result = await db.USER.accept(req.body.username);
+  if (result === true) {
+    res.end();
+    return;
+  }
+  res.status(500).end(result);
+};
+
+const deleteUser = async (req, res) => {
+  let result = await db.USER.delete(req.body.username);
+  if (result === true) {
+    res.end();
+    return;
+  }
+  res.status(500).end(result);
+};
+
+const updateUser = async (req, res) => {
+  let result = await db.USER.update(req.body.username, req.body.set);
+  if (result === true) {
+    res.end();
+    return;
+  }
+  res.status(500).end(result);
 };
 
 module.exports = {
@@ -44,4 +70,7 @@ module.exports = {
   login,
   signup,
   getUsers,
+  acceptUser,
+  deleteUser,
+  updateUser,
 };

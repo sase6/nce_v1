@@ -37,6 +37,15 @@ const USER = {
       return true;
     }
     return 'error creating user'
+  },
+  accept: async (username) => {
+    return await db.update(model.User, {username}, {pending: false});
+  },
+  update: async (username, set) => {
+    return await db.update(model.User, {username}, set);
+  },
+  delete: async (username) => {
+    return await db.remove(model.User, {username});
   }
 };
 
