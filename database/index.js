@@ -17,7 +17,7 @@ const USER = {
   find: async (findBy) => {
     let users = await model.User.find(findBy);
     if (users.length <= 0) return [false, 'username or password is incorrect'];
-    return [true, users[0]];
+    return [true, users];
   },
   create: async (login) => {
     let userExist = (await USER.find({username: login.username}))[0];

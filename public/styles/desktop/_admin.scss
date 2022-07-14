@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&family=VT323&display=swap');
+@import './variables';
+
+.desktop-admin-container {
+  display: grid;
+  grid-template-columns: 33% 34% 33%;
+}
+
+.desktop-admin-subtree {
+  position: relative;
+  height: calc(98vh - 100px);
+  top: 1.25%;
+  overflow-y: scroll;
+  min-width: 325px;
+}
+
+.desktop-admin-users {
+  box-sizing: border-box;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
+}
+
+.desktop-admin-section-title-container {
+  min-width: 325px;
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 96%;
+  left: 2%;
+  max-height: 75px;
+  height: 75px;
+  font-weight: 900;
+  font-size: 25px;
+  font-family: Lato, roboto, sans-serif;
+  background-color: rgba(0,0,0,0.045);
+  color: $black75;
+}
+
+.desktop-admin-section-body-container {
+  position: relative;
+  width: 96%;
+  left: 2%;
+  margin-top: 2%;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-row-gap: 10px;
+}
+
+.section-component {
+  display: grid;
+  grid-template-columns: max-content auto;
+  grid-column-gap: 5%;
+  width: 100%;
+  align-items: center;
+}
+
+.section-component-line {
+  width: 100%;
+  height: 1px;
+  background: black;
+}
+
+.section-component-text {
+  font-size: 20px;
+  color: $black75;
+  padding: 0 2% 0 2%;
+  font-family: lato, roboto, sans-serif;
+}

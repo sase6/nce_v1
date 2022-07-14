@@ -1,12 +1,13 @@
 const React = require('react');
 const {useState, useEffect} = require('react');
-const DesktopLoginPage = require('./desktop-components/login/index.jsx');
 const DesktopNav = require('./desktop-components/navigation/desktopNav.jsx');
+const DesktopLoginPage = require('./desktop-components/login/index.jsx');
+const DesktopAdmin = require('./desktop-components/admin/index.jsx');
 
 const App = () => {
   const [query, setQuery] = useState('');
-  const [visibility, setVisibility] = useState(['login']);
-  const [page, setPage] = useState('login');
+  const [visibility, setVisibility] = useState(['Login']);
+  const [page, setPage] = useState('Login');
   const [user, setUser] = useState({});
 
   useEffect(() => {
@@ -21,6 +22,7 @@ const App = () => {
 
       <div className="main-content">
         <DesktopLoginPage page={page} setUser={setUser}/>
+        <DesktopAdmin page={page}/>
       </div>
     </div>
   );
