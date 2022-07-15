@@ -5,38 +5,35 @@ const PendingUser = require('./pendingUserComponent.jsx');
 const axios = require('axios');
 
 const Users = props => {
-
-  const [users, setUsers] = useState([]);
   const [pendingUsers, setPendingUsers] = useState([]);
   const [activeUsers, setActiveUsers] = useState([]);
 
-  // Fetch Users on Mount
-  useEffect(() => {
+  const fetchUsers = () => {
     axios({
       method: 'get',
       url: '/users'
     })
     .then(res => {
-      setUsers(res.data);
+      let pending = [];
+      let active = [];
+
+      res.data.forEach(user => {
+        if (user.pending) pending.push(user)
+        else active.push(user);
+      });
+
+      console.log({active, pending});
+      setActiveUsers(active);
+      setPendingUsers(pending);
     })
     .catch(err => {
       console.log('Error fetching users!');
     })
-  }, []);
+  };
 
-  // Change Active/Pending
   useEffect(() => {
-    let pending = [];
-    let active = [];
-
-    users.forEach(user => {
-      if (user.pending) pending.push(user)
-      else active.push(user);
-    });
-
-    setActiveUsers(active);
-    setPendingUsers(pending);
-  }, [users]);
+    fetchUsers();
+  }, []);
 
   return (
     <div className="desktop-admin-subtree desktop-admin-users">
@@ -46,10 +43,22 @@ const Users = props => {
 
       <div className="desktop-admin-section-body-container">
         <SectionComponent render={pendingUsers.length > 0} text="Pending"/>
-        {pendingUsers.map((user, i) => <PendingUser key={`pendingUser-${i}`} user={user}/>)}
+        {/* {pendingUsers.map((user, i) => <PendingUser fetchUsers={fetchUsers} user={user} key={`pendinguser-${i}`}/>)} */}
+        <RenderUsers fetchUsers={fetchUsers} users={pendingUsers}/>
         <SectionComponent render={activeUsers.length > 0} text="Active"/>
-        {activeUsers.map((user, i) => <PendingUser key={`activeUser-${i}`} user={user}/>)}
+        <RenderUsers fetchUsers={fetchUsers} users={activeUsers}/>
       </div>
+    </div>
+  );
+};
+
+const RenderUsers = props => {
+  console.log('users: ', props.users);
+  return (
+    <div className="render-users">
+      {props.users.map((user, i) => {
+        return <PendingUser fetchUsers={props.fetchUsers} user={user} key={`${Math.random()*100}${user}-${i}`}/>
+      })}
     </div>
   );
 };

@@ -7,7 +7,7 @@ const DesktopAdmin = require('./desktop-components/admin/index.jsx');
 const App = () => {
   const [query, setQuery] = useState('');
   const [visibility, setVisibility] = useState(['Login']);
-  const [page, setPage] = useState('Admin');
+  const [page, setPage] = useState('Login');
   const [user, setUser] = useState({});
 
   useEffect(() => {

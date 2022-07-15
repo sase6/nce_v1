@@ -45,6 +45,8 @@ const USER = {
     return await db.update(model.User, {username}, set);
   },
   delete: async (username) => {
+    let user = (await model.User.find({username}))[0];
+    if (user._isAdmin) return 'cannot remove admins';
     return await db.remove(model.User, {username});
   }
 };
