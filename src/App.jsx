@@ -3,6 +3,7 @@ const {useState, useEffect} = require('react');
 const DesktopNav = require('./desktop-components/navigation/desktopNav.jsx');
 const DesktopLoginPage = require('./desktop-components/login/index.jsx');
 const DesktopAdmin = require('./desktop-components/admin/index.jsx');
+const DesktopJobBook = require('./desktop-components/job-book/index.jsx');
 
 const App = () => {
   const [query, setQuery] = useState('');
@@ -23,6 +24,7 @@ const App = () => {
       <div className="main-content">
         <DesktopLoginPage page={page} setUser={setUser}/>
         <DesktopAdmin page={page}/>
+        <DesktopJobBook page={page}/>
       </div>
     </div>
   );

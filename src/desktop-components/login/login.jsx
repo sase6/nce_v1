@@ -1,5 +1,5 @@
 const React = require('react');
-const { useState } = require('react');
+const { useState, useEffect } = require('react');
 const { TextField, Button } = require('@mui/material');
 const axios = require('axios');
 
@@ -8,6 +8,11 @@ const Login = props => {
   const [passwordValidationError, setPasswordValidationError] = useState(false);
   const [usernameError, setUsernameError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+
+  useEffect(() => {
+    axios.post('/login')
+    .then(result => props.setUser(result.data));
+  }, []);
 
   const validateInputs = (username, password) => {
     if (username.length <= 0) {

@@ -1,0 +1,16 @@
+@import './variables';
+
+.desktop-job-book-container {
+  display: grid;
+  grid-template-columns: max-content max-content;
+}
+
+.desktop-job-book-expanded {
+  position: relative;
+  width: 35vw;
+  min-width: 450px;
+  max-width: 600px;
+  background-color: rgba(0,0,0,0.15);
+  height: 98%;
+  height: calc(100vh - 100px);
+}

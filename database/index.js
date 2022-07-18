@@ -3,6 +3,7 @@ const username = process.env.mongoUser;
 const password = process.env.mongoPass;
 const model = require('./schema.js');
 const db = require('./controllers.js');
+const createHardKey = require('../helper_functions/keyGenerator.js');
 
 mongoose.connect(`mongodb+srv://${username}:${password}@nationalcompressor.ge84b.mongodb.net/?retryWrites=true&w=majority`, err => {
   if (err) {
@@ -39,7 +40,7 @@ const USER = {
     return 'error creating user'
   },
   accept: async (username) => {
-    return await db.update(model.User, {username}, {pending: false});
+    return await db.update(model.User, {username}, {pending: false, employeeId: createHardKey(50)});
   },
   update: async (username, set) => {
     return await db.update(model.User, {username}, set);

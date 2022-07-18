@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const path = require('path');
+const cookieParser = require('cookie-parser');
 const controller = require('./controllers.js');
 const app = express();
 const port = process.env.port || 8080;
@@ -9,6 +10,7 @@ const publicUrl = path.join(__dirname, '..', 'public');
 
 app.use(express.static(publicUrl));
 app.use(express.json());
+app.use(cookieParser());
 
 app.get('/', controller.sendHtml);
 

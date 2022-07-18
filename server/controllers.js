@@ -9,9 +9,29 @@ const sendHtml = (req, res) => {
 
 const login = async (req, res) => {
   const {username, password} = req.body;
+  let employeeId;
+  try {
+    employeeId = req.cookies.employeeId;
+  } catch {
+    employeeId = null;
+  }
+
+  if (employeeId && !username) {
+    let dbResponse = await db.USER.find({employeeId});
+    if (dbResponse[0]) {
+      let {username, visibility} = dbResponse[1][0];
+      res.end(JSON.stringify({username, visibility}));
+      return;
+    }
+    res.status(401).end(JSON.stringify(dbResponse[1]));
+    return;
+  }
+  
   let dbResponse = await db.USER.find({username, password});
   if (dbResponse[0]) {
-    let {username, visibility} = dbResponse[1][0]
+    let {username, visibility, employeeId} = dbResponse[1][0]
+
+    res.cookie('employeeId',employeeId, { maxAge: 43200000, httpOnly: true });
     res.end(JSON.stringify({username, visibility}));
     return;
   }
