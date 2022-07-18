@@ -10,7 +10,92 @@
   width: 35vw;
   min-width: 450px;
   max-width: 600px;
-  background-color: rgba(0,0,0,0.15);
+  background-color: rgba(170, 97, 97, 0.05);
   height: 98%;
   height: calc(100vh - 100px);
+  display: grid;
+  grid-template-rows: 10% 10% 10% 10% 10% 10% 10% 20% 10%;
+}
+
+.desktop-job-book-container * {
+  width: 100%;
+}
+
+.desktop-job-book-range-container {
+  display: grid;
+  grid-template-columns: max-content max-content;
+  justify-content: space-around;
+  align-content: center;
+  font-family: Lato, Roboto, sans-serif;
+}
+
+.desktop-job-book-total-showing {
+  font-size: 24px;
+  font-weight: 900;
+}
+
+.job-book-input-search-range {
+  width: 150px;
+  height: 50px;
+  text-align: center;
+  border-radius: 5px;
+  outline: 1px solid black;
+  appearance: none;
+  background: none !important;
+}
+
+.desktop-job-book-total-showing {
+  display: grid;
+  color: $black75;
+  place-items: center;
+}
+
+.desktop-job-book-deep-search-container {
+  // background: red;
+  position: relative;
+  display: grid;
+  place-items: center;
+  // width: 90%;
+  // left: 2.5%;
+  display: grid;
+  grid-template-columns: 70% 20%;
+  justify-content: space-around;
+}
+
+.desktop-job-book-job-number-container, .desktop-job-book-model-number-container, .desktop-job-book-serial-number-container, .desktop-job-book-voltage-and-lead-container, .desktop-job-book-notes-container {
+  position: relative;
+  width: 90%;
+  left: 2.5%;
+  display: grid;
+  place-items: center;
+}
+
+.desktop-job-book-voltage-and-lead-container {
+  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 42% 42%;
+}
+
+.desktop-job-book-information-entry-container {
+  position: relative;
+  color: rgba(0, 0, 0, 0.35);
+  font-size: 18px;
+  // background: red;
+  left: 3%;
+  display: grid;
+  align-items: center;
+}
+
+.desktop-job-book-interactions-container {
+  position: relative;
+  display: grid;
+  width: 95%;
+  left: 2.5%;
+  grid-template-columns: 42% 42%;
+  place-items: center;
+  justify-content: space-between;
+}
+
+.desktop-job-book-interactions-container *{
+  padding: 12px 0 12px 0 !important;
 }

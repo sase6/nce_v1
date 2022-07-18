@@ -8,7 +8,7 @@ const DesktopJobBook = require('./desktop-components/job-book/index.jsx');
 const App = () => {
   const [query, setQuery] = useState('');
   const [visibility, setVisibility] = useState(['Login']);
-  const [page, setPage] = useState('Login');
+  const [page, setPage] = useState('Job Book');
   const [user, setUser] = useState({});
 
   useEffect(() => {
