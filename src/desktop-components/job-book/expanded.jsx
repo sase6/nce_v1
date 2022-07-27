@@ -12,6 +12,7 @@ const DesktopExpandedJob = props => {
     leads: 10,
     entered_by: 'joe_weller69',
     entered_on: 'March 14th 2023',
+    stator_status: 'GOOD',
     notes: 'The oil is leaking reallt bad at the side.'
   };
 
@@ -19,6 +20,7 @@ const DesktopExpandedJob = props => {
   const [ranges, setRanges] = useState(['0-1000', '1001-2000', '2001-3000', '3001-4000', '4001-5000', '10000-11000']);
   const [totalJobs, setTotalJobs] = useState(1000);
   const [jobRange, setJobRange] = useState('0-1000');
+  const [focusedJob, setFocusedJob] = useState(testJob);
 
   return <div className="desktop-job-book-expanded">
     <div className="desktop-job-book-range-container">
@@ -35,17 +37,11 @@ const DesktopExpandedJob = props => {
           onChange={e => setJobRange(e.target.value)}
           style={{width: '150px'}}
           >
-            {/* <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem> */}
             {ranges.map((range, i) => 
               <MenuItem key={`jb_range-${i}`} value={range}>{range}</MenuItem> 
             )}
         </Select>
       </FormControl>
-      {/* <select className="job-book-input-search-range">
-        {ranges.map((range, i) => <option key={`jb_range-${i}`} value={range}>{range}</option> )}
-      </select> */}
 
       </div>
     </div>
@@ -56,24 +52,26 @@ const DesktopExpandedJob = props => {
       <Button sx={{height: 55}} variant="text">Search</Button>
     </div>
     <div className="desktop-job-book-job-number-container">
-      <TextField id="job-book-input-job-number" label="Job Number" variant="outlined" disabled value={testJob.job_number} fullWidth/>
+      <TextField id="job-book-input-job-number" label="Job Number" variant="outlined" disabled value={focusedJob.job_number} fullWidth error helperText="This has been Scrapped!"/>
     </div>
     <div className="desktop-job-book-model-number-container">
-      <TextField id="job-book-input-model-number" label="Model Number" variant="outlined" disabled value={testJob.model_number} fullWidth/>
+      <TextField id="job-book-input-model-number" label="Model Number" variant="outlined" disabled value={focusedJob.model_number} fullWidth/>
     </div>
     <div className="desktop-job-book-serial-number-container">
-      <TextField id="job-book-input-serial-number" label="Serial Number" variant="outlined" disabled value={testJob.serial_number} fullWidth/>
+      <TextField id="job-book-input-serial-number" label="Serial Number" variant="outlined" disabled value={focusedJob.serial_number} fullWidth/>
     </div>
     <div className="desktop-job-book-voltage-and-lead-container">
-      <TextField id="job-book-input-voltage" label="Voltage" variant="outlined" disabled value={testJob.voltage} fullWidth/>
-      <TextField id="job-book-input-leads" label="Leads" variant="outlined" disabled value={testJob.leads} fullWidth/> 
+      <TextField id="job-book-input-voltage" label="Voltage" variant="outlined" disabled value={focusedJob.voltage} fullWidth/>
+      <TextField id="job-book-input-stator-status" label="Stator Status" variant="outlined" disabled value={focusedJob.stator_status} fullWidth/> 
     </div>
     <div className="desktop-job-book-information-entry-container">
-      <div>Entered by {testJob.entered_by}</div>
-      <div>Entered on {testJob.entered_on}</div>
+      <div>Entered by {focusedJob.entered_by}</div>
+      <div>Unloaders:  0</div>
+      <div>Entered on {focusedJob.entered_on}</div>
+      <div>CC Heaters: <span className="expanded-job-cc-heaters-text">Yes</span></div>
     </div>
     <div className="desktop-job-book-notes-container">
-      <TextField id="job-book-input-notes" minRows="6" maxRows="6" label="Notes" variant="outlined" disabled multiline value={testJob.notes} fullWidth/> 
+      <TextField id="job-book-input-notes" minRows="6" maxRows="6" label="Notes" variant="outlined" disabled multiline value={focusedJob.notes} fullWidth/> 
     </div>
     <div className="desktop-job-book-interactions-container">
       <Button variant="outlined">Delete Job</Button>
