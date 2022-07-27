@@ -6,9 +6,8 @@
   grid-template-columns: 100%;
   max-width: 500px;
   max-height: 300px;
-  width: 50vh;
-  height: 38%;
-  margin-top: 40%;
+  width: 95vw;
+  height: 40vh;
 }
 
 .desktop-login-button-container {
@@ -23,6 +22,7 @@
   width: 100%;
   display: grid;
   justify-content: center;
+  align-items: center;
 }
 
 .desktop-login-text {
@@ -39,6 +39,7 @@
   grid-template-columns: -webkit-max-content -webkit-max-content;
   grid-template-columns: max-content max-content;
   justify-content: space-between;
+  width: 100vw;
 }
 
 .desktop-nav-logo-container {
@@ -281,8 +282,8 @@
 }
 .desktop-job-book-container {
   display: grid;
-  grid-template-columns: -webkit-max-content -webkit-max-content;
-  grid-template-columns: max-content max-content;
+  grid-template-columns: -webkit-max-content auto;
+  grid-template-columns: max-content auto;
 }
 
 .desktop-job-book-expanded {
@@ -290,7 +291,6 @@
   width: 35vw;
   min-width: 450px;
   max-width: 600px;
-  background-color: rgba(170, 97, 97, 0.05);
   height: 98%;
   height: calc(100vh - 100px);
   display: grid;
@@ -377,6 +377,59 @@
 
 .desktop-job-book-interactions-container * {
   padding: 12px 0 12px 0 !important;
+}
+
+.job-book-table {
+  width: 100%;
+  border-left: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+.job-book-table-headers {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 20% 20% 28% 10% 10% 10%;
+  height: 80px;
+  align-items: center;
+  background-color: rgba(0, 48, 66, 0.25);
+}
+
+.job-book-table-headers * {
+  color: rgba(0, 0, 0, 0.85);
+  box-sizing: border-box;
+  position: relative;
+  padding-left: 2.5%;
+  font-size: 18px;
+  font-weight: 600;
+  font-family: lato, sans-serif;
+}
+
+.job-book-table-job-item {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 20% 20% 28% 10% 10% 10%;
+  height: 75px;
+  align-items: center;
+  border-top: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+.job-book-table-job-item * {
+  position: relative;
+  left: 2.5%;
+}
+
+.job-book-table-job-item-v1 {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.job-book-table-job-items {
+  overflow: scroll !important;
+  height: calc(100vh - 180px);
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.job-book-table-job-items::-webkit-scrollbar {
+  display: none;
 }
 
 * {

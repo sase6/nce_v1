@@ -7,19 +7,19 @@ const DesktopJobBook = require('./desktop-components/job-book/index.jsx');
 
 const App = () => {
   const [query, setQuery] = useState('');
-  const [visibility, setVisibility] = useState(['Login']);
-  const [page, setPage] = useState('Job Book');
+  const [pages, setPages] = useState(['Login']);
+  const [page, setPage] = useState('Login');
   const [user, setUser] = useState({});
 
   useEffect(() => {
-    if (user.visibility === undefined) return;
-    setVisibility(user.visibility);
-    setPage(user.visibility[0]);
+    if (user.page === undefined) return;
+    setVisibility(user.page);
+    setPage(user.pages[0]);
   }, [user]);
 
   return (
     <div className="app">
-      <DesktopNav setQuery={setQuery}/>
+      <DesktopNav setQuery={setQuery} page={page}/>
 
       <div className="main-content">
         <DesktopLoginPage page={page} setUser={setUser}/>

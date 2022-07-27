@@ -15,6 +15,7 @@ const DesktopExpandedJob = props => {
     notes: 'The oil is leaking reallt bad at the side.'
   };
 
+  const [startRange, setStartRange] = useState([]);
   const [ranges, setRanges] = useState(['0-1000', '1001-2000', '2001-3000', '3001-4000', '4001-5000']);
   const [totalJobs, setTotalJobs] = useState(1000);
 
