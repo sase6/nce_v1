@@ -1,6 +1,6 @@
 const React = require('react');
 const { useState, useEffect } = require('react');
-const { TextField, Select, MenuItem, Button } = require('@mui/material');
+const { TextField, Select, MenuItem, Button, FormControl, InputLabel } = require('@mui/material');
 
 
 const DesktopExpandedJob = props => {
@@ -16,17 +16,36 @@ const DesktopExpandedJob = props => {
   };
 
   const [startRange, setStartRange] = useState([]);
-  const [ranges, setRanges] = useState(['0-1000', '1001-2000', '2001-3000', '3001-4000', '4001-5000']);
+  const [ranges, setRanges] = useState(['0-1000', '1001-2000', '2001-3000', '3001-4000', '4001-5000', '10000-11000']);
   const [totalJobs, setTotalJobs] = useState(1000);
+  const [jobRange, setJobRange] = useState('0-1000');
 
   return <div className="desktop-job-book-expanded">
     <div className="desktop-job-book-range-container">
       <div className="desktop-job-book-total-showing">{totalJobs} Jobs</div>
       <div className="desktop-job-book-range-select-container">
       
-      <select className="job-book-input-search-range">
+      <FormControl fullWidth>
+        <InputLabel id="job-range-value-label">Job Range</InputLabel>
+        <Select
+          labelId="job-range-value-label"
+          id="jobRangeValue"
+          value={jobRange}
+          label="Job Range"
+          onChange={e => setJobRange(e.target.value)}
+          style={{width: '150px'}}
+          >
+            {/* <MenuItem value={10}>Ten</MenuItem>
+            <MenuItem value={20}>Twenty</MenuItem>
+            <MenuItem value={30}>Thirty</MenuItem> */}
+            {ranges.map((range, i) => 
+              <MenuItem key={`jb_range-${i}`} value={range}>{range}</MenuItem> 
+            )}
+        </Select>
+      </FormControl>
+      {/* <select className="job-book-input-search-range">
         {ranges.map((range, i) => <option key={`jb_range-${i}`} value={range}>{range}</option> )}
-      </select>
+      </select> */}
 
       </div>
     </div>
@@ -34,7 +53,7 @@ const DesktopExpandedJob = props => {
       <div className="job-book-deep-search-input-container">
         <TextField id="job-book-input-deep-search" label="Search Database" variant="outlined" fullWidth/>
       </div>
-      <Button variant="text">Search</Button>
+      <Button sx={{height: 55}} variant="text">Search</Button>
     </div>
     <div className="desktop-job-book-job-number-container">
       <TextField id="job-book-input-job-number" label="Job Number" variant="outlined" disabled value={testJob.job_number} fullWidth/>

@@ -30,7 +30,7 @@ const DesktopJobBookTable = props => {
 
       <div className="job-book-table-job-items">
         {filterJobs(jobs).map((job, i) => {
-          return <div className={i%2==0? class1 : class2}>
+          return <div key={'test_fake_val-'+i} className={i%2==0? class1 : class2}>
             <div>job.serial_number</div>
             <div>job.job_number</div>
             <div>job.model_number</div>
