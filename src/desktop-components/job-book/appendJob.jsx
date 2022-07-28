@@ -69,13 +69,16 @@ const AppendJobModal = (props) => {
   const [curIndex, setCurIndex] = useState(0);
   const [curInput, setCurInput] = useState(inputTypeMap[listOfEntries[curIndex]]);
 
-  const [reviewingJob, setReviewingJob] = useState(true);
+  const [reviewingJob, setReviewingJob] = useState(false);
   const toggleReviewingJob = () => setReviewingJob(!reviewingJob);
 
   const incrementIndex = () => {
     // validate info
-    if (curIndex !== 8) setCurIndex(curIndex + 1);
+    if (curIndex < 8) setCurIndex(curIndex + 1);
     document.querySelector('#add-job-input-field').focus();
+    if (curIndex === 8) {
+      toggleReviewingJob();
+    } 
   };
 
   const incrementByEnter = (e) => {
