@@ -12,6 +12,26 @@ const userSchema = new mongoose.Schema({
 
 const User = new mongoose.model('user', userSchema);
 
+const jobSchema = new mongoose.Schema({
+  jobNumber: {type: String, autoIndex: true},
+  modelNumber: {type: String, autoIndex: true},
+  serialNumber: String,
+  voltage: String,
+  ccHeater: Boolean,
+  unloaders: Number,
+  statorStatus: String,
+  incomingNumber: String,
+  scrap: Boolean,
+  notes: String,
+  enteredBy: String,
+  enteredOn: String,
+  _isDeleted: {type: String, autoIndex: true},
+  deletedBy: String,
+  deletedOn: String
+});
+
+const Job = new mongoose.model('job', jobSchema);
+
 module.exports = {
-  User,
+  User, Job
 };
