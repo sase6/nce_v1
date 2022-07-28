@@ -13,7 +13,7 @@ const userSchema = new mongoose.Schema({
 const User = new mongoose.model('user', userSchema);
 
 const jobSchema = new mongoose.Schema({
-  jobNumber: {type: String, autoIndex: true},
+  jobNumber: {type: Number, autoIndex: true},
   modelNumber: {type: String, autoIndex: true},
   serialNumber: String,
   voltage: String,
@@ -25,7 +25,7 @@ const jobSchema = new mongoose.Schema({
   notes: String,
   enteredBy: String,
   enteredOn: String,
-  _isDeleted: {type: String, autoIndex: true},
+  _isDeleted: {type: Boolean, autoIndex: true},
   deletedBy: String,
   deletedOn: String
 });

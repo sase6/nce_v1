@@ -4,7 +4,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const controller = require('./controllers.js');
 const app = express();
-const port = process.env.port || 8080;
+const port = process.env.port || 8082;
 
 const publicUrl = path.join(__dirname, '..', 'public');
 
