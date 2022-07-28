@@ -1,6 +1,7 @@
 const React = require('react');
 const { TextField, Button } = require('@mui/material');
 const { useState, useEffect } = require('react');
+const ReviewJob = require('./reviewJob.jsx');
 
 const AppendJobModal = (props) => {
 
@@ -68,10 +69,16 @@ const AppendJobModal = (props) => {
   const [curIndex, setCurIndex] = useState(0);
   const [curInput, setCurInput] = useState(inputTypeMap[listOfEntries[curIndex]]);
 
+  const [reviewingJob, setReviewingJob] = useState(true);
+
   const incrementIndex = () => {
     // validate info
     if (curIndex !== 8) setCurIndex(curIndex + 1);
     document.querySelector('#add-job-input-field').focus();
+  };
+
+  const incrementByEnter = (e) => {
+    if (e.key === 'Enter') incrementIndex();
   };
 
   const decrementIndex = () => {
@@ -84,13 +91,21 @@ const AppendJobModal = (props) => {
     setCurInput(inputTypeMap[listOfEntries[curIndex]]);
   }, [curIndex]);
 
+  if (reviewingJob) {
+    return (
+      <div className='job-book-add-job-screen-overlay'>
+        <ReviewJob />
+      </div>
+    );
+  }
+  
   return (
     <div className='job-book-add-job-screen-overlay'>
       <div className="job-book-add-new-job-container">
         <div className="job-book-add-new-job-text">
           {curInput.text}
         </div>
-        <TextField label={curInput.textLabel} className="add-job-input-field" id={'add-job-input-field'} fullWidth sx={{width: 'calc(100% - 20px)'}} autoFocus/>
+        <TextField label={curInput.textLabel} className="add-job-input-field" id={'add-job-input-field'} fullWidth sx={{width: 'calc(100% - 20px)'}} autoFocus onKeyUp={incrementByEnter}/>
         <div className="job-book-append-job-interactions-container">
           <div className="inner-job-book-interactions-container">
             <Button className="job-book-add-go-back" onClick={decrementIndex}>Go Back</Button>

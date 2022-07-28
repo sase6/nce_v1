@@ -113,7 +113,6 @@
   grid-template-columns: 10% 18% 18% 9% 10% 8% 10% 10% 5%;
   height: 80px;
   align-items: center;
-  // background: rgba(10, 20, 200, 0.05);
   background-color: rgba(0, 48, 66, 0.25);
 
 }
@@ -217,7 +216,82 @@ input {
   text-transform: uppercase !important;
 }
 
-
 .job-book-scrapped-column {
   color: indianred;
+}
+
+.job-book-review-add-job-container {
+  position: fixed;
+  width: 700px;
+  height: 500px;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(2px);
+  top: calc(50vh - 250px);
+  left: calc(50vw - 350px);
+  display: grid;
+  grid-template-rows: 15% 15% 15% 40% 10%;
+  align-content: space-around;
+  box-sizing: border-box;
+  border-radius: 5px;
+  padding-left: 10px;
+}
+
+.job-book-review-add-job-text {
+ font-size: 32px;
+ font-weight: 900;
+  display: grid;
+  place-items: center;
+  color: rgba(0, 0, 0, 0.65);
+  font-family: lato, sans-serif;
+}
+
+.job-book-review-model-x-serial-container {
+  position: relative;
+  display: grid;
+  grid-template-columns: calc(50% - 30px) calc(50% - 30px);
+  grid-column-gap: 30px;
+  align-content: center;
+}
+
+.job-book-review-meta-information {
+  position: relative;
+  display: grid;
+  grid-template-columns: calc(25% - 30px) calc(25% - 30px) calc(25% - 30px) calc(25% - 30px);
+  grid-column-gap: 30px;
+  align-content: center;
+}
+ 
+.job-book-review-additional-data {
+  position: relative;
+  display: grid;
+  grid-template-columns: calc(50% - 30px) calc(50% - 30px);
+  grid-column-gap: 30px;
+}
+
+.job-book-review-identification-numbers-x-scrap-status {
+  position: relative;
+  display: grid;
+  grid-template-rows: 32% 32% 32%;
+  align-content: space-between;
+}
+
+.job-book-review-buttons {
+  display: grid;
+  grid-template-columns: 200px 100px;
+  justify-content: space-between;
+  margin-right: 10px; 
+}
+
+.job-book-review-cancel-x-go-back-button-container {
+  display: grid;
+  grid-template-columns: 100px 100px;
+  grid-column-gap: 2%;
+}
+
+.job-book-review-not-scrap-text {
+  color: rgba(0, 0, 0, 0.35);
+}
+
+.job-book-review-scrap-text {
+  color: red;
 }
