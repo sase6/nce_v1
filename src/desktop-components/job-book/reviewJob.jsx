@@ -18,12 +18,23 @@ const ReviewJob = props => {
     cancelHandler
   } = props;
 
+  console.log(props);
+
+
   const scrapMap = {
-    true: {
+    YES: {
       text: 'THIS IS SCRAP',
       class: 'job-book-review-scrap-text'
     },
-    false: {
+    NO: {
+      text: 'THIS IS NOT SCRAP',
+      class: 'job-book-review-not-scrap-text'
+    },
+    Y: {
+      text: 'THIS IS SCRAP',
+      class: 'job-book-review-scrap-text'
+    },
+    N: {
       text: 'THIS IS NOT SCRAP',
       class: 'job-book-review-not-scrap-text'
     },

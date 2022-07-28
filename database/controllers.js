@@ -107,7 +107,6 @@ const testFunc = async () => {
   console.log('TEST');
 
   //TESTS HERE!
-  console.log(await JOBS.update({jobNumber: 2}, {modelNumber: 'sase'}));
 };
 
 testFunc();

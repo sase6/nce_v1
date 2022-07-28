@@ -8,52 +8,16 @@ const AppendJobModal = (props) => {
   const { addJobModal, setAddJobModal } = props;
   if (!addJobModal) return;
 
-  const inputTypeMap = {
-    modelNumber: {
-      text: 'What is the Model Number?',
-      textLabel: 'Model Number',
-      setFunc: setModelNumber
-    },
-    serialNumber: {
-      text: 'What is the Serial Number?',
-      textLabel: 'Serial Number',
-      setFunc: setSerialNumber
-    },
-    voltage: {
-      text: 'What is the Voltage of the Stator?',
-      textLabel: 'Voltage',
-      setFunc: setVoltage
-    },
-    ccHeaters: {
-      text: 'Does it have any CC Heaters?',
-      textLabel: 'CC Heaters',
-      setFunc: setCCHeaters
-    },
-    Unloaders: {
-      text: 'How many Unloaders does it have?',
-      textLabel: 'Unloaders',
-      setFunc: setUnloaders
-    },
-    statorStatus: {
-      text: 'What Condition is the Stator in?',
-      textLabel: 'Stator Status',
-      setFunc: setStatorStatus
-    },
-    incomingNumber: {
-      text: 'Is there an Incoming Number?',
-      textLabel: 'Incoming Number',
-      setFunc: setIncomingNumber
-    },
-    scrap: {
-      text: 'Is This Going to Scrap?',
-      textLabel: 'Scrap?',
-      setFunc: setScrap
-    },
-    notes: {
-      text: 'Include Any Additional Information Here',
-      textLabel: 'Notes',
-      setFunc: setNotes
-    },
+  const blankValidation = (text) => {
+    text = text.toUpperCase();
+    if (text.length <= 0) return false;
+    return true;
+  };
+
+  const withinValidation = (text, range=[]) => {
+    text = text.toUpperCase();
+    if (range.indexOf(text) !== -1) return true;
+    return false;
   };
 
   const [modelNumber, setModelNumber] = useState('');
@@ -65,30 +29,132 @@ const AppendJobModal = (props) => {
   const [incomingNumber, setIncomingNumber] = useState('');
   const [scrap, setScrap] = useState('');
   const [notes, setNotes] = useState('');
+
+  const inputTypeMap = {
+    modelNumber: {
+      text: 'What is the Model Number?',
+      textLabel: 'Model Number',
+      setFunc: setModelNumber,
+      validate: blankValidation,
+      value: () => modelNumber,
+      setValue: setModelNumber
+    },
+    serialNumber: {
+      text: 'What is the Serial Number?',
+      textLabel: 'Serial Number',
+      setFunc: setSerialNumber,
+      validate: blankValidation,
+      value: () => serialNumber,
+      setValue: setSerialNumber
+    },
+    voltage: {
+      text: 'What is the Voltage of the Stator?',
+      textLabel: 'Voltage',
+      setFunc: setVoltage,
+      validate: blankValidation,
+      value: () => voltage,
+      setValue: setVoltage
+    },
+    ccHeaters: {
+      text: 'Does it have any CC Heaters?',
+      textLabel: 'CC Heaters',
+      setFunc: setCCHeaters,
+      default: 'NO',
+      helperText: 'Please enter "YES" or "Y" for yes',
+      validate: (text) => withinValidation(text, ['YES', 'NO', 'Y', 'N']),
+      value: () => ccHeaters,
+      setValue: setCCHeaters
+    },
+    Unloaders: {
+      text: 'How many Unloaders does it have?',
+      textLabel: 'Unloaders',
+      setFunc: setUnloaders,
+      helperText: 'PLEASE ENTER ONLY 0, 1 OR 2',
+      validate: (text) => withinValidation(text, ['0', '1', '2']),
+      value: () => unloaders,
+      setValue: setUnloaders
+    },
+    statorStatus: {
+      text: 'What Condition is the Stator in?',
+      textLabel: 'Stator Status',
+      setFunc: setStatorStatus,
+      default: 'GOOD',
+      helperText: 'PLEASE ONLY ENTER "BAD" if stator is bad',
+      validate: (text) => withinValidation(text, ['GOOD', 'BAD']),
+      value: () => statorStatus,
+      setValue: setStatorStatus
+    },
+    incomingNumber: {
+      text: 'Is there an Incoming Number?',
+      textLabel: 'Incoming Number',
+      setFunc: setIncomingNumber,
+      default: 'N/A',
+      validate: blankValidation,
+      value: () => incomingNumber,
+      setValue: setIncomingNumber
+    },
+    scrap: {
+      text: 'Is This Going to Scrap?',
+      textLabel: 'Scrap?',
+      setFunc: setScrap,
+      default: 'NO',
+      helperText: 'Please enter "YES" or "Y" TO MARK AS SCRAPPED',
+      validate: (text) => withinValidation(text, ['YES', 'NO', 'Y', 'N']),
+      value: () => scrap,
+      setValue: setScrap
+    },
+    notes: {
+      text: 'Include Any Additional Information Here',
+      textLabel: 'Notes',
+      setFunc: setNotes,
+      validate: () => true,
+      value: () => notes,
+      setValue: setNotes
+    },
+  };
+
   const listOfEntries = Object.keys(inputTypeMap);
   const [curIndex, setCurIndex] = useState(0);
   const [curInput, setCurInput] = useState(inputTypeMap[listOfEntries[curIndex]]);
-
   const [reviewingJob, setReviewingJob] = useState(false);
   const toggleReviewingJob = () => setReviewingJob(!reviewingJob);
 
+
   const incrementIndex = () => {
-    // validate info
-    if (curIndex < 8) setCurIndex(curIndex + 1);
-    document.querySelector('#add-job-input-field').focus();
+    let nextController = inputTypeMap[listOfEntries[curIndex + 1]];
+    let element = document.querySelector('#add-job-input-field');
+
+    if (!curInput.validate(element.value)) return; //Validation Err
+
+    curInput.setValue(element.value);
+    if (curIndex < 8) {
+      element.value = nextController.value() || nextController.default || '';
+      setCurIndex(curIndex + 1);
+    }
+  
+    element.focus();
+    element.select();
+
     if (curIndex === 8) {
       toggleReviewingJob();
     } 
   };
-
   const incrementByEnter = (e) => {
     if (e.key === 'Enter') incrementIndex();
   };
 
   const decrementIndex = () => {
-    // validate info
-    if (curIndex !== 0) setCurIndex(curIndex - 1);
+    let element = document.querySelector('#add-job-input-field');
+    let priorController = inputTypeMap[listOfEntries[curIndex - 1]];
+    curInput.setValue(element.value);
+
+    if (curIndex !== 0) {
+      element.value = priorController.value() || priorController.default || '';
+      setCurIndex(curIndex - 1);
+    }
+
     document.querySelector('#add-job-input-field').focus();
+    document.querySelector('#add-job-input-field').select();
   };
 
   useEffect(() => {
@@ -100,14 +166,14 @@ const AppendJobModal = (props) => {
       <div className='job-book-add-job-screen-overlay'>
         <ReviewJob 
           modelNumber={modelNumber}
-          serialNumber={modelNumber}
-          voltage={modelNumber}
-          ccHeaters={modelNumber}
-          unloaders={modelNumber}
-          statorStatus={modelNumber}
-          incomingNumber={modelNumber}
-          scrap={modelNumber}
-          notes={modelNumber}
+          serialNumber={serialNumber}
+          voltage={voltage}
+          ccHeaters={ccHeaters}
+          unloaders={unloaders}
+          statorStatus={statorStatus}
+          incomingNumber={incomingNumber}
+          scrap={scrap}
+          notes={notes}
           toggleReviewingJob={toggleReviewingJob}
           cancelHandler={() => setAddJobModal(false)}
         />
@@ -121,7 +187,7 @@ const AppendJobModal = (props) => {
         <div className="job-book-add-new-job-text">
           {curInput.text}
         </div>
-        <TextField label={curInput.textLabel} className="add-job-input-field" id={'add-job-input-field'} fullWidth sx={{width: 'calc(100% - 20px)'}} autoFocus onKeyUp={incrementByEnter}/>
+        <TextField helperText={curInput.helperText || ''} defaultValue={curInput.default} label={curInput.textLabel} className="add-job-input-field" id={'add-job-input-field'} fullWidth sx={{width: 'calc(100% - 20px)'}} autoFocus onKeyUp={incrementByEnter}/>
         <div className="job-book-append-job-interactions-container">
           <div className="inner-job-book-interactions-container">
             <Button className="job-book-add-go-back" onClick={decrementIndex}>Go Back</Button>
