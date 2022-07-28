@@ -70,6 +70,7 @@ const AppendJobModal = (props) => {
   const [curInput, setCurInput] = useState(inputTypeMap[listOfEntries[curIndex]]);
 
   const [reviewingJob, setReviewingJob] = useState(true);
+  const toggleReviewingJob = () => setReviewingJob(!reviewingJob);
 
   const incrementIndex = () => {
     // validate info
@@ -94,11 +95,23 @@ const AppendJobModal = (props) => {
   if (reviewingJob) {
     return (
       <div className='job-book-add-job-screen-overlay'>
-        <ReviewJob />
+        <ReviewJob 
+          modelNumber={modelNumber}
+          serialNumber={modelNumber}
+          voltage={modelNumber}
+          ccHeaters={modelNumber}
+          unloaders={modelNumber}
+          statorStatus={modelNumber}
+          incomingNumber={modelNumber}
+          scrap={modelNumber}
+          notes={modelNumber}
+          toggleReviewingJob={toggleReviewingJob}
+          cancelHandler={() => setAddJobModal(false)}
+        />
       </div>
     );
   }
-  
+
   return (
     <div className='job-book-add-job-screen-overlay'>
       <div className="job-book-add-new-job-container">

@@ -4,7 +4,19 @@ const { TextField, Button, InputLabelProps } = require('@mui/material');
 
 const ReviewJob = props => {
 
-  const scrap = false;
+  const {
+    modelNumber,
+    serialNumber,
+    voltage,
+    ccHeaters,
+    unloaders,
+    statorStatus,
+    incomingNumber,
+    scrap,
+    notes,
+    toggleReviewingJob,
+    cancelHandler
+  } = props;
 
   const scrapMap = {
     true: {
@@ -14,6 +26,10 @@ const ReviewJob = props => {
     false: {
       text: 'THIS IS NOT SCRAP',
       class: 'job-book-review-not-scrap-text'
+    },
+    ['']: {
+      text: '',
+      class: ''
     }
   };
 
@@ -22,33 +38,33 @@ const ReviewJob = props => {
       <div className="job-book-review-add-job-text">Review</div>
 
       <div className="job-book-review-model-x-serial-container">
-        <TextField id="outlined-basic" label="Outlined" variant="outlined" disabled InputLabelProps={{ ...InputLabelProps, shrink: true }}/>
-        <TextField id="outlined-basic" label="Outlined" variant="outlined" disabled InputLabelProps={{ ...InputLabelProps, shrink: true }}/>
+        <TextField value={modelNumber} id="outlined-basic" label="Model Number" variant="outlined" disabled InputLabelProps={{ ...InputLabelProps, shrink: true }}/>
+        <TextField value={serialNumber} id="outlined-basic" label="Serial Number" variant="outlined" disabled InputLabelProps={{ ...InputLabelProps, shrink: true }}/>
       </div>
 
       <div className="job-book-review-meta-information">
-        <TextField disabled label="Voltage" fullWidth InputLabelProps={{ ...InputLabelProps, shrink: true }}/>
-        <TextField disabled label="Unloaders" fullWidth InputLabelProps={{ ...InputLabelProps, shrink: true }}/>
-        <TextField disabled label="CC Heaters" fullWidth InputLabelProps={{ ...InputLabelProps, shrink: true }}/>
-        <TextField disabled label="Stator Status" fullWidth InputLabelProps={{ ...InputLabelProps, shrink: true }}/>
+        <TextField value={voltage} disabled label="Voltage" fullWidth InputLabelProps={{ ...InputLabelProps, shrink: true }}/>
+        <TextField value={unloaders} disabled label="Unloaders" fullWidth InputLabelProps={{ ...InputLabelProps, shrink: true }}/>
+        <TextField value={ccHeaters} disabled label="CC Heaters" fullWidth InputLabelProps={{ ...InputLabelProps, shrink: true }}/>
+        <TextField value={statorStatus} disabled label="Stator Status" fullWidth InputLabelProps={{ ...InputLabelProps, shrink: true }}/>
       </div>
 
       <div className="job-book-review-additional-data">
         <div className="job-book-review-notes-container">
-          <TextField disabled label="Notes" rows="6" minRows="6" maxRows="6" multiline fullWidth InputLabelProps={{ ...InputLabelProps, shrink: true }}/>
+          <TextField value={notes} disabled label="Notes" rows="6" minRows="6" maxRows="6" multiline fullWidth InputLabelProps={{ ...InputLabelProps, shrink: true }}/>
         </div>
 
         <div className="job-book-review-identification-numbers-x-scrap-status">
-          <TextField disabled label="Serial Number" fullWidth InputLabelProps={{ ...InputLabelProps, shrink: true }}/>
-          <TextField disabled label="Serial Number" fullWidth InputLabelProps={{ ...InputLabelProps, shrink: true }}/>
+          <TextField value={incomingNumber} disabled label="Incoming Number" fullWidth InputLabelProps={{ ...InputLabelProps, shrink: true }}/>
+          <TextField value={'Auto'} label="Job Number" fullWidth InputLabelProps={{ ...InputLabelProps, shrink: true }}/>
           <div className={`job-book-review-scrap-status ${scrapMap[scrap].class}`}>{scrapMap[scrap].text}</div>
         </div>
       </div>
 
       <div className="job-book-review-buttons">
         <div className="job-book-review-cancel-x-go-back-button-container">
-          <Button>Go Back</Button>
-          <Button>Cancel</Button>
+          <Button onClick={toggleReviewingJob}>Go Back</Button>
+          <Button onClick={cancelHandler}>Cancel</Button>
         </div>
         <Button>Add Job</Button>
       </div>
