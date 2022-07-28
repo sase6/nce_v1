@@ -2,31 +2,6 @@ const React = require('react');
 const { TextField, Button } = require('@mui/material');
 const { useState, useEffect } = require('react');
 
-// const AppendJobModal = (props) => {
-  
-//   return (
-
-//     <div className="job-book-add-job-screen-overlay">
-//       {/* <div className="job-book-add-new-job-container">
-//         <div className="job-book-add-new-job-text">
-//           What is the Model Number?
-//         </div>
-//         <TextField label="Model Number" fullWidth sx={{width: 'calc(100% - 20px)'}} autoFocus/>
-//         <div className="job-book-append-job-interactions-container">
-//           <div className="inner-job-book-interactions-container">
-//             <Button className="job-book-add-go-back">Go Back</Button>
-//             <Button className="job-book-add-import">Import</Button>
-//             <Button className="job-book-add-cancel" sx={{background: 'indianred', color: 'white'}}>Cancel</Button>
-//           </div>
-//           <Button variant="contained" className="job-book-add-go-forward">Next</Button>
-//         </div>
-//       </div> */}
-//       <DataCollector />
-//     </div>
-
-//   );
-// };
-
 const AppendJobModal = (props) => {
 
   const { addJobModal, setAddJobModal } = props;
