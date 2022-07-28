@@ -16,6 +16,7 @@ const DesktopExpandedJob = props => {
     notes: 'The oil is leaking reallt bad at the side.'
   };
 
+  const {setAddJobModal} = props;
   const [startRange, setStartRange] = useState([]);
   const [ranges, setRanges] = useState(['0-1000', '1001-2000', '2001-3000', '3001-4000', '4001-5000', '10000-11000']);
   const [totalJobs, setTotalJobs] = useState(1000);
@@ -75,7 +76,7 @@ const DesktopExpandedJob = props => {
     </div>
     <div className="desktop-job-book-interactions-container">
       <Button variant="outlined">Delete Job</Button>
-      <Button variant="outlined">Add Job</Button>
+      <Button variant="outlined" onClick={() => setAddJobModal(true)}>Add Job</Button>
     </div>
   </div>
 };

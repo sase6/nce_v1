@@ -42,7 +42,7 @@ const DesktopJobBookTable = props => {
             <div>{job.unloaders}</div>
             <div>{job.status}</div>
             <div>{job.incoming_number}</div>
-            <div>{job['scrapped?']}</div>
+            <div className='job-book-scrapped-column' >{job['scrapped?']}</div>
           </div>
         })}
       </div>

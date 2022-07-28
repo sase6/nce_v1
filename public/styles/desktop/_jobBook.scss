@@ -167,3 +167,57 @@
 
 // ADD JOB
 
+.job-book-add-job-screen-overlay {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5025);
+}
+
+.job-book-add-new-job-container {
+  position: fixed;
+  width: 700px;
+  height: 200px;
+  background: rgba(255, 255, 255, 0.75);
+  top: calc(50vh - 100px);
+  left: calc(50vw - 350px);
+  backdrop-filter: blur(2px);
+  border-radius: 5px;
+  box-sizing: border-box;
+  padding: 15px;
+  display: grid;
+  grid-template-rows: max-content max-content auto;
+  align-content: space-between;
+}
+
+.job-book-add-new-job-text {
+  font-weight: 600;
+  font-size: 24px;
+  font-family: 'lato', sans-serif;  
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.job-book-append-job-interactions-container {
+  display: grid;
+  grid-template-columns: max-content max-content;
+  justify-content: space-between;
+}
+
+.inner-job-book-interactions-container {
+  display: grid;
+  grid-template-columns: max-content max-content max-content;
+  grid-column-gap: 15px;
+}
+
+.add-job-input-field {
+  text-transform: uppercase !important;
+}
+
+input {
+  text-transform: uppercase !important;
+}
+
+
+.job-book-scrapped-column {
+  color: indianred;
+}
