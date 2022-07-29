@@ -18,6 +18,7 @@ const ReviewJob = props => {
     toggleReviewingJob,
     cancelHandler,
     user,
+    fetchAndSetJobRange,
   } = props;
 
   const [jobNumber, setJobNumber] = useState("AUTO");
@@ -66,6 +67,7 @@ const ReviewJob = props => {
       // Cancel and show Job Number
       let jobNumber = response.data.jobNumber;
       cancelHandler();
+      fetchAndSetJobRange();
     })
     .catch(err => {
       // Show Error Message...

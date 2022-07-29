@@ -19,8 +19,12 @@ const DesktopJobBook = props => {
   const [possibleRanges, setPossibleRanges] = useState([]);
   const [selectedRange, setSelectedRange] = useState(null);
 
-  useEffect(() => {
+  const fetchAndSetJobRange = () => {
     requests.fetchRange(setJobRange);
+  };
+
+  useEffect(() => {
+    fetchAndSetJobRange();
   }, []);
 
   useEffect(() => {
@@ -37,14 +41,20 @@ const DesktopJobBook = props => {
   }, [jobRange]);
 
   useEffect(() => {
+    if (selectedRange !== null && jobRange[0] !== -1) {
+      requests.fetchJobs(selectedRange, setJobs);
+    }
+  }, [selectedRange]);
+
+  useEffect(() => {
     setFilteredJobs(filterJobs(query, jobs));
   }, [jobs, query]);
 
   return (
     <div className="desktop-job-book-container">
-      <ExpandedJob setAddJobModal={setAddJobModal} possibleRanges={possibleRanges} focusedJob={focusedJob} filteredJobs={filteredJobs}/>
+      <ExpandedJob setAddJobModal={setAddJobModal} possibleRanges={possibleRanges} focusedJob={focusedJob} filteredJobs={filteredJobs} setSelectedRange={setSelectedRange}/>
       <JobBookTable jobs={filteredJobs} setFocusedJob={setFocusedJob}/>
-      <AppendJob addJobModal={addJobModal} setAddJobModal={setAddJobModal} user={user}/>
+      <AppendJob addJobModal={addJobModal} setAddJobModal={setAddJobModal} user={user} fetchAndSetJobRange={fetchAndSetJobRange}/>
     </div>
   );
 };

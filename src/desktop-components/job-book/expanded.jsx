@@ -4,7 +4,7 @@ const { TextField, Select, MenuItem, Button, FormControl, InputLabel, InputLabel
 
 const DesktopExpandedJob = props => {
 
-  const {setAddJobModal, possibleRanges, focusedJob, filteredJobs} = props;
+  const {setAddJobModal, possibleRanges, focusedJob, filteredJobs, setSelectedRange} = props;
   const [ranges, setRanges] = useState(['0-1000', '1001-2000', '2001-3000', '3001-4000', '4001-5000', '10000-11000']);
   const [totalJobs, setTotalJobs] = useState(filteredJobs.length || 0);
   const [jobRange, setJobRange] = useState('');
@@ -19,6 +19,16 @@ const DesktopExpandedJob = props => {
     setRanges(newRanges);
   }, [possibleRanges]);
 
+  const rangeOnChangeHandler = (e) => {
+    setJobRange(e.target.value);
+    let range = e.target.value.split('-');
+    range[0] = parseInt(range[0]);
+    range[1] = parseInt(range[1]);
+    // console.log(range);
+    setSelectedRange(range);
+    // props.setJobRange(range);
+  };
+
   return <div className="desktop-job-book-expanded">
     <div className="desktop-job-book-range-container">
       <div className="desktop-job-book-total-showing">{totalJobs} Jobs</div>
@@ -31,7 +41,7 @@ const DesktopExpandedJob = props => {
           id="jobRangeValue"
           value={jobRange}
           label="Job Range"
-          onChange={e => setJobRange(e.target.value)}
+          onChange={rangeOnChangeHandler}
           style={{width: '150px'}}
           >
             {ranges.map((range, i) => 
