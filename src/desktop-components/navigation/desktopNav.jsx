@@ -7,7 +7,7 @@ const DesktopNav = props => {
   const {page} = props;
 
   const setQuery = () => {
-    let query = document.querySelector('#desktop-nav-search').value;
+    let query = document.querySelector('#desktop-nav-search').value.toUpperCase();
     props.setQuery(query);
   };
 
