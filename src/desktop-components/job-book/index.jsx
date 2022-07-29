@@ -42,8 +42,8 @@ const DesktopJobBook = props => {
 
   return (
     <div className="desktop-job-book-container">
-      <ExpandedJob setAddJobModal={setAddJobModal} possibleRanges={possibleRanges}/>
-      <JobBookTable jobs={filteredJobs}/>
+      <ExpandedJob setAddJobModal={setAddJobModal} possibleRanges={possibleRanges} focusedJob={focusedJob} filteredJobs={filteredJobs}/>
+      <JobBookTable jobs={filteredJobs} setFocusedJob={setFocusedJob}/>
       <AppendJob addJobModal={addJobModal} setAddJobModal={setAddJobModal} user={user}/>
     </div>
   );

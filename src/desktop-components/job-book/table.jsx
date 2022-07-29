@@ -2,9 +2,8 @@ const React = require('react');
 const { useState, useEffect } = require('react');
 
 const DesktopJobBookTable = props => {
-  // props.jobs ===
 
-  const {jobs} = props;
+  const {jobs, setFocusedJob} = props;
 
   const padJobs = jobs => {
     let jobsArr = [...jobs];
@@ -16,10 +15,6 @@ const DesktopJobBookTable = props => {
 
   let class1 = 'job-book-table-job-item';
   let class2 = 'job-book-table-job-item job-book-table-job-item-v1';
-
-  useEffect(() => {
-    console.log(jobs);
-  }, [jobs])
 
   return (
     <div className="job-book-table">
@@ -39,7 +34,7 @@ const DesktopJobBookTable = props => {
         {padJobs(jobs).map((job, i) => {
           let ccHeater = job.ccHeater === undefined? '' : job.ccHeater? 'YES' : 'NO';
           let scrap = job.scrap === undefined? '' : job.scrap? 'SCRAP' : '';
-          return <div key={'test_fake_val-'+i} className={i%2==0? class1 : class2}>
+          return <div key={'test_fake_val-'+i} className={i%2==0? class1 : class2} onClick={() => setFocusedJob(job)}>
             <div>{job.jobNumber}</div>
             <div>{job.modelNumber}</div>
             <div>{job.serialNumber}</div>

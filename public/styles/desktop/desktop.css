@@ -415,6 +415,10 @@
   border-top: 1px solid rgba(0, 0, 0, 0.25);
 }
 
+.job-book-table-job-item:hover {
+  cursor: pointer;
+}
+
 .job-book-table-job-item * {
   position: relative;
   left: 5%;
