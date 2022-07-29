@@ -5,7 +5,7 @@ const ReviewJob = require('./reviewJob.jsx');
 
 const AppendJobModal = (props) => {
 
-  const { addJobModal, setAddJobModal } = props;
+  const { addJobModal, setAddJobModal, user } = props;
   if (!addJobModal) return;
 
   const blankValidation = (text) => {
@@ -176,6 +176,7 @@ const AppendJobModal = (props) => {
           notes={notes}
           toggleReviewingJob={toggleReviewingJob}
           cancelHandler={() => setAddJobModal(false)}
+          user={user}
         />
       </div>
     );

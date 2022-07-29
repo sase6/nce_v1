@@ -10,7 +10,7 @@ const requests = require('./requests.js');
 const DesktopJobBook = props => {
   if (props.page !== 'Job Book') return;
 
-  const {query} = props;
+  const {query, user} = props;
   const [addJobModal, setAddJobModal] = useState(false);
   const [jobs, setJobs] = useState([]);
   const [jobRange, setJobRange] = useState([0, 1000]);
@@ -30,7 +30,7 @@ const DesktopJobBook = props => {
     <div className="desktop-job-book-container">
       <ExpandedJob setAddJobModal={setAddJobModal}/>
       <JobBookTable />
-      <AppendJob addJobModal={addJobModal} setAddJobModal={setAddJobModal}/>
+      <AppendJob addJobModal={addJobModal} setAddJobModal={setAddJobModal} user={user}/>
     </div>
   );
 };

@@ -16,12 +16,9 @@ const ReviewJob = props => {
     scrap,
     notes,
     toggleReviewingJob,
-    cancelHandler
+    cancelHandler,
+    user,
   } = props;
-
-  const user = {
-    username: 'john',
-  };
 
   const [jobNumber, setJobNumber] = useState("AUTO");
 
