@@ -16,12 +16,20 @@ const DesktopExpandedJob = props => {
     notes: 'The oil is leaking reallt bad at the side.'
   };
 
-  const {setAddJobModal} = props;
+  const {setAddJobModal, possibleRanges} = props;
   const [startRange, setStartRange] = useState([]);
   const [ranges, setRanges] = useState(['0-1000', '1001-2000', '2001-3000', '3001-4000', '4001-5000', '10000-11000']);
   const [totalJobs, setTotalJobs] = useState(1000);
-  const [jobRange, setJobRange] = useState('0-1000');
+  const [jobRange, setJobRange] = useState('');
   const [focusedJob, setFocusedJob] = useState(testJob);
+
+  useEffect(() => {
+    let newRanges = [];
+    possibleRanges.forEach(range => {
+      newRanges.push(`${range[0]}-${range[1]}`);
+    });
+    setRanges(newRanges);
+  }, [possibleRanges]);
 
   return <div className="desktop-job-book-expanded">
     <div className="desktop-job-book-range-container">

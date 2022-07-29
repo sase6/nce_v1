@@ -16,7 +16,7 @@ const DesktopJobBook = props => {
   const [jobRange, setJobRange] = useState([-1, 1000]);
   const [focusedJob, setFocusedJob] = useState({});
   const [filteredJobs, setFilteredJobs] = useState(jobs);
-  const [posibleRanges, setPossibleRanges] = useState([]);
+  const [possibleRanges, setPossibleRanges] = useState([]);
   const [selectedRange, setSelectedRange] = useState(null);
 
   useEffect(() => {
@@ -42,7 +42,7 @@ const DesktopJobBook = props => {
 
   return (
     <div className="desktop-job-book-container">
-      <ExpandedJob setAddJobModal={setAddJobModal}/>
+      <ExpandedJob setAddJobModal={setAddJobModal} possibleRanges={possibleRanges}/>
       <JobBookTable />
       <AppendJob addJobModal={addJobModal} setAddJobModal={setAddJobModal} user={user}/>
     </div>
