@@ -9,7 +9,7 @@ const ReviewJob = props => {
     modelNumber,
     serialNumber,
     voltage,
-    ccHeaters,
+    ccHeater,
     unloaders,
     statorStatus,
     incomingNumber,
@@ -39,10 +39,9 @@ const ReviewJob = props => {
     result.statorStatus = dataObj.statorStatus.toUpperCase();
     result.incomingNumber = dataObj.incomingNumber.toUpperCase();
 
-    dataObj.ccHeaters = dataObj.ccHeaters.toUpperCase();
-    result.ccHeaters = (dataObj.ccHeaters === 'Y' || dataObj.ccHeaters === 'YES');
-    dataObj.scrap = dataObj.scrap.toUpperCase();
-    result.scrap = (dataObj.scrap === 'Y' || dataObj.scrap === 'YES');
+    dataObj.ccHeater = dataObj.ccHeater.toUpperCase();
+    result.ccHeater = (dataObj.ccHeater === 'Y' || dataObj.ccHeater === 'YES');
+    result.scrap = dataObj.scrap;
     
     result.unloaders = parseInt(dataObj.unloaders),
     result.notes = dataObj.notes;
@@ -57,10 +56,10 @@ const ReviewJob = props => {
       url: '/jobs/create',
       data: {...parseData({
         modelNumber, serialNumber,
-        voltage, ccHeaters,
+        voltage, ccHeater,
         unloaders, statorStatus,
         incomingNumber, scrap,
-        notes, username: user.username,
+        notes, username: user.username || 'SASE',
       }), jobNumber}
     })
     .then(response => {
@@ -75,7 +74,7 @@ const ReviewJob = props => {
 
 
   const scrapMap = {
-    YES: {
+    true: {
       text: 'THIS IS SCRAP',
       class: 'job-book-review-scrap-text'
     },
@@ -87,7 +86,7 @@ const ReviewJob = props => {
       text: 'THIS IS SCRAP',
       class: 'job-book-review-scrap-text'
     },
-    N: {
+    false: {
       text: 'THIS IS NOT SCRAP',
       class: 'job-book-review-not-scrap-text'
     },
@@ -109,7 +108,7 @@ const ReviewJob = props => {
       <div className="job-book-review-meta-information">
         <TextField value={voltage} disabled label="Voltage" fullWidth InputLabelProps={{ ...InputLabelProps, shrink: true }}/>
         <TextField value={unloaders} disabled label="Unloaders" fullWidth InputLabelProps={{ ...InputLabelProps, shrink: true }}/>
-        <TextField value={ccHeaters} disabled label="CC Heaters" fullWidth InputLabelProps={{ ...InputLabelProps, shrink: true }}/>
+        <TextField value={ccHeater} disabled label="CC Heaters" fullWidth InputLabelProps={{ ...InputLabelProps, shrink: true }}/>
         <TextField value={statorStatus} disabled label="Stator Status" fullWidth InputLabelProps={{ ...InputLabelProps, shrink: true }}/>
       </div>
 

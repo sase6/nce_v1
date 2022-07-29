@@ -580,6 +580,14 @@ input {
   color: red;
 }
 
+.job-table-stator-status-text-green {
+  color: limegreen;
+}
+
+.job-table-stator-status-text-red {
+  color: indianred;
+}
+
 * {
   margin: 0;
   padding: 0;

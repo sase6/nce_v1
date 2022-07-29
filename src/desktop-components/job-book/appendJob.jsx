@@ -20,10 +20,17 @@ const AppendJobModal = (props) => {
     return false;
   };
 
+  const setScrapValue = (val) => {
+    val = val.toUpperCase();
+    console.log((val === 'YES' || val === 'Y'));
+
+    setScrap((val === 'Y' || val === 'YES'));
+  };
+
   const [modelNumber, setModelNumber] = useState('');
   const [serialNumber, setSerialNumber] = useState('');
   const [voltage, setVoltage] = useState('');
-  const [ccHeaters, setCCHeaters] = useState('');
+  const [ccHeater, setCCHeater] = useState('');
   const [unloaders, setUnloaders] = useState('');
   const [statorStatus, setStatorStatus] = useState('');
   const [incomingNumber, setIncomingNumber] = useState('');
@@ -55,15 +62,15 @@ const AppendJobModal = (props) => {
       value: () => voltage,
       setValue: setVoltage
     },
-    ccHeaters: {
+    ccHeater: {
       text: 'Does it have any CC Heaters?',
       textLabel: 'CC Heaters',
-      setFunc: setCCHeaters,
+      setFunc: setCCHeater,
       default: 'NO',
       helperText: 'Please enter "YES" or "Y" for yes',
       validate: (text) => withinValidation(text, ['YES', 'NO', 'Y', 'N']),
-      value: () => ccHeaters,
-      setValue: setCCHeaters
+      value: () => ccHeater,
+      setValue: setCCHeater
     },
     Unloaders: {
       text: 'How many Unloaders does it have?',
@@ -96,12 +103,12 @@ const AppendJobModal = (props) => {
     scrap: {
       text: 'Is This Going to Scrap?',
       textLabel: 'Scrap?',
-      setFunc: setScrap,
+      setFunc: setScrapValue,
       default: 'NO',
       helperText: 'Please enter "YES" or "Y" TO MARK AS SCRAPPED',
       validate: (text) => withinValidation(text, ['YES', 'NO', 'Y', 'N']),
       value: () => scrap,
-      setValue: setScrap
+      setValue: setScrapValue
     },
     notes: {
       text: 'Include Any Additional Information Here',
@@ -168,7 +175,7 @@ const AppendJobModal = (props) => {
           modelNumber={modelNumber}
           serialNumber={serialNumber}
           voltage={voltage}
-          ccHeaters={ccHeaters}
+          ccHeater={ccHeater}
           unloaders={unloaders}
           statorStatus={statorStatus}
           incomingNumber={incomingNumber}
