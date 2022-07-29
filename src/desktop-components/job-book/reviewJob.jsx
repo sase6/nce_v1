@@ -68,6 +68,8 @@ const ReviewJob = props => {
     })
     .then(response => {
       // Cancel and show Job Number
+      let jobNumber = response.data.jobNumber;
+      cancelHandler();
     })
     .catch(err => {
       // Show Error Message...
