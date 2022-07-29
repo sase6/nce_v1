@@ -17,14 +17,20 @@ const fetchJobs = (jobRange, onSucc=()=>{}, onFail=()=>{}) => {
   });
 };
 
-const fetchRange = (onSucc=()=>{}, onFail=()=>{}) => {
+const fetchRange = async (onSucc=()=>{}, onFail=()=>{}) => {
+  let rs;
   axios({
-    //
+    method: 'get',
+    url: '/jobs/range'
   })
-  .then()
-  .catch()
+  .then((response) => {
+    onSucc(response.data);
+    rs = response.data;
+  })
+  .catch(err => onFail(err));
+  return rs;
 };
 
 module.exports = {
-  fetchJobs,
+  fetchJobs, fetchRange
 };

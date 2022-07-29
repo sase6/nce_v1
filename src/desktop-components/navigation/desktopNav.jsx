@@ -27,10 +27,8 @@ const DesktopNav = props => {
 };
 
 const RenderSearchBar = props => {
-  console.log(props.page);
   if(props.page === 'Login') return;
   const {setQuery} = props;
-  console.log('return');
 
   return (
     <div className="desktop-search-container">

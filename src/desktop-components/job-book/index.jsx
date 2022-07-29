@@ -4,7 +4,7 @@ const ExpandedJob = require('./expanded.jsx');
 const JobBookTable = require('./table.jsx');
 const AppendJob = require('./appendJob.jsx');
 const axios = require('axios');
-const filterJobs = require('./jobFilter.js');
+const {filterJobs, parseRanges} = require('./jobFilter.js');
 const requests = require('./requests.js');
 
 const DesktopJobBook = props => {
@@ -13,18 +13,32 @@ const DesktopJobBook = props => {
   const {query, user} = props;
   const [addJobModal, setAddJobModal] = useState(false);
   const [jobs, setJobs] = useState([]);
-  const [jobRange, setJobRange] = useState([0, 1000]);
+  const [jobRange, setJobRange] = useState([-1, 1000]);
   const [focusedJob, setFocusedJob] = useState({});
   const [filteredJobs, setFilteredJobs] = useState(jobs);
+  const [posibleRanges, setPossibleRanges] = useState([]);
+  const [selectedRange, setSelectedRange] = useState(null);
+
+  useEffect(() => {
+    requests.fetchRange(setJobRange);
+  }, []);
+
+  useEffect(() => {
+    let parsedRange = parseRanges(jobRange);
+    setPossibleRanges(parsedRange);
+
+    if (selectedRange === null || jobRange[0] !== -1) {
+      setSelectedRange(parsedRange[parsedRange.length -1]);
+      requests.fetchJobs(parsedRange[parsedRange.length -1], setJobs);
+    } else {
+      requests.fetchJobs(selectedRange || parsedRange[parsedRange.length -1], setJobs);
+    }
+
+  }, [jobRange]);
 
   useEffect(() => {
     setFilteredJobs(filterJobs(query, jobs));
   }, [jobs, query]);
-
-  useEffect(() => {
-    // fetch the ranges, then fetch jobs based on range??
-    requests.fetchJobs(jobRange, setJobs);
-  }, []);
 
   return (
     <div className="desktop-job-book-container">
