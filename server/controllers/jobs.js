@@ -99,6 +99,10 @@ const getJobs = async(req, res, next) => {
   res.end(JSON.stringify(await JOBS.findByRange(min, max)));
 };
 
+const getJobsRange = async(req, res, next) => {
+  res.end(JSON.stringify(await JOBS.getJobRange()));
+};
+
 module.exports = {
-  createJob, getJobs
+  createJob, getJobs, getJobsRange
 };
