@@ -57,3 +57,33 @@
   width: 40vw;
   margin-right: 1vw;
 }
+
+.nav-search-bar {
+  display: grid;
+  grid-template-columns: max-content max-content;
+  grid-column-gap: 20px;
+}
+
+.nav-page-selector {
+  position: relative;
+  width: 150px;
+  text-align: center;
+  height: 50px;
+  top: 25px;
+  background-color: transparent;
+  border: none;
+  color: whitesmoke;
+  font-size: 20px;
+}
+.nav-page-selector:active {
+  outline: none;
+}
+.nav-page-selector:focus {
+  outline: none;
+}
+
+option {
+  background-color: rgba(0,0,0,0.85);
+  box-sizing: border-box;
+  padding: 5px;
+}

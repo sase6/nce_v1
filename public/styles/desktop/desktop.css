@@ -94,6 +94,39 @@
   margin-right: 1vw;
 }
 
+.nav-search-bar {
+  display: grid;
+  grid-template-columns: -webkit-max-content -webkit-max-content;
+  grid-template-columns: max-content max-content;
+  grid-column-gap: 20px;
+}
+
+.nav-page-selector {
+  position: relative;
+  width: 150px;
+  text-align: center;
+  height: 50px;
+  top: 25px;
+  background-color: transparent;
+  border: none;
+  color: whitesmoke;
+  font-size: 20px;
+}
+
+.nav-page-selector:active {
+  outline: none;
+}
+
+.nav-page-selector:focus {
+  outline: none;
+}
+
+option {
+  background-color: rgba(0, 0, 0, 0.85);
+  box-sizing: border-box;
+  padding: 5px;
+}
+
 .desktop-admin-container {
   display: grid;
   grid-template-columns: 33% 34% 33%;
@@ -503,10 +536,6 @@
 }
 
 .add-job-input-field {
-  text-transform: uppercase !important;
-}
-
-input {
   text-transform: uppercase !important;
 }
 
