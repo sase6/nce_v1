@@ -94,6 +94,11 @@ const createJob = (req, res, next) => {
   JOBQUEUE.enqueue(handleSaveJob);
 };
 
+const getJobs = async(req, res, next) => {
+  const {min, max} = req.body;
+  res.end(JSON.stringify(await JOBS.findByRange(min, max)));
+};
+
 module.exports = {
-  createJob,
+  createJob, getJobs
 };
