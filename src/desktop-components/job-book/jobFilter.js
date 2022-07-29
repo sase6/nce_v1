@@ -2,8 +2,14 @@ const filterJobs = (query, jobs) => {
   let results = [];
 
   jobs.forEach(job => {
+
+    //General Handler
     if (JSON.stringify(job).indexOf(query) !== -1) {
       results.push(job);
+
+      //Scrap handler 
+    } else if ('SCRAP'.indexOf(query) !== -1) {
+      if (job.scrap) results.push(job);
     }
   });
 
