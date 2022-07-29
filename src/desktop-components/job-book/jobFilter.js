@@ -9,3 +9,5 @@ const filterJobs = (query, jobs) => {
 
   return results;
 };
+
+module.exports = filterJobs;
