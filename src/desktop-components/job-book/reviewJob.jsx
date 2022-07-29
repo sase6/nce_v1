@@ -1,6 +1,7 @@
 const React = require('react');
 const { useState, useEffect } = require('react');
 const { TextField, Button, InputLabelProps } = require('@mui/material');
+const axios = require('axios');
 
 const ReviewJob = props => {
 
@@ -18,7 +19,60 @@ const ReviewJob = props => {
     cancelHandler
   } = props;
 
-  console.log(props);
+  const user = {
+    username: 'john',
+  };
+
+  const [jobNumber, setJobNumber] = useState("AUTO");
+
+  const setTheJobNumber = (e) => {
+    if (isNaN(parseInt(e.target.value))) {
+      setJobNumber('AUTO');
+    } else {
+      setJobNumber(parseInt(e.target.value));
+    }
+  };
+
+  const parseData = (dataObj) => {
+    //@MUST INCLUDE ALL PROPS
+    let result = {};
+    result.modelNumber = dataObj.modelNumber.toUpperCase();
+    result.serialNumber = dataObj.serialNumber.toUpperCase();
+    result.voltage = dataObj.voltage.toUpperCase();
+    result.statorStatus = dataObj.statorStatus.toUpperCase();
+    result.incomingNumber = dataObj.incomingNumber.toUpperCase();
+
+    dataObj.ccHeaters = dataObj.ccHeaters.toUpperCase();
+    result.ccHeaters = (dataObj.ccHeaters === 'Y' || dataObj.ccHeaters === 'YES');
+    dataObj.scrap = dataObj.scrap.toUpperCase();
+    result.scrap = (dataObj.scrap === 'Y' || dataObj.scrap === 'YES');
+    
+    result.unloaders = parseInt(dataObj.unloaders),
+    result.notes = dataObj.notes;
+    result.enteredBy = dataObj.username.toLowerCase();
+
+    return result;
+  };
+
+  const requestCreateJob = () => {
+    axios({
+      method: 'post',
+      url: '/jobs/create',
+      data: {...parseData({
+        modelNumber, serialNumber,
+        voltage, ccHeaters,
+        unloaders, statorStatus,
+        incomingNumber, scrap,
+        notes, username: user.username,
+      }), jobNumber}
+    })
+    .then(response => {
+      // Cancel and show Job Number
+    })
+    .catch(err => {
+      // Show Error Message...
+    });
+  };
 
 
   const scrapMap = {
@@ -67,7 +121,7 @@ const ReviewJob = props => {
 
         <div className="job-book-review-identification-numbers-x-scrap-status">
           <TextField value={incomingNumber} disabled label="Incoming Number" fullWidth InputLabelProps={{ ...InputLabelProps, shrink: true }}/>
-          <TextField value={'Auto'} label="Job Number" fullWidth InputLabelProps={{ ...InputLabelProps, shrink: true }}/>
+          <TextField onKeyUp={setTheJobNumber} defaultValue={'AUTO'} label="Job Number" fullWidth InputLabelProps={{ ...InputLabelProps, shrink: true }}/>
           <div className={`job-book-review-scrap-status ${scrapMap[scrap].class}`}>{scrapMap[scrap].text}</div>
         </div>
       </div>
@@ -77,7 +131,7 @@ const ReviewJob = props => {
           <Button onClick={toggleReviewingJob}>Go Back</Button>
           <Button onClick={cancelHandler}>Cancel</Button>
         </div>
-        <Button>Add Job</Button>
+        <Button onClick={requestCreateJob}>Add Job</Button>
       </div>
 
     </div>

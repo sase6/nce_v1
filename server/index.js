@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const controller = require('./controllers.js');
 const app = express();
 const port = process.env.port || 8082;
+const { createJob } = require('./controllers/jobs.js');
 
 const publicUrl = path.join(__dirname, '..', 'public');
 
@@ -26,6 +27,8 @@ app.post('/user/accept', controller.acceptUser);
 app.post('/user/delete', controller.deleteUser);
 
 app.post('/user/visibility/update', controller.updateUser);
+
+app.post('/jobs/create', createJob);
 
 app.listen(port, () => {
   require('../database/index.js');

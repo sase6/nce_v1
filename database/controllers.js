@@ -48,6 +48,10 @@ const JOBS = {
     return result;
   },
 
+  findByField: async (findBy) => {
+    return await _model.Job.find(findBy);
+  },
+
   findByData: async (query) => {
     let result = await _model.Job.find({$or: [
       {jobNumber: isNaN(parseInt(query))? -1 : parseInt(query)},
@@ -69,6 +73,11 @@ const JOBS = {
     let start = (await _model.Job.find({}).sort({jobNumber: 1}).limit(1))[0].jobNumber;
     let end = (await _model.Job.find({}).sort({jobNumber: -1}).limit(1))[0].jobNumber;
     return [start, end];
+  },
+
+  getLastJobNumber: async () => {
+    let result = await _model.Job.find({}).sort({jobNumber: -1}).limit(1);
+    return result[0]? await result[0].jobNumber : 'NONE';
   },
 
   create: async (jobData) => {
@@ -98,7 +107,7 @@ const JOBS = {
 };
 
 module.exports = {
-  find, make, remove, update,
+  find, make, remove, update, JOBS,
 };
 
 //Tests: 
