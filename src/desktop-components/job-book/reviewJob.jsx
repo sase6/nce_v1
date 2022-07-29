@@ -116,7 +116,7 @@ const ReviewJob = props => {
 
       <div className="job-book-review-additional-data">
         <div className="job-book-review-notes-container">
-          <TextField value={notes} disabled label="Notes" rows="6" minRows="6" maxRows="6" multiline fullWidth InputLabelProps={{ ...InputLabelProps, shrink: true }}/>
+          <TextField value={notes} disabled label="Notes" rows="6" multiline fullWidth InputLabelProps={{ ...InputLabelProps, shrink: true }}/>
         </div>
 
         <div className="job-book-review-identification-numbers-x-scrap-status">
