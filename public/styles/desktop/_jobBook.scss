@@ -21,11 +21,14 @@
 }
 
 .desktop-job-book-range-container {
+  position: relative;
   display: grid;
-  grid-template-columns: max-content max-content;
-  justify-content: space-around;
+  grid-template-columns: max-content calc(40%);
+  justify-content: space-between;
   align-content: center;
   font-family: Lato, Roboto, sans-serif;
+  width: 94%;
+  left: 3%;
 }
 
 .desktop-job-book-total-showing {
