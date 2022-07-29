@@ -24,9 +24,7 @@ const DesktopExpandedJob = props => {
     let range = e.target.value.split('-');
     range[0] = parseInt(range[0]);
     range[1] = parseInt(range[1]);
-    // console.log(range);
     setSelectedRange(range);
-    // props.setJobRange(range);
   };
 
   return <div className="desktop-job-book-expanded">
@@ -59,7 +57,7 @@ const DesktopExpandedJob = props => {
       <Button sx={{height: 55}} variant="text">Search</Button>
     </div>
     <div className="desktop-job-book-job-number-container">
-      <TextField InputLabelProps={{ ...InputLabelProps, shrink: true }} id="job-book-input-job-number" label="Job Number" variant="outlined" disabled value={focusedJob.jobNumber} fullWidth error helperText="This has been Scrapped!"/>
+      <TextField InputLabelProps={{ ...InputLabelProps, shrink: true }} id="job-book-input-job-number" label="Job Number" variant="outlined" disabled value={focusedJob.jobNumber} fullWidth error={focusedJob.scrap} helperText={focusedJob.scrap? 'This job has been scrapped!' : '' }/>
     </div>
     <div className="desktop-job-book-model-number-container">
       <TextField InputLabelProps={{ ...InputLabelProps, shrink: true }} id="job-book-input-model-number" label="Model Number" variant="outlined" disabled value={focusedJob.modelNumber} fullWidth/>
@@ -75,7 +73,7 @@ const DesktopExpandedJob = props => {
       <div>Entered by {focusedJob.enteredBy}</div>
       <div>Unloaders:  {focusedJob.unloaders}</div>
       <div>Entered on {focusedJob.enteredOn}</div>
-      <div>CC Heater: <span className="expanded-job-cc-heaters-text">huh??</span></div>
+      <div>CC Heater: <span className={`${focusedJob.ccHeater? 'expanded-job-cc-heaters-text': 'expanded-job-cc-heaters-text-no'}`}>{focusedJob.ccHeater !== undefined? (focusedJob.ccHeater? "YES" : "NO") : ""}</span></div>
     </div>
     <div className="desktop-job-book-notes-container">
       <TextField InputLabelProps={{ ...InputLabelProps, shrink: true }} id="job-book-input-notes" minRows="6" maxRows="6" label="Notes" variant="outlined" disabled multiline value={focusedJob.notes} fullWidth/> 
