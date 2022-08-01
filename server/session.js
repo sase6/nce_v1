@@ -28,27 +28,6 @@ class Session {
     delete this.data[sessionId];
     return true;
   }
-
-  inSession(req, res, next) {
-    let { sessionId } = req.cookies;
-    if (sessionId !== undefined && this.data[sessionId] !== undefined) {
-      next();
-    } else {
-      res.redirect('/unauthorized');
-    }
-  }
-
-  async adminInSession(req, res, next) {
-    let { sessionId } = req.cookies;
-    let credentials = this.data[sessionId];
-    if (sessionId !== undefined && credentials !== undefined) {
-      let user = await db.USER.find(credentials);
-      console.log(user);
-      next(); // for now!
-    } else {
-      res.redirect('/unauthorized');
-    }
-  }
 };
 
 let session = new Session();
