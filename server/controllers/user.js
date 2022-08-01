@@ -1,11 +1,6 @@
-const path = require('path');
-const publicUrl = path.join(__dirname, '..', 'public');
-const db = require('../database/index.js');
+const db = require('../../database/index.js');
+const { hash, verifyHash } = require('../../encryption/index.js');
 
-// Send HTML page
-const sendHtml = (req, res) => {
-  res.sendFile(path.join(publicUrl, 'index.html'));
-};
 
 const login = async (req, res) => {
   const {username, password} = req.body;
@@ -40,7 +35,8 @@ const login = async (req, res) => {
 
 const signup = async (req, res) => {
   const {username, password} = req.body;
-  let dbResponse = (await db.USER.create({username, password}));
+  const hashedPassword = await hash(password);
+  let dbResponse = (await db.USER.create({username, password: hashedPassword}));
   if (dbResponse !== true) {
     console.log('Error: ', dbResponse);
     res.status(400).end(JSON.stringify(dbResponse));
@@ -86,7 +82,6 @@ const updateUser = async (req, res) => {
 };
 
 module.exports = {
-  sendHtml, 
   login,
   signup,
   getUsers,

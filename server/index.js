@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
-const controller = require('./controllers.js');
+const userController = require('./controllers/user.js');
 const app = express();
 const port = process.env.port || 8082;
 const { createJob, getJobs, getJobsRange } = require('./controllers/jobs.js');
@@ -14,20 +14,22 @@ app.use(express.static(publicUrl));
 app.use(express.json());
 app.use(cookieParser());
 
-app.get('/', controller.sendHtml);
+app.get('/', (req, res) => {
+  res.sendFile(path.join(publicUrl, 'index.html'));
+});
 
-app.post('/login', controller.login);
+app.post('/login', userController.login);
 
-app.post('/signup', controller.signup);
+app.post('/signup', userController.signup);
 
 // Users
-app.get('/users', controller.getUsers);
+app.get('/users', userController.getUsers);
 
-app.post('/user/accept', controller.acceptUser);
+app.post('/user/accept', userController.acceptUser);
 
-app.post('/user/delete', controller.deleteUser);
+app.post('/user/delete', userController.deleteUser);
 
-app.post('/user/visibility/update', controller.updateUser);
+app.post('/user/visibility/update', userController.updateUser);
 
 app.post('/jobs/create', createJob);
 app.get('/jobs/range', getJobsRange);
