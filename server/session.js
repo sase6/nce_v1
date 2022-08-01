@@ -16,6 +16,9 @@ module.exports = class Session {
   async insert(idObject/*{username, password}*/) {
     let sessionId = await this.newSessionId();
     this.data[sessionId] = idObject;
+    setTimeout(() => {
+      this.remove(sessionId);
+    }, (1000*60*30));
     return sessionId;
   }
 
