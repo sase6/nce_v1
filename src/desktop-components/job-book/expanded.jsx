@@ -14,7 +14,7 @@ const DesktopExpandedJob = props => {
   useEffect(() => {
     let newRanges = [];
     possibleRanges.forEach(range => {
-      newRanges.push(`${range[0]}-${range[1]}`);
+      newRanges.unshift(`${range[0]}-${range[1]}`);
     });
     setRanges(newRanges);
   }, [possibleRanges]);

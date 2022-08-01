@@ -44,7 +44,7 @@ const JOBS = {
         $gt: min,
         $lte: max
       }}
-    ]});
+    ]}).sort({jobNumber: -1});
     return result;
   },
 
