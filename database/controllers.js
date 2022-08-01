@@ -109,13 +109,3 @@ const JOBS = {
 module.exports = {
   find, make, remove, update, JOBS,
 };
-
-//Tests: 
-
-const testFunc = async () => {
-  console.log('TEST');
-
-  //TESTS HERE!
-};
-
-testFunc();
