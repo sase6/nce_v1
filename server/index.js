@@ -6,6 +6,7 @@ const controller = require('./controllers.js');
 const app = express();
 const port = process.env.port || 8082;
 const { createJob, getJobs, getJobsRange } = require('./controllers/jobs.js');
+require('../encryption/index.js');
 
 const publicUrl = path.join(__dirname, '..', 'public');
 
