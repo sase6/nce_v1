@@ -4,11 +4,21 @@ const { useState } = require('react');
 
 const DesktopNav = props => {
 
-  const {page, pages} = props;
+  const {page, pages, setPage} = props;
 
   const setQuery = () => {
     let query = document.querySelector('#desktop-nav-search').value.toUpperCase();
     props.setQuery(query);
+  };
+
+  const setNewPage = (e) => {
+    const pageName = e.target.value;
+    if (pageName === 'Sign Out') {
+      // Change the user's secret key
+      // Sign the user out!
+      return;
+    }
+    setPage(pageName);
   };
 
   return (
@@ -22,7 +32,7 @@ const DesktopNav = props => {
       </div>
 
       <div className="nav-search-bar">
-        <select name="" id="" className="nav-page-selector">
+        <select name="" id="" className="nav-page-selector" onChange={setNewPage} >
           {pages.map((page, i) => {
             return (
               <option key={`user-pages-select-${i}`} value={page}>{page}</option>

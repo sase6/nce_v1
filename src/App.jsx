@@ -19,7 +19,7 @@ const App = () => {
 
   return (
     <div className="app">
-      <DesktopNav setQuery={setQuery} page={page} pages={pages}/>
+      <DesktopNav setQuery={setQuery} page={page} pages={pages} setPage={setPage}/>
 
       <div className="main-content">
         <DesktopLoginPage page={page} setUser={setUser}/>
