@@ -35,7 +35,17 @@ const DesktopNav = props => {
         </div>
       </div>
 
-      <div className="nav-search-bar">
+      <RenderSearchBar page={page} setQuery={setQuery} setNewPage={setNewPage} pages={pages}/>
+    </nav>
+  );
+};
+
+const RenderSearchBar = props => {
+  if(props.page === 'Login') return;
+  const {setQuery, setNewPage, pages} = props;
+
+  return (
+    <div className="nav-search-bar">
         <select name="" id="" className="nav-page-selector" onChange={setNewPage} >
           {pages.map((page, i) => {
             return (
@@ -44,20 +54,10 @@ const DesktopNav = props => {
           })}
           <option value={"Sign Out"}>Sign Out</option>
         </select>
-        <RenderSearchBar page={page} setQuery={setQuery}/>
+        <div className="desktop-search-container">
+          <input id="desktop-nav-search" label="Search" placeholder="Search" onChange={setQuery}/>
+        </div>
       </div>
-    </nav>
-  );
-};
-
-const RenderSearchBar = props => {
-  if(props.page === 'Login') return;
-  const {setQuery} = props;
-
-  return (
-    <div className="desktop-search-container">
-      <input id="desktop-nav-search" label="Search" placeholder="Search" onChange={setQuery}/>
-    </div>
   );
 };
 
