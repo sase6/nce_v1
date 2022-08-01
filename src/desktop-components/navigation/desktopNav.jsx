@@ -18,7 +18,7 @@ const DesktopNav = props => {
       axios.get('/signout')
       .then(() => {
         setPage('Login');
-        e.target.value="";
+        e.target.value=page;
       });
       return;
     }

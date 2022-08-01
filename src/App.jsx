@@ -14,6 +14,10 @@ const App = () => {
   useEffect(() => {
     if (user.visibility === undefined) return;
     setPages(user.visibility);
+    if (user.visibility.indexOf('Admin') !== -1) {
+      setPage('Admin');
+      return;
+    }
     setPage(user.visibility[0]);
   }, [user]);
 
