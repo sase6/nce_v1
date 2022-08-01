@@ -26,7 +26,7 @@ const USER = {
 
     let user = {
       employeeId: 1,
-      dateJoined: (new Date()).toString(),
+      dateJoined: (new Date()).toLocaleDateString(),
       username: login.username,
       password: login.password,
       pending: true,
