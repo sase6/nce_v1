@@ -1,15 +1,12 @@
 const bcrypt = require('bcrypt');
-const salt = {
-  pass: process.env.userPasswordSalt,
-  ref: process.env.userReferenceSalt
-};
 
-const hash = async (string, type) => {
-  let result = await bcrypt.hash(string, salt[type]);
+const hash = async (string) => {
+  const salt = await bcrypt.genSalt(10);
+  let result = await bcrypt.hash(string, salt);
   return result;
 };
 
-const verifyHash = async (enteredString, hashedString, type) => {
+const verifyHash = async (enteredString, hashedString) => {
   let result = await bcrypt.compare(enteredString, hashedString);
   return result;
 };
