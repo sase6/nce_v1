@@ -22,7 +22,6 @@ const Users = props => {
         else active.push(user);
       });
 
-      console.log({active, pending});
       setActiveUsers(active);
       setPendingUsers(pending);
     })
