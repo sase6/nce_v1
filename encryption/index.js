@@ -13,5 +13,5 @@ const compareHash = async (enteredString, hashedString) => {
 
 module.exports = {
   hash, 
-  verifyHash
+  compareHash
 };
