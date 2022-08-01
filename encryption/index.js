@@ -6,7 +6,7 @@ const hash = async (string) => {
   return result;
 };
 
-const verifyHash = async (enteredString, hashedString) => {
+const compareHash = async (enteredString, hashedString) => {
   let result = await bcrypt.compare(enteredString, hashedString);
   return result;
 };
