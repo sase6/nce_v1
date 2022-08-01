@@ -1,17 +1,42 @@
+const removeSpaces = (inputString) => {
+  let string = "";
+  for (let i = 0; i < inputString.length; i++) {
+    if (inputString[i] !== ' ') string = string + inputString[i];
+  }
+  return string;
+};
+
 const filterJobs = (query, jobs) => {
   let results = [];
 
-  jobs.forEach(job => {
+  let map = {
+    JOB: 'jobNumber',
+    MODEL: 'modelNumber',
+    VOLTAGE: 'voltage'
+  };
+  
+  let colonIndex = query.indexOf(':');
 
+  if (colonIndex !== -1) {
+    let deepQueryString = query.split(':');
+    let prop = map[removeSpaces(deepQueryString[0]).toUpperCase()];
+    let search = removeSpaces(deepQueryString[1]);
+
+    jobs.forEach(job => {
+      if (job[prop].toString().toUpperCase().indexOf(search.toUpperCase()) !== -1) results.push(job);
+    });
+  } else {
     //General Handler
-    if (JSON.stringify(job).indexOf(query) !== -1) {
-      results.push(job);
+    jobs.forEach(job => {
+      if (JSON.stringify(job).indexOf(query) !== -1) {
+        results.push(job);
+        //Scrap handler 
+      } else if ('SCRAP'.indexOf(query) !== -1) {
+        if (job.scrap) results.push(job);
+      }
+    });
+  }
 
-      //Scrap handler 
-    } else if ('SCRAP'.indexOf(query) !== -1) {
-      if (job.scrap) results.push(job);
-    }
-  });
 
   return results;
 };
