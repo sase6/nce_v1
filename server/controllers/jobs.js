@@ -103,6 +103,11 @@ const getJobsRange = async(req, res, next) => {
   res.end(JSON.stringify(await JOBS.getJobRange()));
 };
 
+const deepSearchJobs = async (req, res) => {
+  let { query } = req.params;
+  res.end(JSON.stringify(await JOBS.findByData(query)));
+};
+
 module.exports = {
-  createJob, getJobs, getJobsRange
+  createJob, getJobs, getJobsRange, deepSearchJobs
 };

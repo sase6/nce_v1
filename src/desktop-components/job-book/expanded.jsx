@@ -1,10 +1,11 @@
 const React = require('react');
 const { useState, useEffect } = require('react');
 const { TextField, Select, MenuItem, Button, FormControl, InputLabel, InputLabelProps } = require('@mui/material');
+const axios = require('axios');
 
 const DesktopExpandedJob = props => {
 
-  const {setAddJobModal, possibleRanges, focusedJob, filteredJobs, setSelectedRange} = props;
+  const {setAddJobModal, possibleRanges, focusedJob, filteredJobs, setSelectedRange, setJobs, fetchAndSetJobRange} = props;
   const [ranges, setRanges] = useState(['0-1000', '1001-2000', '2001-3000', '3001-4000', '4001-5000', '10000-11000']);
   const [totalJobs, setTotalJobs] = useState(filteredJobs.length || 0);
   const [jobRange, setJobRange] = useState('');
@@ -25,6 +26,26 @@ const DesktopExpandedJob = props => {
     range[0] = parseInt(range[0]);
     range[1] = parseInt(range[1]);
     setSelectedRange(range);
+  };
+
+  const onDeepSearch = () => {
+    let query = document.getElementById('job-book-input-deep-search').value;
+    if (query.length !== 0) {
+      axios.get(`/jobs/${query}`)
+      .then(response => {
+        setJobs(response.data);
+      })
+      .catch(err => {
+        console.log('Err: ', err);
+      });
+    }
+  };
+
+  const resetJobs = (e) => {
+    let query = e.target.value;
+    if (query.length <= 0) {
+      fetchAndSetJobRange();
+    }
   };
 
   return <div className="desktop-job-book-expanded">
@@ -52,9 +73,9 @@ const DesktopExpandedJob = props => {
     </div>
     <div className="desktop-job-book-deep-search-container">
       <div className="job-book-deep-search-input-container">
-        <TextField id="job-book-input-deep-search" label="Search Database" variant="outlined" fullWidth/>
+        <TextField id="job-book-input-deep-search" label="Search Database" variant="outlined" fullWidth onKeyUp={resetJobs}/>
       </div>
-      <Button sx={{height: 55}} variant="text">Search</Button>
+      <Button sx={{height: 55}} variant="text" onClick={onDeepSearch}>Search</Button>
     </div>
     <div className="desktop-job-book-job-number-container">
       <TextField InputLabelProps={{ ...InputLabelProps, shrink: true }} id="job-book-input-job-number" label="Job Number" variant="outlined" disabled value={focusedJob.jobNumber} fullWidth error={focusedJob.scrap} helperText={focusedJob.scrap? 'This job has been scrapped!' : '' }/>
