@@ -74,8 +74,8 @@ const PendingUser = props => {
     <div className="pending-user-container">
       <div className="pending-user-top-container">
       <div className="pending-user-top-left-container">
-        <TextField id="outlined-basic" label="Username" variant="outlined" size="small" fullWidth defaultValue={props.user.username} disabled/>
-        <TextField id="outlined-basic" label="Password" variant="outlined" size="small" fullWidth type="password" defaultValue={props.user.password} disabled/>
+        <TextField label="Username" variant="outlined" size="small" fullWidth defaultValue={props.user.username} disabled/>
+        <TextField label="Password" variant="outlined" size="small" fullWidth type="password" defaultValue={props.user.password} disabled/>
       </div>
       <div className="pending-user-top-right-container">
         <div className="mui-close-icon" onClick={e => addxremoveUser(e, false)}>
