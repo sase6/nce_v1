@@ -43,7 +43,6 @@ const Users = props => {
 
       <div className="desktop-admin-section-body-container">
         <SectionComponent render={pendingUsers.length > 0} text="Pending"/>
-        {/* {pendingUsers.map((user, i) => <PendingUser fetchUsers={fetchUsers} user={user} key={`pendinguser-${i}`}/>)} */}
         <RenderUsers fetchUsers={fetchUsers} users={pendingUsers}/>
         <SectionComponent render={activeUsers.length > 0} text="Active"/>
         <RenderUsers fetchUsers={fetchUsers} users={activeUsers}/>
@@ -53,7 +52,6 @@ const Users = props => {
 };
 
 const RenderUsers = props => {
-  console.log('users: ', props.users);
   return (
     <div className="render-users">
       {props.users.map((user, i) => {
