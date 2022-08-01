@@ -25,7 +25,6 @@ const USER = {
     if (userExist) return 'username taken';
 
     let user = {
-      employeeId: 1,
       dateJoined: (new Date()).toLocaleDateString(),
       username: login.username,
       password: login.password,
@@ -40,7 +39,7 @@ const USER = {
     return 'error creating user'
   },
   accept: async (username) => {
-    return await db.update(model.User, {username}, {pending: false, employeeId: createHardKey(50)});
+    return await db.update(model.User, {username}, {pending: false});
   },
   update: async (username, set) => {
     return await db.update(model.User, {username}, set);
