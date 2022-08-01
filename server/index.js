@@ -18,19 +18,18 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(publicUrl, 'index.html'));
 });
 
+// Login
 app.post('/login', userController.login);
-
 app.post('/signup', userController.signup);
+app.get('/signout', userController.signout);
 
 // Users
 app.get('/users', userController.getUsers);
-
 app.post('/user/accept', userController.acceptUser);
-
 app.post('/user/delete', userController.deleteUser);
-
 app.post('/user/visibility/update', userController.updateUser);
 
+// Jobs
 app.post('/jobs/create', createJob);
 app.get('/jobs/range', getJobsRange);
 app.post('/jobs', getJobs);

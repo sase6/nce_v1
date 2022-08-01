@@ -1,36 +1,44 @@
 const db = require('../../database/index.js');
-const { hash, verifyHash } = require('../../encryption/index.js');
-
+const { hash, compareHash } = require('../../encryption/index.js');
+const session = new (require('../session.js'));
 
 const login = async (req, res) => {
-  const {username, password} = req.body;
-  let employeeId;
+  let clientUsername = req.body.username;
+  let clientPassword = req.body.password;
+  let sessionId;
   try {
-    employeeId = req.cookies.employeeId;
+    sessionId = req.cookies.sessionId;
   } catch {
-    employeeId = null;
+    sessionId = null;
   }
 
-  if (employeeId && !username) {
-    let dbResponse = await db.USER.find({employeeId});
+  // Login with Sessions
+  if (sessionId && !clientUsername && session.data[sessionId] !== undefined) {
+    let dbResponse = await db.USER.find(session.data[sessionId]);
     if (dbResponse[0]) {
-      let {username, visibility} = dbResponse[1][0];
+      let {username, visibility} = dbResponse[1][0]
       res.end(JSON.stringify({username, visibility}));
       return;
     }
-    res.status(401).end(JSON.stringify(dbResponse[1]));
+    res.status(401).end("session-mismatch");
     return;
   }
   
-  let dbResponse = await db.USER.find({username, password});
-  if (dbResponse[0]) {
-    let {username, visibility, employeeId} = dbResponse[1][0]
-
-    res.cookie('employeeId',employeeId, { maxAge: 43200000, httpOnly: true });
-    res.end(JSON.stringify({username, visibility}));
-    return;
+  // Login with Credentials
+  if (clientUsername !== undefined) {
+    let dbResponse = await db.USER.find({username: clientUsername, pending: false});
+    if (dbResponse[0]) {
+      let {username, password, visibility} = dbResponse[1][0];
+      if ((await compareHash(clientPassword, password))) {
+        let sessionId = await session.insert({username, password});
+        res.cookie('sessionId',sessionId, { maxAge: 43200000, httpOnly: true });
+        res.end(JSON.stringify({username, visibility}));
+        return;
+      }
+    }
   }
-  res.status(401).end(JSON.stringify(dbResponse[1]));
+
+  res.status(401).end("Unauthorized, or Session Has Ran Out!");
 };
 
 const signup = async (req, res) => {
@@ -52,6 +60,12 @@ const getUsers = async (req, res) => {
   } catch {
     res.status(500).end('Failed to fetch users');
   }
+};
+
+const signout = (req, res) => {
+  let { sessionId } = req.cookies;
+  session.remove(sessionId);
+  res.end();
 };
 
 const acceptUser = async (req, res) => {
@@ -84,6 +98,7 @@ const updateUser = async (req, res) => {
 module.exports = {
   login,
   signup,
+  signout,
   getUsers,
   acceptUser,
   deleteUser,

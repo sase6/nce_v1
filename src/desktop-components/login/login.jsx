@@ -11,7 +11,8 @@ const Login = props => {
 
   useEffect(() => {
     axios.post('/login')
-    .then(result => props.setUser(result.data));
+    .then(result => props.setUser(result.data))
+    .catch(err => err);
   }, []);
 
   const validateInputs = (username, password) => {

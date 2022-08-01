@@ -1,4 +1,5 @@
 const React = require('react');
+const axios = require('axios');
 const { TextField } = require('@mui/material');
 const { useState } = require('react');
 
@@ -14,8 +15,11 @@ const DesktopNav = props => {
   const setNewPage = (e) => {
     const pageName = e.target.value;
     if (pageName === 'Sign Out') {
-      // Change the user's secret key
-      // Sign the user out!
+      axios.get('/signout')
+      .then(() => {
+        setPage('Login');
+        e.target.value="";
+      });
       return;
     }
     setPage(pageName);
