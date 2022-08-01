@@ -7,8 +7,30 @@ const app = express();
 const port = process.env.port || 8082;
 const { createJob, getJobs, getJobsRange } = require('./controllers/jobs.js');
 require('../encryption/index.js');
+const session = require('./session.js');
 
 const publicUrl = path.join(__dirname, '..', 'public');
+
+//Middleware
+const adminInSession = async (req, res, next) => {
+  let { sessionId } = req.cookies;
+  if (sessionId !== undefined && session.data[sessionId] !== undefined) {
+    if ((await userController.checkAdmin(session.data[sessionId]))) {
+      next();
+      return;
+    }
+  }
+  res.redirect('/unauthorized');
+};
+
+const inSession = (req, res, next) => {
+  let { sessionId } = req.cookies;
+  if (sessionId !== undefined && session.data[sessionId] !== undefined) {
+    next();
+    return;
+  }
+  res.redirect('/unauthorized');
+};
 
 app.use(express.static(publicUrl));
 app.use(express.json());
@@ -18,21 +40,25 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(publicUrl, 'index.html'));
 });
 
+app.get('/unauthorized', (req, res) => {
+  res.end('Unauthorized!');
+});
+
 // Login
 app.post('/login', userController.login);
 app.post('/signup', userController.signup);
 app.get('/signout', userController.signout);
 
 // Users
-app.get('/users', userController.getUsers);
-app.post('/user/accept', userController.acceptUser);
-app.post('/user/delete', userController.deleteUser);
-app.post('/user/visibility/update', userController.updateUser);
+app.get('/users', adminInSession, userController.getUsers);
+app.post('/user/accept', adminInSession, userController.acceptUser);
+app.post('/user/delete', adminInSession, userController.deleteUser);
+app.post('/user/visibility/update', adminInSession, userController.updateUser);
 
 // Jobs
-app.post('/jobs/create', createJob);
-app.get('/jobs/range', getJobsRange);
-app.post('/jobs', getJobs);
+app.post('/jobs/create', inSession, createJob);
+app.get('/jobs/range', inSession, getJobsRange);
+app.post('/jobs', inSession, getJobs);
 
 app.listen(port, () => {
   require('../database/index.js');

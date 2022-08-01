@@ -1,6 +1,6 @@
 const db = require('../../database/index.js');
 const { hash, compareHash } = require('../../encryption/index.js');
-const session = new (require('../session.js'));
+const session = require('../session.js');
 
 const login = async (req, res) => {
   let clientUsername = req.body.username;
@@ -95,6 +95,15 @@ const updateUser = async (req, res) => {
   res.status(500).end(result);
 };
 
+const checkAdmin = async (findBy) => {
+  let user = await db.USER.find(findBy);
+  if (user[0]) {
+    let curUser = user[1][0];
+    if (curUser._isAdmin) return true;
+  }
+  return false;
+};
+
 module.exports = {
   login,
   signup,
@@ -103,4 +112,5 @@ module.exports = {
   acceptUser,
   deleteUser,
   updateUser,
+  checkAdmin
 };
