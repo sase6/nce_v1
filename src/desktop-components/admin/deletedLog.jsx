@@ -88,8 +88,8 @@ const DeletedLog = (props) => {
             </div>
             <TextField value={job.notes} disabled label="Notes" fullWidth size="small"/>
             <div className="admin-deleted-jobs-grouped-smalltext">
-              <TextField value={job.deletedOn} disabled label="Entered On" fullWidth size="small"/>
-              <TextField value={job.deletedBy} disabled label="Entered By" fullWidth size="small"/>
+              <TextField value={job.deletedOn} disabled label="Deleted On" fullWidth size="small"/>
+              <TextField value={job.deletedBy} disabled label="Deleted By" fullWidth size="small"/>
             </div>
             <div className="admin-item-button-interactions">
               <Button onClick={() => deleteJob(job.jobNumber)} sx={{color: 'indianred'}}>Delete</Button>
