@@ -57,7 +57,7 @@ const DesktopJobBook = props => {
       <ExpandedJob setAddJobModal={setAddJobModal} possibleRanges={possibleRanges} focusedJob={focusedJob} filteredJobs={filteredJobs} setSelectedRange={setSelectedRange} setJobs={setJobs} fetchAndSetJobRange={fetchAndSetJobRange} setDeleteJobModal={setDeleteJobModal}/>
       <JobBookTable jobs={filteredJobs} setFocusedJob={setFocusedJob}/>
       <AppendJob addJobModal={addJobModal} setAddJobModal={setAddJobModal} user={user} fetchAndSetJobRange={fetchAndSetJobRange}/>
-      <DeleteJobModal render={deleteJobModal} setDeleteJobModal={setDeleteJobModal}/>
+      <DeleteJobModal user={user} render={deleteJobModal} setDeleteJobModal={setDeleteJobModal} fetchAndSetJobRange={fetchAndSetJobRange}/>
     </div>
   );
 };

@@ -1,11 +1,11 @@
 const React = require('react');
-// const axios = require('axios');
+const axios = require('axios');
 const { TextField, Button } = require('@mui/material');
 
 const DeleteJobModal = (props) => {
   if (!props.render) return;
   
-  const {user, setDeleteJobModal} = props;
+  const {user, setDeleteJobModal, fetchAndSetJobRange} = props;
   const deleteJob = () => {
     axios({
       method: 'delete',
@@ -18,6 +18,7 @@ const DeleteJobModal = (props) => {
     })
     .then(() => {
       setDeleteJobModal(false);
+      fetchAndSetJobRange();
     })
     .catch(err => err);
   };

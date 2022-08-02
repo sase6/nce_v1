@@ -141,7 +141,18 @@ const getAllJobs = async(req, res) => {
   }
 };
 
+const markAsDeleted = async(req, res) => {
+  const { username, jobNumber} = req.body;
+  let jobs = await JOBS.findByField({jobNumber});
+  let job = jobs[0];
+  job._isDeleted = true;
+  job.deletedBy = username;
+  job.deletedOn = (new Date()).toLocaleDateString();
+  await job.save();
+  res.end();
+};
+
 module.exports = {
   createJob, getJobs, getJobsRange, deepSearchJobs, getDeletedJobs,
-  updateDeleteJob, deleteJob, getAllJobs
+  updateDeleteJob, deleteJob, getAllJobs, markAsDeleted
 };
