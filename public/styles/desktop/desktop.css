@@ -659,6 +659,13 @@ option {
   display: none;
 }
 
+.desktop-admin-account-container, .desktop-admin-account-backup-container {
+  position: relative;
+  display: grid;
+  margin-top: 15px;
+  grid-row-gap: 15px;
+}
+
 * {
   margin: 0;
   padding: 0;

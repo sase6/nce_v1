@@ -6,7 +6,27 @@ const { TextField, Button, FormControl, Select, MenuItem, InputLabel } = require
 const Settings = props => {
 
   const [backupInterval, setBackupInterval] = useState(1800000);
+  const [secretKeyHelperText, setSecretKeyHelperText] = useState("Click to Copy");
+  const [isPasswordDisabled, setIsPasswordDisabled] = useState(true);
   const handleBackupIntervalChange = (e) => setBackupInterval(e.target.value);
+
+  const onPasswordChange = (e) => {
+    if (isPasswordDisabled) {
+      e.target.innerText = "Save Password";
+      setIsPasswordDisabled(!isPasswordDisabled);
+      document.getElementById('admin-user-password-input').value = "";
+      document.getElementById('admin-user-password-input').disabled = false;
+      document.getElementById('admin-user-password-input').focus();
+    } else {
+      setIsPasswordDisabled(!isPasswordDisabled);
+      document.getElementById('admin-user-password-input').disabled = true;
+      e.target.innerText = "Reset Password";
+    }
+  };
+
+  useEffect(() => {
+    document.getElementById('admin-user-password-input').disabled = true;
+  }, []);
 
   return (
     <div className="desktop-admin-subtree desktop-admin-settings">
@@ -16,44 +36,55 @@ const Settings = props => {
 
       <div className="desktop-admin-section-body-container">
         <SectionComponent render={true} text="Account"/>
-        <TextField label="Username" disabled value="SaseForTest" size="small" sx={{width: '28vw'}}/>
-        <TextField type="password" label="Password" disabled value="fqjeqniwoneoiqwnncocqenoqiwnd" size="small" sx={{width: '28vw'}}/>
-        <Button sx={{width: 'max-content', padding: '5px 0 5px 0', fontSize: '12px'}}>Reset Password</Button>
-        <TextField type="password" label="Secret Key" disabled value="fqjeqniwoneoiqwnncocqenoqiwnd" size="small" sx={{width: '28vw'}}/>
-        <Button sx={{width: 'max-content', padding: '5px 0 5px 0', fontSize: '12px'}}>Generate Secret Key</Button>
+        
+        <div className="desktop-admin-account-container">
+          <TextField label="Username" disabled value="SaseForTest" size="small" sx={{width: '28vw'}}/>
+          <TextField id="admin-user-password-input" type="password" label="Password" defaultValue="passwordIsUnreadable" size="small" sx={{width: '28vw'}}/>
+          <Button sx={{width: 'max-content', padding: '0px 0 0px 0', fontSize: '12px'}} onClick={onPasswordChange}>Reset Password</Button>
+          <TextField type="password" helperText={secretKeyHelperText} label="Secret Key" disabled value="fqjeqniwoneoiqwnncocqenoqiwnd" size="small" sx={{width: '28vw', '&:hover': {cursor: 'pointer'}}} onClick={e => {
+            window.navigator.clipboard.writeText(e.target.value);
+            setSecretKeyHelperText("Copied!");
+            setTimeout(() => setSecretKeyHelperText("Click to Copy!"), 3000);
+          }}/>
+          <Button sx={{width: 'max-content', padding: '0px 0 0px 0', fontSize: '12px'}}>Fetch Secret Key</Button>
+        </div>
+
         <SectionComponent render={true} text="Security"/>
-        <TextField label="Backup Path" disabled value="@root/backup/jobs.xlsx" size="small" sx={{width: '28vw'}} helperText="Last Backed up on 06/20/2022 10:18:10am"/>
-        <FormControl fullWidth>
-          <InputLabel id="select-job-backup-time-label">Backup Interval</InputLabel>
-          <Select
-            labelId="select-job-backup-time-label"
-            id="select-job-book-backup-time"
-            value={backupInterval}
-            label="Backup Interval"
-            onChange={handleBackupIntervalChange}
-            size="small"
-            sx={{width: '300px'}}
-          >
-            <MenuItem value={"1800000"}>Bi-Hourly</MenuItem>
-            <MenuItem value={"3600000"}>Hourly</MenuItem>
-            <MenuItem value={"43200000"}>Bi-Daily</MenuItem>
-          </Select>
-      </FormControl>
-      <Button
-        size="small"
-        sx={{
-          width: '300px',
-          background: 'rgba(0,0,0,0.85)',
-          color: 'white',
-          boxSizing: 'border-box',
-          padding: '10px',
-          '&:hover': {
-            background: 'rgba(0,0,0,0.95)'
-          }
-        }}
-      >
-        Download Job Book
-      </Button>
+
+        <div className="desktop-admin-account-backup-container">
+          <TextField label="Backup Path" disabled value="@root/backup/jobs.xlsx" size="small" sx={{width: '28vw'}} helperText="Last Backed up on 06/20/2022 10:18:10am"/>
+          <FormControl fullWidth>
+            <InputLabel id="select-job-backup-time-label">Backup Interval</InputLabel>
+            <Select
+              labelId="select-job-backup-time-label"
+              id="select-job-book-backup-time"
+              value={backupInterval}
+              label="Backup Interval"
+              onChange={handleBackupIntervalChange}
+              size="small"
+              sx={{width: '300px'}}
+            >
+              <MenuItem value={"1800000"}>Bi-Hourly</MenuItem>
+              <MenuItem value={"3600000"}>Hourly</MenuItem>
+              <MenuItem value={"43200000"}>Bi-Daily</MenuItem>
+            </Select>
+        </FormControl>
+        <Button
+          size="small"
+          sx={{
+            width: '300px',
+            background: 'rgba(0,0,0,0.85)',
+            color: 'white',
+            boxSizing: 'border-box',
+            padding: '10px',
+            '&:hover': {
+              background: 'rgba(0,0,0,0.95)'
+            }
+          }}
+        >
+          Download Job Book
+        </Button>
+        </div>
       </div>
 
     </div>

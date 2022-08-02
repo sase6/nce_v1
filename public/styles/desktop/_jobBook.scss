@@ -339,3 +339,11 @@
 .desktop-admin-subtree::-webkit-scrollbar {
   display: none;
 }
+
+.desktop-admin-account-container, .desktop-admin-account-backup-container {
+  position: relative;
+  display: grid;
+  margin-top: 15px;
+  grid-row-gap: 15px;
+  // background: red; 
+}
