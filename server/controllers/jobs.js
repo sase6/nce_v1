@@ -122,7 +122,17 @@ const updateDeleteJob = async(req, res) => {
   }
 };
 
+const deleteJob = async(req, res) => {
+  const { jobNumber } = req.body;
+  try {
+    await JOBS.deleteOne({jobNumber});
+    res.end();
+  } catch {
+    res.status(500).end('Err Deleting');
+  }
+};
+
 module.exports = {
   createJob, getJobs, getJobsRange, deepSearchJobs, getDeletedJobs,
-  updateDeleteJob
+  updateDeleteJob, deleteJob
 };

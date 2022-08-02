@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser');
 const userController = require('./controllers/user.js');
 const app = express();
 const port = process.env.port || 8082;
-const { createJob, getJobs, getJobsRange, deepSearchJobs, getDeletedJobs, updateDeleteJob} = require('./controllers/jobs.js');
+const { createJob, getJobs, getJobsRange, deepSearchJobs, getDeletedJobs, updateDeleteJob, deleteJob} = require('./controllers/jobs.js');
 require('../encryption/index.js');
 const session = require('./session.js');
 
@@ -62,6 +62,7 @@ app.get('/jobs/:query', inSession, deepSearchJobs);
 app.post('/jobs', inSession, getJobs);
 app.post('/jobs/deleted', inSession, getDeletedJobs);
 app.post('/jobs/update/deleted', inSession, updateDeleteJob);
+app.post('/jobs/delete', inSession, deleteJob);
 
 app.listen(port, () => {
   require('../database/index.js');
