@@ -20,9 +20,6 @@ const Settings = props => {
       document.getElementById('admin-user-password-input').disabled = false;
       document.getElementById('admin-user-password-input').focus();
     } else {
-      setIsPasswordDisabled(!isPasswordDisabled);
-      document.getElementById('admin-user-password-input').disabled = true;
-      e.target.innerText = "Reset Password";
       axios({
         method: 'post',
         url: '/user/password/reset',
@@ -30,7 +27,13 @@ const Settings = props => {
           username: user.username,
           password: document.getElementById('admin-user-password-input').value
         }
-      });
+      })
+      .then(() => {
+        setIsPasswordDisabled(!isPasswordDisabled);
+        document.getElementById('admin-user-password-input').disabled = true;
+        e.target.innerText = "Reset Password";
+      })
+      .catch(err => err);
     }
   };
 
