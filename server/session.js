@@ -20,7 +20,7 @@ class Session {
     this.data[sessionId] = idObject;
     setTimeout(() => {
       this.remove(sessionId);
-    }, (1000*60*30));
+    }, (1000*60*60*12));
     return sessionId;
   }
 
