@@ -108,6 +108,10 @@ const deepSearchJobs = async (req, res) => {
   res.end(JSON.stringify(await JOBS.findByData(query)));
 };
 
+const getDeletedJobs = async(req, res) => {
+  res.end(JSON.stringify(await JOBS.findDeletedJobs()));
+};
+
 module.exports = {
-  createJob, getJobs, getJobsRange, deepSearchJobs
+  createJob, getJobs, getJobsRange, deepSearchJobs, getDeletedJobs
 };

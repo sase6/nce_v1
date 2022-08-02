@@ -1,5 +1,6 @@
 const React = require('react');
 const { useState, useEffect } = require('react');
+const DeletedLog = require('./deletedLog.jsx');
 
 const RemovedLog = props => {
   return (
@@ -9,7 +10,7 @@ const RemovedLog = props => {
       </div>
 
       <div className="desktop-admin-section-body-container">
-        Hello world
+        <DeletedLog />
       </div>
     </div>
   );
