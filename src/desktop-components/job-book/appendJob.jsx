@@ -143,7 +143,7 @@ const AppendJobModal = (props) => {
     if (!curInput.validate(element.value)) return; //Validation Err
 
     curInput.setValue(element.value);
-    if (curIndex < 8) {
+    if (curIndex < 9) {
       element.value = nextController.value() || nextController.default || '';
       setCurIndex(curIndex + 1);
     }
@@ -151,7 +151,7 @@ const AppendJobModal = (props) => {
     element.focus();
     element.select();
 
-    if (curIndex === 8) {
+    if (curIndex === 9) {
       toggleReviewingJob();
     } 
   };
