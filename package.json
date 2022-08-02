@@ -7,10 +7,11 @@
     "react-dev": "webpack --mode development -w",
     "server-dev": "nodemon server/index.js",
     "sass-dev": "sass --watch /public/styles/desktop/login.scss:/public/styles/desktop/login.css",
-    "electron": "electron .",
+    "electron": "npx electron .",
     "react:build": "webpack --mode production",
-    "pre-electron": "concurrently \"npm install\" \"npm run react:build\" \"node server/index.js\"",
-    "build-linux": "electron-builder build -l"
+    "pre-electron": "concurrently \"npm install\" \"npm install electron\" \"npm run react:build\" \"node server/index.js\"",
+    "build-linux": "electron-builder build -l",
+    "build-win64": "electron-builder build -w --x64"
   },
   "keywords": [],
   "author": "",
@@ -40,6 +41,8 @@
     "@babel/preset-react": "^7.18.6",
     "babel-loader": "^8.2.5",
     "css-loader": "^6.7.1",
+    "electron": "^20.0.0",
+    "electron-builder": "^23.3.3",
     "nodemon": "^2.0.19",
     "style-loader": "^3.3.1",
     "webpack": "^5.73.0",
