@@ -132,7 +132,16 @@ const deleteJob = async(req, res) => {
   }
 };
 
+const getAllJobs = async(req, res) => {
+  try {
+    let jobs = await JOBS.findByField({});
+    res.end(JSON.stringify(jobs));
+  } catch {
+    res.status(500).end('Err Getting * Jobs');
+  }
+};
+
 module.exports = {
   createJob, getJobs, getJobsRange, deepSearchJobs, getDeletedJobs,
-  updateDeleteJob, deleteJob
+  updateDeleteJob, deleteJob, getAllJobs
 };

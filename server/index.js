@@ -5,9 +5,10 @@ const cookieParser = require('cookie-parser');
 const userController = require('./controllers/user.js');
 const app = express();
 const port = process.env.port || 8082;
-const { createJob, getJobs, getJobsRange, deepSearchJobs, getDeletedJobs, updateDeleteJob, deleteJob} = require('./controllers/jobs.js');
+const { createJob, getJobs, getJobsRange, deepSearchJobs, getDeletedJobs, updateDeleteJob, deleteJob, getAllJobs} = require('./controllers/jobs.js');
 require('../encryption/index.js');
 const session = require('./session.js');
+const { hash } = require('../encryption/index.js');
 
 const publicUrl = path.join(__dirname, '..', 'public');
 
@@ -47,7 +48,7 @@ app.get('/unauthorized', (req, res) => {
 // State
 var state = {
   secretKey: '',
-  backupInterval: 60000*30,
+  backupInterval: null,
   lastBackup: 'unknown'
 };
 
@@ -66,11 +67,28 @@ app.post('/user/password/reset', adminInSession, userController.resetPassword);
 // Jobs
 app.post('/jobs/create', inSession, createJob);
 app.get('/jobs/range', inSession, getJobsRange);
+app.get('/jobs', inSession, getAllJobs);
 app.get('/jobs/:query', inSession, deepSearchJobs);
 app.post('/jobs', inSession, getJobs);
 app.post('/jobs/deleted', inSession, getDeletedJobs);
 app.post('/jobs/update/deleted', inSession, updateDeleteJob);
 app.post('/jobs/delete', inSession, deleteJob);
+
+//Keys & Backup
+app.get('/secretKey', adminInSession, (req, res) => {
+  let newKeyValue = Math.random()* 100000;
+  state.secretKey = hash(`${newKeyValue}`);
+  res.end(state.secretKey);
+});
+
+app.post('/backup/interval', (req, res) => {
+  const { backupInterval } = req.body;
+  // backup now...
+  // set last backup
+  // clear current interval
+  // create new interval to save backup...
+});
+
 
 app.listen(port, () => {
   require('../database/index.js');
