@@ -68,7 +68,7 @@ const AppendJobModal = (props) => {
       setFunc: setCCHeater,
       default: 'NO',
       helperText: 'Please enter "YES" or "Y" for yes',
-      validate: (text) => withinValidation(text, ['YES', 'NO', 'Y', 'N']),
+      validate: (text) => withinValidation(text, ['YES', 'NO', 'Y', 'N', '?']),
       value: () => ccHeater,
       setValue: setCCHeater
     },
@@ -77,7 +77,7 @@ const AppendJobModal = (props) => {
       textLabel: 'Unloaders',
       setFunc: setUnloaders,
       helperText: 'PLEASE ENTER ONLY 0, 1 OR 2',
-      validate: (text) => withinValidation(text, ['0', '1', '2']),
+      validate: (text) => withinValidation(text, ['0', '1', '2', '?']),
       value: () => unloaders,
       setValue: setUnloaders
     },
@@ -87,7 +87,7 @@ const AppendJobModal = (props) => {
       setFunc: setStatorStatus,
       default: 'GOOD',
       helperText: 'PLEASE ONLY ENTER "BAD" if stator is bad',
-      validate: (text) => withinValidation(text, ['GOOD', 'BAD']),
+      validate: (text) => withinValidation(text, ['GOOD', 'BAD', '?']),
       value: () => statorStatus,
       setValue: setStatorStatus
     },
@@ -106,7 +106,7 @@ const AppendJobModal = (props) => {
       setFunc: setScrapValue,
       default: 'NO',
       helperText: 'Please enter "YES" or "Y" TO MARK AS SCRAPPED',
-      validate: (text) => withinValidation(text, ['YES', 'NO', 'Y', 'N']),
+      validate: (text) => withinValidation(text, ['YES', 'NO', 'Y', 'N', '?']),
       value: () => scrap,
       setValue: setScrapValue
     },

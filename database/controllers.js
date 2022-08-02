@@ -70,9 +70,13 @@ const JOBS = {
   },
 
   getJobRange: async () => {
-    let start = (await _model.Job.find({}).sort({jobNumber: 1}).limit(1))[0].jobNumber;
-    let end = (await _model.Job.find({}).sort({jobNumber: -1}).limit(1))[0].jobNumber;
-    return [start, end];
+    try {
+      let start = (await _model.Job.find({}).sort({jobNumber: 1}).limit(1))[0].jobNumber;
+      let end = (await _model.Job.find({}).sort({jobNumber: -1}).limit(1))[0].jobNumber;
+      return [start, end];
+    } catch {
+      return [0,0]; 
+    }
   },
 
   getLastJobNumber: async () => {
