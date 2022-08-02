@@ -112,6 +112,17 @@ const getDeletedJobs = async(req, res) => {
   res.end(JSON.stringify(await JOBS.findDeletedJobs()));
 };
 
+const updateDeleteJob = async(req, res) => {
+  const { del, jobNumber } = req.body;
+  try {
+    await JOBS.update({jobNumber}, {_isDeleted: del});
+    res.end();
+  } catch {
+    res.status(500).end('Error changing delete status');
+  }
+};
+
 module.exports = {
-  createJob, getJobs, getJobsRange, deepSearchJobs, getDeletedJobs
+  createJob, getJobs, getJobsRange, deepSearchJobs, getDeletedJobs,
+  updateDeleteJob
 };
