@@ -103,7 +103,14 @@ const JOBS = {
     }
   },
 
-  //put delete query here
+  deleteOne: async(findBy) => {
+    try {
+      await _model.Job.findOneAndDelete(findBy);
+      return true;
+    } catch {
+      return 'Err Deleting';
+    }
+  }
 };
 
 module.exports = {
