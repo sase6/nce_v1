@@ -41,6 +41,26 @@ const DeletedLog = (props) => {
     fetchDeletedLog();
   }, []);
 
+  const restoreJob = (jobNumber) => {
+    axios({
+      method: 'post',
+      url: '/jobs/update/deleted',
+      data: {jobNumber, del: false}
+    })
+    .then(() => fetchDeletedLog())
+    .catch(err => err);
+  };
+
+  const deleteJob = (jobNumber) => {
+    axios({
+      method: 'post',
+      url: '/jobs/delete',
+      data: {jobNumber}
+    })
+    .then(() => fetchDeletedLog())
+    .catch(err => err);
+  };
+
   return (
     <div className="admin-deleted-log">
       {deletedLog.map((job, i) => {
@@ -72,8 +92,8 @@ const DeletedLog = (props) => {
               <TextField value={job.deletedBy} disabled label="Entered By" fullWidth size="small"/>
             </div>
             <div className="admin-item-button-interactions">
-              <Button sx={{color: 'indianred'}}>Delete</Button>
-              <Button sx={{color: 'limegreen'}}>Restore</Button>
+              <Button onClick={() => deleteJob(job.jobNumber)} sx={{color: 'indianred'}}>Delete</Button>
+              <Button onClick={() => restoreJob(job.jobNumber)} sx={{color: 'limegreen'}}>Restore</Button>
             </div>
 
           </div>
