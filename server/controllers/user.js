@@ -108,8 +108,8 @@ const resetPassword = async(req, res) => {
   let {username, password} = req.body;
   let user = await db.USER.find({username});
   if (user[0]) {
-    let curUser = user[0];
-    curUser.password = password;
+    let curUser = user[1][0];
+    curUser.password = await hash(password);
     await curUser.save();
     res.end();
     return;

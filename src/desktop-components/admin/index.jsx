@@ -9,7 +9,7 @@ const DesktopAdmin = props => {
 
   return (
     <div className="desktop-admin-container">
-      <Settings />
+      <Settings user={props.user}/>
       <Users />
       <RemovedLog />
     </div>

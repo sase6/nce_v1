@@ -2,9 +2,11 @@ const React = require('react');
 const { useState, useEffect } = require('react');
 const SectionComponent = require('./sectionComponent.jsx');
 const { TextField, Button, FormControl, Select, MenuItem, InputLabel } = require('@mui/material');
+const axios = require('axios');
 
 const Settings = props => {
 
+  const { user } = props;
   const [backupInterval, setBackupInterval] = useState(1800000);
   const [secretKeyHelperText, setSecretKeyHelperText] = useState("Click to Copy");
   const [isPasswordDisabled, setIsPasswordDisabled] = useState(true);
@@ -21,6 +23,14 @@ const Settings = props => {
       setIsPasswordDisabled(!isPasswordDisabled);
       document.getElementById('admin-user-password-input').disabled = true;
       e.target.innerText = "Reset Password";
+      axios({
+        method: 'post',
+        url: '/user/password/reset',
+        data: {
+          username: user.username,
+          password: document.getElementById('admin-user-password-input').value
+        }
+      });
     }
   };
 

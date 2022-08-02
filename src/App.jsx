@@ -27,7 +27,7 @@ const App = () => {
 
       <div className="main-content">
         <DesktopLoginPage page={page} setUser={setUser}/>
-        <DesktopAdmin page={page}/>
+        <DesktopAdmin page={page} user={user}/>
         <DesktopJobBook page={page} query={query} user={user}/>
       </div>
     </div>
