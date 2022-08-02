@@ -104,7 +104,8 @@ const checkAdmin = async (findBy) => {
   return false;
 };
 
-const resetPassword = async(username, password) => {
+const resetPassword = async(req, res) => {
+  let {username, password} = req.body;
   let user = await db.USER.find({username});
   if (user[0]) {
     let curUser = user[0];
