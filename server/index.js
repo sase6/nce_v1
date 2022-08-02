@@ -79,9 +79,13 @@ app.delete('/job', inSession, (req, res, next) => {
 },markAsDeleted);
 
 //Keys & Backup
-app.get('/secretKey', adminInSession, (req, res) => {
+const createSecretKey = () => {
   let newKeyValue = Math.random()* 100000;
   state.secretKey = hash(`${newKeyValue}`);
+  return state.secretKey;
+};
+
+app.get('/secretKey', adminInSession, (req, res) => {
   res.end(state.secretKey);
 });
 
@@ -97,4 +101,10 @@ app.post('/backup/interval', (req, res) => {
 app.listen(port, () => {
   require('../database/index.js');
   console.log('Server listening on port: ', port);
+
+  // Secret Key
+  createSecretKey();
+  setInterval(() => {
+    createSecretKey();
+  }, (60000*5));
 });
