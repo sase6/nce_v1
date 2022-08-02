@@ -34,8 +34,9 @@ const DesktopJobBookTable = props => {
         {padJobs(jobs).map((job, i) => {
           let ccHeater = job.ccHeater === undefined? '' : job.ccHeater? 'YES' : 'NO';
           let scrap = job.scrap === undefined? '' : job.scrap? 'SCRAP' : '';
+          if (job.warranty === true) document.querySelector(`.job-table-item-${i}`).style.color = "goldenrod";
           return <div key={'test_fake_val-'+i} className={i%2==0? class1 : class2} onClick={() => setFocusedJob(job)}>
-            <div>{job.jobNumber}</div>
+            <div className={`job-table-item-${i}`} >{job.jobNumber}</div>
             <div>{job.modelNumber}</div>
             <div>{job.serialNumber}</div>
             <div>{job.voltage}</div>

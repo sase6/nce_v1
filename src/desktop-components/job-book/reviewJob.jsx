@@ -19,6 +19,7 @@ const ReviewJob = props => {
     cancelHandler,
     user,
     fetchAndSetJobRange,
+    warranty
   } = props;
 
   const [jobNumber, setJobNumber] = useState("AUTO");
@@ -42,6 +43,7 @@ const ReviewJob = props => {
 
     dataObj.ccHeater = dataObj.ccHeater.toUpperCase();
     result.ccHeater = (dataObj.ccHeater === 'Y' || dataObj.ccHeater === 'YES');
+    result.warranty = (dataObj.warranty === 'Y' || dataObj.warranty === 'YES');
     result.scrap = dataObj.scrap;
     
     result.unloaders = parseInt(dataObj.unloaders),
@@ -60,7 +62,8 @@ const ReviewJob = props => {
         voltage, ccHeater,
         unloaders, statorStatus,
         incomingNumber, scrap,
-        notes, username: user.username || 'SASE',
+        notes, username: user.username,
+        warranty
       }), jobNumber}
     })
     .then(response => {
@@ -73,7 +76,6 @@ const ReviewJob = props => {
       // Show Error Message...
     });
   };
-
 
   const scrapMap = {
     true: {
@@ -122,7 +124,10 @@ const ReviewJob = props => {
         <div className="job-book-review-identification-numbers-x-scrap-status">
           <TextField value={incomingNumber} disabled label="Incoming Number" fullWidth InputLabelProps={{ ...InputLabelProps, shrink: true }}/>
           <TextField onKeyUp={setTheJobNumber} defaultValue={'AUTO'} label="Job Number" fullWidth InputLabelProps={{ ...InputLabelProps, shrink: true }}/>
-          <div className={`job-book-review-scrap-status ${scrapMap[scrap].class}`}>{scrapMap[scrap].text}</div>
+          <div className="job-book-review-warranty-and-scrap-text">
+            <div className={`job-book-review-scrap-status ${scrapMap[scrap].class}`}>{scrapMap[scrap].text}</div>
+            <div className="job-book-review-warranty-text">{(warranty.toUpperCase()==="Y" || warranty.toUpperCase()==="YES")? "Warranty" : ""}</div>
+          </div>
         </div>
       </div>
 

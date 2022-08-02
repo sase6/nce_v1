@@ -36,6 +36,7 @@ const AppendJobModal = (props) => {
   const [incomingNumber, setIncomingNumber] = useState('');
   const [scrap, setScrap] = useState('');
   const [notes, setNotes] = useState('');
+  const [warranty, setWarranty] = useState('');
 
   const inputTypeMap = {
     modelNumber: {
@@ -110,6 +111,14 @@ const AppendJobModal = (props) => {
       value: () => scrap,
       setValue: setScrapValue
     },
+    warranty: {
+      text: 'Is This A Warrany Return?',
+      textLabel: 'Warranty Return?',
+      setFunc: setWarranty,
+      validate: () => true,
+      value: () => warranty,
+      setValue: setWarranty
+    },
     notes: {
       text: 'Include Any Additional Information Here',
       textLabel: 'Notes',
@@ -117,7 +126,7 @@ const AppendJobModal = (props) => {
       validate: () => true,
       value: () => notes,
       setValue: setNotes
-    },
+    }
   };
 
   const listOfEntries = Object.keys(inputTypeMap);
@@ -184,6 +193,7 @@ const AppendJobModal = (props) => {
           toggleReviewingJob={toggleReviewingJob}
           cancelHandler={() => setAddJobModal(false)}
           user={user}
+          warranty={warranty}
           fetchAndSetJobRange={fetchAndSetJobRange}
         />
       </div>

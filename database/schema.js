@@ -27,7 +27,8 @@ const jobSchema = new mongoose.Schema({
   enteredOn: String,
   _isDeleted: {type: Boolean, autoIndex: true},
   deletedBy: String,
-  deletedOn: String
+  deletedOn: String,
+  warranty: Boolean
 });
 
 const Job = new mongoose.model('job', jobSchema);
