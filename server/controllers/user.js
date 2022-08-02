@@ -104,6 +104,19 @@ const checkAdmin = async (findBy) => {
   return false;
 };
 
+const resetPassword = async(username, password) => {
+  let user = await db.USER.find({username});
+  if (user[0]) {
+    let curUser = user[0];
+    curUser.password = password;
+    await curUser.save();
+    res.end();
+    return;
+  }
+
+  res.status(400).end('Could not find user');
+};
+
 module.exports = {
   login,
   signup,
@@ -112,5 +125,6 @@ module.exports = {
   acceptUser,
   deleteUser,
   updateUser,
-  checkAdmin
+  checkAdmin,
+  resetPassword
 };

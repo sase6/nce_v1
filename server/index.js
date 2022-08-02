@@ -44,6 +44,13 @@ app.get('/unauthorized', (req, res) => {
   res.end('Unauthorized!');
 });
 
+// State
+var state = {
+  secretKey: '',
+  backupInterval: 60000*30,
+  lastBackup: 'unknown'
+};
+
 // Login
 app.post('/login', userController.login);
 app.post('/signup', userController.signup);
@@ -54,6 +61,7 @@ app.get('/users', adminInSession, userController.getUsers);
 app.post('/user/accept', adminInSession, userController.acceptUser);
 app.post('/user/delete', adminInSession, userController.deleteUser);
 app.post('/user/visibility/update', adminInSession, userController.updateUser);
+app.post('/user/password/reset', adminInSession, userController.resetPassword);
 
 // Jobs
 app.post('/jobs/create', inSession, createJob);
