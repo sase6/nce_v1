@@ -8,6 +8,7 @@ const Settings = props => {
 
   const { user } = props;
   const [backupInterval, setBackupInterval] = useState(1800000);
+  const [secretKey, setSecretKey] = useState('');
   const [secretKeyHelperText, setSecretKeyHelperText] = useState("Click to Copy");
   const [isPasswordDisabled, setIsPasswordDisabled] = useState(true);
   const handleBackupIntervalChange = (e) => setBackupInterval(e.target.value);
@@ -39,6 +40,11 @@ const Settings = props => {
 
   useEffect(() => {
     document.getElementById('admin-user-password-input').disabled = true;
+    axios.get('/secretKey')
+    .then((response) => {
+      setSecretKey(response.data);
+    })
+    .catch(err => err);
   }, []);
 
   return (
@@ -54,7 +60,7 @@ const Settings = props => {
           <TextField label="Username" disabled value="SaseForTest" size="small" sx={{width: '28vw'}}/>
           <TextField id="admin-user-password-input" type="password" label="Password" defaultValue="passwordIsUnreadable" size="small" sx={{width: '28vw'}}/>
           <Button sx={{width: 'max-content', padding: '0px 0 0px 0', fontSize: '12px'}} onClick={onPasswordChange}>Reset Password</Button>
-          <TextField type="password" helperText={secretKeyHelperText} label="Secret Key" disabled value="fqjeqniwoneoiqwnncocqenoqiwnd" size="small" sx={{width: '28vw', '&:hover': {cursor: 'pointer'}}} onClick={e => {
+          <TextField id="admin-secret-key-input" type="password" helperText={secretKeyHelperText} label="Secret Key" disabled value={secretKey} size="small" sx={{width: '28vw', '&:hover': {cursor: 'pointer'}}} onClick={e => {
             window.navigator.clipboard.writeText(e.target.value);
             setSecretKeyHelperText("Copied!");
             setTimeout(() => setSecretKeyHelperText("Click to Copy!"), 3000);

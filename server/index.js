@@ -79,14 +79,15 @@ app.delete('/job', inSession, (req, res, next) => {
 },markAsDeleted);
 
 //Keys & Backup
-const createSecretKey = () => {
+const createSecretKey = async() => {
   let newKeyValue = Math.random()* 100000;
-  state.secretKey = hash(`${newKeyValue}`);
+  state.secretKey = await hash(`${newKeyValue}`);
   return state.secretKey;
 };
 
 app.get('/secretKey', adminInSession, (req, res) => {
-  res.end(state.secretKey);
+  let key = state.secretKey;
+  res.end(JSON.stringify(key));
 });
 
 app.post('/backup/interval', (req, res) => {
