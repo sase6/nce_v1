@@ -5,7 +5,7 @@ const axios = require('axios');
 
 const DesktopExpandedJob = props => {
 
-  const {setAddJobModal, possibleRanges, focusedJob, filteredJobs, setSelectedRange, setJobs, fetchAndSetJobRange} = props;
+  const {setAddJobModal, possibleRanges, focusedJob, filteredJobs, setSelectedRange, setJobs, fetchAndSetJobRange, setDeleteJobModal} = props;
   const [ranges, setRanges] = useState(['0-1000', '1001-2000', '2001-3000', '3001-4000', '4001-5000', '10000-11000']);
   const [totalJobs, setTotalJobs] = useState(filteredJobs.length || 0);
   const [jobRange, setJobRange] = useState('');
@@ -100,7 +100,7 @@ const DesktopExpandedJob = props => {
       <TextField InputLabelProps={{ ...InputLabelProps, shrink: true }} id="job-book-input-notes" minRows="6" maxRows="6" label="Notes" variant="outlined" disabled multiline value={focusedJob.notes} fullWidth/> 
     </div>
     <div className="desktop-job-book-interactions-container">
-      <Button variant="outlined">Delete Job</Button>
+      <Button variant="outlined" onClick={() => setDeleteJobModal(true)} >Delete Job</Button>
       <Button variant="outlined" onClick={() => setAddJobModal(true)}>Add Job</Button>
     </div>
   </div>

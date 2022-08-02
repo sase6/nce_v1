@@ -6,12 +6,14 @@ const AppendJob = require('./appendJob.jsx');
 const axios = require('axios');
 const {filterJobs, parseRanges} = require('./jobFilter.js');
 const requests = require('./requests.js');
+const DeleteJobModal = require('./deleteJob.jsx');
 
 const DesktopJobBook = props => {
   if (props.page !== 'Job Book') return;
 
   const {query, user} = props;
   const [addJobModal, setAddJobModal] = useState(false);
+  const [deleteJobModal, setDeleteJobModal] = useState(false);
   const [jobs, setJobs] = useState([]);
   const [jobRange, setJobRange] = useState([-1, 1000]);
   const [focusedJob, setFocusedJob] = useState({});
@@ -52,9 +54,10 @@ const DesktopJobBook = props => {
 
   return (
     <div className="desktop-job-book-container">
-      <ExpandedJob setAddJobModal={setAddJobModal} possibleRanges={possibleRanges} focusedJob={focusedJob} filteredJobs={filteredJobs} setSelectedRange={setSelectedRange} setJobs={setJobs} fetchAndSetJobRange={fetchAndSetJobRange}/>
+      <ExpandedJob setAddJobModal={setAddJobModal} possibleRanges={possibleRanges} focusedJob={focusedJob} filteredJobs={filteredJobs} setSelectedRange={setSelectedRange} setJobs={setJobs} fetchAndSetJobRange={fetchAndSetJobRange} setDeleteJobModal={setDeleteJobModal}/>
       <JobBookTable jobs={filteredJobs} setFocusedJob={setFocusedJob}/>
       <AppendJob addJobModal={addJobModal} setAddJobModal={setAddJobModal} user={user} fetchAndSetJobRange={fetchAndSetJobRange}/>
+      <DeleteJobModal render={deleteJobModal} setDeleteJobModal={setDeleteJobModal}/>
     </div>
   );
 };

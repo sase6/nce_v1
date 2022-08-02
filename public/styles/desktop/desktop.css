@@ -666,6 +666,53 @@ option {
   grid-row-gap: 15px;
 }
 
+.delete-job-modal-overlay {
+  position: absolute;
+  height: calc(100vh - 100px);
+  width: 100vw;
+  background: rgba(0, 0, 0, 0.25);
+  z-index: 42399;
+}
+
+.delete-job-modal {
+  position: fixed;
+  width: 700px;
+  height: 200px;
+  background: rgba(255, 255, 255, 0.75);
+  top: calc(50vh - 100px);
+  left: calc(50vw - 350px);
+  -webkit-backdrop-filter: blur(2px);
+          backdrop-filter: blur(2px);
+  border-radius: 5px;
+  box-sizing: border-box;
+  padding: 15px;
+  display: grid;
+  grid-template-rows: -webkit-max-content -webkit-max-content auto;
+  grid-template-rows: max-content max-content auto;
+  align-content: space-between;
+}
+
+.delete-job-modal-text {
+  font-family: lato, sans-serif;
+  font-size: 25px;
+  font-weight: 900;
+  color: rgba(0, 0, 0, 0.55);
+}
+
+.delete-job-modal-input-container {
+  display: grid;
+  grid-template-columns: calc(50% - 20px) calc(50% - 20px);
+  grid-column-gap: 40px;
+}
+
+.delete-job-modal-button-container {
+  display: grid;
+  grid-template-columns: -webkit-max-content -webkit-max-content;
+  grid-template-columns: max-content max-content;
+  grid-column-gap: 15px;
+  justify-content: right;
+}
+
 * {
   margin: 0;
   padding: 0;
