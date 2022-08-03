@@ -32,7 +32,6 @@ const ReviewJob = props => {
   };
 
   const parseYesNoValues = (text) => {
-    console.log(text, 'fromParse');
     if (text === '?') return text;
     if (text.toUpperCase() === 'YES' || text.toUpperCase() === 'Y') return "YES";
     return 'NO';
