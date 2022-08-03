@@ -38,13 +38,15 @@ const Settings = props => {
     }
   };
 
+  const fetchSecretKey = () => {
+    axios.get('/secretKey')
+    .then((response) => setSecretKey(response.data))
+    .catch(err => err);
+  };
+
   useEffect(() => {
     document.getElementById('admin-user-password-input').disabled = true;
-    axios.get('/secretKey')
-    .then((response) => {
-      setSecretKey(response.data);
-    })
-    .catch(err => err);
+    fetchSecretKey();
   }, []);
 
   return (
@@ -57,7 +59,7 @@ const Settings = props => {
         <SectionComponent render={true} text="Account"/>
         
         <div className="desktop-admin-account-container">
-          <TextField label="Username" disabled value="SaseForTest" size="small" sx={{width: '28vw'}}/>
+          <TextField label="Username" disabled value={user.username} size="small" sx={{width: '28vw'}}/>
           <TextField id="admin-user-password-input" type="password" label="Password" defaultValue="passwordIsUnreadable" size="small" sx={{width: '28vw'}}/>
           <Button sx={{width: 'max-content', padding: '0px 0 0px 0', fontSize: '12px'}} onClick={onPasswordChange}>Reset Password</Button>
           <TextField id="admin-secret-key-input" type="password" helperText={secretKeyHelperText} label="Secret Key" disabled value={secretKey} size="small" sx={{width: '28vw', '&:hover': {cursor: 'pointer'}}} onClick={e => {
@@ -65,7 +67,7 @@ const Settings = props => {
             setSecretKeyHelperText("Copied!");
             setTimeout(() => setSecretKeyHelperText("Click to Copy!"), 3000);
           }}/>
-          <Button sx={{width: 'max-content', padding: '0px 0 0px 0', fontSize: '12px'}}>Fetch Secret Key</Button>
+          <Button sx={{width: 'max-content', padding: '0px 0 0px 0', fontSize: '12px'}} onClick={fetchSecretKey}>Fetch Secret Key</Button>
         </div>
 
         <SectionComponent render={true} text="Security"/>
