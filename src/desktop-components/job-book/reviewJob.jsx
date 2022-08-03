@@ -43,7 +43,7 @@ const ReviewJob = props => {
       method: 'post',
       url: '/jobs/create',
       data: {
-        username: user.username,
+        enteredBy: user.username,
         modelNumber,
         serialNumber,
         voltage,
