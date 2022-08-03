@@ -17,18 +17,18 @@ const jobSchema = new mongoose.Schema({
   modelNumber: {type: String, autoIndex: true},
   serialNumber: String,
   voltage: String,
-  ccHeater: Boolean,
-  unloaders: Number,
+  ccHeater: String,
+  unloaders: String,
   statorStatus: String,
   incomingNumber: String,
-  scrap: Boolean,
+  scrap: String,
   notes: String,
   enteredBy: String,
   enteredOn: String,
   _isDeleted: {type: Boolean, autoIndex: true},
   deletedBy: String,
   deletedOn: String,
-  warranty: Boolean
+  warranty: String
 });
 
 const Job = new mongoose.model('job', jobSchema);
