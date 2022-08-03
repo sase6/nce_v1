@@ -4,6 +4,7 @@ const { useState, useEffect } = require('react');
 const DesktopJobBookTable = props => {
 
   const {jobs, setFocusedJob} = props;
+  const [tableJobs, setTableJobs] = useState(jobs);
 
   const padJobs = jobs => {
     let jobsArr = [...jobs];
@@ -12,6 +13,8 @@ const DesktopJobBookTable = props => {
     }
     return jobsArr;
   };
+
+  useEffect(() => setTableJobs(padJobs(jobs)), [jobs]);
 
   let class1 = 'job-book-table-job-item';
   let class2 = 'job-book-table-job-item job-book-table-job-item-v1';
@@ -31,13 +34,12 @@ const DesktopJobBookTable = props => {
       </div>
 
       <div className="job-book-table-job-items">
-        {padJobs(jobs).map((job, i) => {
-          let ccHeater = job.ccHeater === undefined? '' : job.ccHeater? 'YES' : 'NO';
+        {tableJobs.map((job, i) => {
+          let ccHeater = job.ccHeater === undefined? '' : job.ccHeater;
           let scrap = job.scrap === undefined? '' : job.scrap==='YES'? 'SCRAP' : '';
-          if (job.warranty === 'YES') document.querySelector(`.job-table-item-${i}`).style.color = "goldenrod";
-          
+
           return <div key={'test_fake_val-'+i} className={i%2==0? class1 : class2} onClick={() => setFocusedJob(job)}>
-            <div className={`job-table-item-${i}`} >{job.jobNumber}</div>
+            <div className={`job-table-item-${i} ${job.warranty==="YES"? 'goldenrod-text' : ''}`} >{job.jobNumber}</div>
             <div>{job.modelNumber}</div>
             <div>{job.serialNumber}</div>
             <div>{job.voltage}</div>

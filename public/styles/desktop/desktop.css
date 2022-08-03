@@ -727,6 +727,10 @@ option {
   font-size: 16px;
 }
 
+.goldenrod-text {
+  color: goldenrod;
+}
+
 * {
   margin: 0;
   padding: 0;
