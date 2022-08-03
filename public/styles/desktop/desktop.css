@@ -731,6 +731,47 @@ option {
   color: goldenrod;
 }
 
+@media only screen and (max-width: 1550px) {
+  .job-book-table-headers * {
+    color: rgba(0, 0, 0, 0.65);
+    box-sizing: border-box;
+    position: relative;
+    padding-left: 5%;
+    font-size: 0.9em;
+    font-weight: 600;
+    font-family: lato, sans-serif;
+  }
+  .job-book-table-job-items * {
+    font-size: 0.95em !important;
+    font-family: "Lato", sans-serif;
+    color: rgba(0, 0, 0, 0.55);
+  }
+  .desktop-job-book-expanded {
+    position: relative;
+    width: 15vw;
+    min-width: 320px;
+    height: 98%;
+    height: calc(100vh - 100px);
+    display: grid;
+    grid-template-rows: 10% 10% 10% 10% 10% 10% 10% 20% 10%;
+    grid-template-rows: -webkit-max-content -webkit-max-content -webkit-max-content -webkit-max-content -webkit-max-content -webkit-max-content -webkit-max-content -webkit-max-content -webkit-max-content;
+    grid-template-rows: max-content max-content max-content max-content max-content max-content max-content max-content max-content;
+    grid-row-gap: 13px;
+  }
+  .desktop-job-book-expanded * {
+    font-size: 0.9em;
+  }
+}
+.desktop-job-book-range-container {
+  margin-top: 10px !important;
+}
+
+.mobile-job-book-header {
+  height: 75px;
+  background-color: red;
+  width: 100%;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -738,5 +779,4 @@ option {
 
 body {
   max-height: 100vh;
-  overflow: hidden;
 }/*# sourceMappingURL=desktop.css.map */

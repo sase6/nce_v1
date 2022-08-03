@@ -2,6 +2,7 @@
 @import './nav';
 @import './admin';
 @import './jobBook';
+@import '../mobile/job-book';
 
 * {
   margin: 0;
@@ -10,5 +11,5 @@
 
 body {
   max-height: 100vh;
-  overflow: hidden;
+  // overflow: hidden;
 }

@@ -9,6 +9,7 @@ const DesktopExpandedJob = props => {
   const [ranges, setRanges] = useState(['0-1000', '1001-2000', '2001-3000', '3001-4000', '4001-5000', '10000-11000']);
   const [totalJobs, setTotalJobs] = useState(filteredJobs.length || 0);
   const [jobRange, setJobRange] = useState('');
+  const [textFieldSize, setTextFieldSize] = useState(window.innerWidth < 1550? 'small': 'medium');
 
   useEffect(() => setTotalJobs(filteredJobs.length), [filteredJobs]);
 
@@ -18,6 +19,8 @@ const DesktopExpandedJob = props => {
       newRanges.unshift(`${range[0]}-${range[1]}`);
     });
     setRanges(newRanges);
+    //NEW
+    setJobRange(newRanges[0]);
   }, [possibleRanges]);
 
   const rangeOnChangeHandler = (e) => {
@@ -61,7 +64,9 @@ const DesktopExpandedJob = props => {
           value={jobRange}
           label="Job Range"
           onChange={rangeOnChangeHandler}
-          style={{width: '150px'}}
+          style={{width: '90%'}}
+          size={textFieldSize}
+          InputLabelProps={{ ...InputLabelProps, shrink: true }}
           >
             {ranges.map((range, i) => 
               <MenuItem key={`jb_range-${i}`} value={range}>{range}</MenuItem> 
@@ -73,22 +78,22 @@ const DesktopExpandedJob = props => {
     </div>
     <div className="desktop-job-book-deep-search-container">
       <div className="job-book-deep-search-input-container">
-        <TextField id="job-book-input-deep-search" label="Search Database" variant="outlined" fullWidth onKeyUp={resetJobs}/>
+        <TextField size={textFieldSize} id="job-book-input-deep-search" label="Search Database" variant="outlined" fullWidth onKeyUp={resetJobs}/>
       </div>
       <Button sx={{height: 55}} variant="text" onClick={onDeepSearch}>Search</Button>
     </div>
     <div className="desktop-job-book-job-number-container">
-      <TextField InputLabelProps={{ ...InputLabelProps, shrink: true }} id="job-book-input-job-number" label="Job Number" variant="outlined" disabled value={`${focusedJob.warranty === "YES"? "WARRANTY-": ""}${focusedJob.jobNumber}`} fullWidth error={focusedJob.scrap==="YES"} helperText={focusedJob.scrap==="YES"? 'This job has been scrapped!' : '' }/>
+      <TextField size={textFieldSize} InputLabelProps={{ ...InputLabelProps, shrink: true }} id="job-book-input-job-number" label="Job Number" variant="outlined" disabled value={`${focusedJob.warranty === "YES"? "WARRANTY-": ""}${focusedJob.jobNumber}`} fullWidth error={focusedJob.scrap==="YES"} helperText={focusedJob.scrap==="YES"? 'This job has been scrapped!' : '' }/>
     </div>
     <div className="desktop-job-book-model-number-container">
-      <TextField InputLabelProps={{ ...InputLabelProps, shrink: true }} id="job-book-input-model-number" label="Model Number" variant="outlined" disabled value={focusedJob.modelNumber} fullWidth/>
+      <TextField size={textFieldSize} InputLabelProps={{ ...InputLabelProps, shrink: true }} id="job-book-input-model-number" label="Model Number" variant="outlined" disabled value={focusedJob.modelNumber} fullWidth/>
     </div>
     <div className="desktop-job-book-serial-number-container">
-      <TextField InputLabelProps={{ ...InputLabelProps, shrink: true }} id="job-book-input-serial-number" label="Serial Number" variant="outlined" disabled value={focusedJob.serialNumber} fullWidth/>
+      <TextField size={textFieldSize} InputLabelProps={{ ...InputLabelProps, shrink: true }} id="job-book-input-serial-number" label="Serial Number" variant="outlined" disabled value={focusedJob.serialNumber} fullWidth/>
     </div>
     <div className="desktop-job-book-voltage-and-lead-container">
-      <TextField InputLabelProps={{ ...InputLabelProps, shrink: true }} id="job-book-input-voltage" label="Voltage" variant="outlined" disabled value={focusedJob.voltage} fullWidth/>
-      <TextField InputLabelProps={{ ...InputLabelProps, shrink: true }} id="job-book-input-stator-status" label="Stator Status" variant="outlined" disabled value={focusedJob.statorStatus} fullWidth/> 
+      <TextField size={textFieldSize} InputLabelProps={{ ...InputLabelProps, shrink: true }} id="job-book-input-voltage" label="Voltage" variant="outlined" disabled value={focusedJob.voltage} fullWidth/>
+      <TextField size={textFieldSize} InputLabelProps={{ ...InputLabelProps, shrink: true }} id="job-book-input-stator-status" label="Stator Status" variant="outlined" disabled value={focusedJob.statorStatus} fullWidth/> 
     </div>
     <div className="desktop-job-book-information-entry-container">
       <div>Entered by {focusedJob.enteredBy}</div>
@@ -97,11 +102,11 @@ const DesktopExpandedJob = props => {
       <div>CC Heater: <span className={`${focusedJob.ccHeater==="YES"? 'expanded-job-cc-heaters-text': 'expanded-job-cc-heaters-text-no'}`}>{focusedJob.ccHeater !== undefined? focusedJob.ccHeater : ""}</span></div>
     </div>
     <div className="desktop-job-book-notes-container">
-      <TextField InputLabelProps={{ ...InputLabelProps, shrink: true }} id="job-book-input-notes" minRows="6" maxRows="6" label="Notes" variant="outlined" disabled multiline value={focusedJob.notes} fullWidth/> 
+      <TextField size={textFieldSize} InputLabelProps={{ ...InputLabelProps, shrink: true }} id="job-book-input-notes" minRows="6" maxRows="6" label="Notes" variant="outlined" disabled multiline value={focusedJob.notes} fullWidth/> 
     </div>
     <div className="desktop-job-book-interactions-container">
-      <Button variant="outlined" onClick={() => setDeleteJobModal(true)} >Delete Job</Button>
-      <Button variant="outlined" onClick={() => setAddJobModal(true)}>Add Job</Button>
+      <Button size={textFieldSize} variant="outlined" onClick={() => setDeleteJobModal(true)} >Delete Job</Button>
+      <Button size={textFieldSize} variant="outlined" onClick={() => setAddJobModal(true)}>Add Job</Button>
     </div>
   </div>
 };
