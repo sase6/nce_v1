@@ -10,6 +10,12 @@ const App = () => {
   const [pages, setPages] = useState(['Login']);
   const [page, setPage] = useState('Login');
   const [user, setUser] = useState({});
+  const [viewType, setViewType] = useState("Desktop");
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth < 1550) setViewType("Mobile");
+    else setViewType("Desktop");
+  });
 
   useEffect(() => {
     if (user.visibility === undefined) return;
@@ -25,11 +31,20 @@ const App = () => {
     <div className="app">
       <DesktopNav setQuery={setQuery} page={page} pages={pages} setPage={setPage}/>
 
-      <div className="main-content">
-        <DesktopLoginPage page={page} setUser={setUser}/>
-        <DesktopAdmin page={page} user={user}/>
-        <DesktopJobBook page={page} query={query} user={user}/>
-      </div>
+      <DesktopView page={page} setUser={setUser} user={user} query={query} viewType={viewType}/>
+    </div>
+  );
+};
+
+const DesktopView = (props) => {
+  if (props.viewType !== "Desktop") return;
+  const { page, setUser, user, query } = props;
+
+  return (
+    <div className="main-content">
+      <DesktopLoginPage page={page} setUser={setUser}/>
+      <DesktopAdmin page={page} user={user}/>
+      <DesktopJobBook page={page} query={query} user={user}/>
     </div>
   );
 };

@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const { exec } = require('child_process');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const userController = require('./controllers/user.js');
@@ -102,6 +103,13 @@ app.post('/backup/interval', (req, res) => {
 app.listen(port, () => {
   require('../database/index.js');
   console.log('Server listening on port: ', port);
+  exec('lt -p 8082 -s ncex', (err) => {
+    if (err) {
+      console.log('Err Deploying Server: ', err);
+    } else {
+      console.log('Server Deployed @ncex.loca.lt');
+    }
+  });
 
   // Secret Key
   createSecretKey();
