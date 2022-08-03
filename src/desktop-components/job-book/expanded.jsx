@@ -78,7 +78,7 @@ const DesktopExpandedJob = props => {
       <Button sx={{height: 55}} variant="text" onClick={onDeepSearch}>Search</Button>
     </div>
     <div className="desktop-job-book-job-number-container">
-      <TextField InputLabelProps={{ ...InputLabelProps, shrink: true }} id="job-book-input-job-number" label="Job Number" variant="outlined" disabled value={focusedJob.jobNumber} fullWidth error={focusedJob.scrap} helperText={focusedJob.scrap? 'This job has been scrapped!' : '' }/>
+      <TextField InputLabelProps={{ ...InputLabelProps, shrink: true }} id="job-book-input-job-number" label="Job Number" variant="outlined" disabled value={`${focusedJob.warranty === "YES"? "WARRANTY-": ""}${focusedJob.jobNumber}`} fullWidth error={focusedJob.scrap==="YES"} helperText={focusedJob.scrap==="YES"? 'This job has been scrapped!' : '' }/>
     </div>
     <div className="desktop-job-book-model-number-container">
       <TextField InputLabelProps={{ ...InputLabelProps, shrink: true }} id="job-book-input-model-number" label="Model Number" variant="outlined" disabled value={focusedJob.modelNumber} fullWidth/>
