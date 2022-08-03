@@ -32,6 +32,7 @@ const App = () => {
       <DesktopNav setQuery={setQuery} page={page} pages={pages} setPage={setPage}/>
 
       <DesktopView page={page} setUser={setUser} user={user} query={query} viewType={viewType}/>
+      <MobileView page={page} setUser={setUser} user={user} query={query} viewType={viewType}/>
     </div>
   );
 };
@@ -47,6 +48,12 @@ const DesktopView = (props) => {
       <DesktopJobBook page={page} query={query} user={user}/>
     </div>
   );
+};
+
+const MobileView = (props) => {
+  if (props.viewType !== "Mobile") return;
+
+  //
 };
 
 module.exports = App;
