@@ -4,7 +4,6 @@ const { useState, useEffect } = require('react');
 const ReviewJob = require('./reviewJob.jsx');
 
 const AppendJobModal = (props) => {
-
   const { addJobModal, setAddJobModal, user, fetchAndSetJobRange } = props;
   if (!addJobModal) return;
 
@@ -20,13 +19,6 @@ const AppendJobModal = (props) => {
     return false;
   };
 
-  const setScrapValue = (val) => {
-    val = val.toUpperCase();
-    console.log((val === 'YES' || val === 'Y'));
-
-    setScrap((val === 'Y' || val === 'YES'));
-  };
-
   const [modelNumber, setModelNumber] = useState('');
   const [serialNumber, setSerialNumber] = useState('');
   const [voltage, setVoltage] = useState('');
@@ -35,14 +27,13 @@ const AppendJobModal = (props) => {
   const [statorStatus, setStatorStatus] = useState('');
   const [incomingNumber, setIncomingNumber] = useState('');
   const [scrap, setScrap] = useState('');
-  const [notes, setNotes] = useState('');
   const [warranty, setWarranty] = useState('');
+  const [notes, setNotes] = useState('');
 
   const inputTypeMap = {
     modelNumber: {
       text: 'What is the Model Number?',
       textLabel: 'Model Number',
-      setFunc: setModelNumber,
       validate: blankValidation,
       value: () => modelNumber,
       setValue: setModelNumber
@@ -50,7 +41,6 @@ const AppendJobModal = (props) => {
     serialNumber: {
       text: 'What is the Serial Number?',
       textLabel: 'Serial Number',
-      setFunc: setSerialNumber,
       validate: blankValidation,
       value: () => serialNumber,
       setValue: setSerialNumber
@@ -58,7 +48,6 @@ const AppendJobModal = (props) => {
     voltage: {
       text: 'What is the Voltage of the Stator?',
       textLabel: 'Voltage',
-      setFunc: setVoltage,
       validate: blankValidation,
       value: () => voltage,
       setValue: setVoltage
@@ -66,9 +55,8 @@ const AppendJobModal = (props) => {
     ccHeater: {
       text: 'Does it have any CC Heaters?',
       textLabel: 'CC Heaters',
-      setFunc: setCCHeater,
-      default: 'NO',
-      helperText: 'Please enter "YES" or "Y" for yes',
+      default: '?',
+      helperText: 'PLEASE ENTER "YES" OR "Y" FOR YES, OR "NO" OR "N" FOR NO',
       validate: (text) => withinValidation(text, ['YES', 'NO', 'Y', 'N', '?']),
       value: () => ccHeater,
       setValue: setCCHeater
@@ -76,8 +64,8 @@ const AppendJobModal = (props) => {
     Unloaders: {
       text: 'How many Unloaders does it have?',
       textLabel: 'Unloaders',
-      setFunc: setUnloaders,
-      helperText: 'PLEASE ENTER ONLY 0, 1 OR 2',
+      default: '?',
+      helperText: 'PLEASE ENTER ONLY 0, 1 OR 2, OR "?" IF YOU DON\'T KNOW"',
       validate: (text) => withinValidation(text, ['0', '1', '2', '?']),
       value: () => unloaders,
       setValue: setUnloaders
@@ -85,9 +73,8 @@ const AppendJobModal = (props) => {
     statorStatus: {
       text: 'What Condition is the Stator in?',
       textLabel: 'Stator Status',
-      setFunc: setStatorStatus,
       default: 'GOOD',
-      helperText: 'PLEASE ONLY ENTER "BAD" if stator is bad',
+      helperText: 'PLEASE ONLY ENTER "BAD" IF STATOR IS BAD, CAN ALSO TYPE "?"',
       validate: (text) => withinValidation(text, ['GOOD', 'BAD', '?']),
       value: () => statorStatus,
       setValue: setStatorStatus
@@ -95,7 +82,6 @@ const AppendJobModal = (props) => {
     incomingNumber: {
       text: 'Is there an Incoming Number?',
       textLabel: 'Incoming Number',
-      setFunc: setIncomingNumber,
       default: 'N/A',
       validate: blankValidation,
       value: () => incomingNumber,
@@ -104,25 +90,24 @@ const AppendJobModal = (props) => {
     scrap: {
       text: 'Is This Going to Scrap?',
       textLabel: 'Scrap?',
-      setFunc: setScrapValue,
       default: 'NO',
-      helperText: 'Please enter "YES" or "Y" TO MARK AS SCRAPPED',
+      helperText: 'Please enter "YES" or "Y" TO MARK AS SCRAPPED, CAN ALSO TYPE "?"',
       validate: (text) => withinValidation(text, ['YES', 'NO', 'Y', 'N', '?']),
       value: () => scrap,
-      setValue: setScrapValue
+      setValue: setScrap
     },
     warranty: {
       text: 'Is This A Warrany Return?',
       textLabel: 'Warranty Return?',
-      setFunc: setWarranty,
-      validate: () => true,
+      helperText: 'PLEASE ENTER "YES" OR "Y" FOR YES, OR "NO" OR "N" FOR NO',
+      default: '?',
+      validate: (text) => withinValidation(text, ['YES', 'NO', 'Y', 'N', '?']),
       value: () => warranty,
       setValue: setWarranty
     },
     notes: {
       text: 'Include Any Additional Information Here',
       textLabel: 'Notes',
-      setFunc: setNotes,
       validate: () => true,
       value: () => notes,
       setValue: setNotes
@@ -140,9 +125,9 @@ const AppendJobModal = (props) => {
     let nextController = inputTypeMap[listOfEntries[curIndex + 1]];
     let element = document.querySelector('#add-job-input-field');
 
-    if (!curInput.validate(element.value)) return; //Validation Err
+    if (!curInput.validate(element.value.toUpperCase())) return; //Validation Err
 
-    curInput.setValue(element.value);
+    curInput.setValue(element.value.toUpperCase());
     if (curIndex < 9) {
       element.value = nextController.value() || nextController.default || '';
       setCurIndex(curIndex + 1);
@@ -162,7 +147,7 @@ const AppendJobModal = (props) => {
   const decrementIndex = () => {
     let element = document.querySelector('#add-job-input-field');
     let priorController = inputTypeMap[listOfEntries[curIndex - 1]];
-    curInput.setValue(element.value);
+    curInput.setValue(element.value.toUpperCase());
 
     if (curIndex !== 0) {
       element.value = priorController.value() || priorController.default || '';

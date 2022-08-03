@@ -4,7 +4,6 @@ const { TextField, Button, InputLabelProps } = require('@mui/material');
 const axios = require('axios');
 
 const ReviewJob = props => {
-
   const {
     modelNumber,
     serialNumber,
@@ -32,53 +31,41 @@ const ReviewJob = props => {
     }
   };
 
-  const parseData = (dataObj) => {
-    //@MUST INCLUDE ALL PROPS
-    let result = {};
-    result.modelNumber = dataObj.modelNumber.toUpperCase();
-    result.serialNumber = dataObj.serialNumber.toUpperCase();
-    result.voltage = dataObj.voltage.toUpperCase();
-    result.statorStatus = dataObj.statorStatus.toUpperCase();
-    result.incomingNumber = dataObj.incomingNumber.toUpperCase();
-
-    dataObj.ccHeater = dataObj.ccHeater.toUpperCase();
-    result.ccHeater = (dataObj.ccHeater === 'Y' || dataObj.ccHeater === 'YES');
-    result.warranty = (dataObj.warranty === 'Y' || dataObj.warranty === 'YES');
-    result.scrap = dataObj.scrap;
-    
-    result.unloaders = parseInt(dataObj.unloaders),
-    result.notes = dataObj.notes;
-    result.enteredBy = dataObj.username.toLowerCase();
-
-    return result;
+  const parseYesNoValues = (text) => {
+    console.log(text, 'fromParse');
+    if (text === '?') return text;
+    if (text.toUpperCase() === 'YES' || text.toUpperCase() === 'Y') return "YES";
+    return 'NO';
   };
 
   const requestCreateJob = () => {
     axios({
       method: 'post',
       url: '/jobs/create',
-      data: {...parseData({
-        modelNumber, serialNumber,
-        voltage, ccHeater,
-        unloaders, statorStatus,
-        incomingNumber, scrap,
-        notes, username: user.username,
-        warranty
-      }), jobNumber}
+      data: {
+        username: user.username,
+        modelNumber,
+        serialNumber,
+        voltage,
+        ccHeater: parseYesNoValues(ccHeater),
+        unloaders,
+        statorStatus,
+        incomingNumber,
+        scrap: parseYesNoValues(scrap),
+        notes,
+        warranty: parseYesNoValues(warranty),
+        jobNumber
+      }
     })
     .then(response => {
-      // Cancel and show Job Number
-      let jobNumber = response.data.jobNumber;
       cancelHandler();
       fetchAndSetJobRange();
     })
-    .catch(err => {
-      // Show Error Message...
-    });
+    .catch(err => err);
   };
 
   const scrapMap = {
-    true: {
+    YES: {
       text: 'THIS IS SCRAP',
       class: 'job-book-review-scrap-text'
     },
@@ -86,15 +73,11 @@ const ReviewJob = props => {
       text: 'THIS IS NOT SCRAP',
       class: 'job-book-review-not-scrap-text'
     },
-    Y: {
-      text: 'THIS IS SCRAP',
-      class: 'job-book-review-scrap-text'
-    },
-    false: {
-      text: 'THIS IS NOT SCRAP',
-      class: 'job-book-review-not-scrap-text'
-    },
     ['']: {
+      text: '',
+      class: ''
+    },
+    ['?']: {
       text: '',
       class: ''
     }
@@ -125,7 +108,7 @@ const ReviewJob = props => {
           <TextField value={incomingNumber} disabled label="Incoming Number" fullWidth InputLabelProps={{ ...InputLabelProps, shrink: true }}/>
           <TextField onKeyUp={setTheJobNumber} defaultValue={'AUTO'} label="Job Number" fullWidth InputLabelProps={{ ...InputLabelProps, shrink: true }}/>
           <div className="job-book-review-warranty-and-scrap-text">
-            <div className={`job-book-review-scrap-status ${scrapMap[scrap].class}`}>{scrapMap[scrap].text}</div>
+            <div className={`job-book-review-scrap-status ${scrapMap[parseYesNoValues(scrap)].class}`}>{scrapMap[parseYesNoValues(scrap)].text}</div>
             <div className="job-book-review-warranty-text">{(warranty.toUpperCase()==="Y" || warranty.toUpperCase()==="YES")? "Warranty" : ""}</div>
           </div>
         </div>
