@@ -17,7 +17,6 @@ const jobSchema = new mongoose.Schema({
   modelNumber: {type: String, autoIndex: true},
   serialNumber: String,
   voltage: String,
-  ccHeater: String,
   unloaders: String,
   statorStatus: String,
   incomingNumber: String,
