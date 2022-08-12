@@ -52,15 +52,6 @@ const AppendJobModal = (props) => {
       value: () => voltage,
       setValue: setVoltage
     },
-    ccHeater: {
-      text: 'Does it have any CC Heaters?',
-      textLabel: 'CC Heaters',
-      default: '?',
-      helperText: 'PLEASE ENTER "YES" OR "Y" FOR YES, OR "NO" OR "N" FOR NO',
-      validate: (text) => withinValidation(text, ['YES', 'NO', 'Y', 'N', '?']),
-      value: () => ccHeater,
-      setValue: setCCHeater
-    },
     Unloaders: {
       text: 'How many Unloaders does it have?',
       textLabel: 'Unloaders',
@@ -87,15 +78,6 @@ const AppendJobModal = (props) => {
       value: () => incomingNumber,
       setValue: setIncomingNumber
     },
-    scrap: {
-      text: 'Is This Going to Scrap?',
-      textLabel: 'Scrap?',
-      default: 'NO',
-      helperText: 'Please enter "YES" or "Y" TO MARK AS SCRAPPED, CAN ALSO TYPE "?"',
-      validate: (text) => withinValidation(text, ['YES', 'NO', 'Y', 'N', '?']),
-      value: () => scrap,
-      setValue: setScrap
-    },
     warranty: {
       text: 'Is This A Warrany Return?',
       textLabel: 'Warranty Return?',
@@ -104,13 +86,6 @@ const AppendJobModal = (props) => {
       validate: (text) => withinValidation(text, ['YES', 'NO', 'Y', 'N', '?']),
       value: () => warranty,
       setValue: setWarranty
-    },
-    notes: {
-      text: 'Include Any Additional Information Here',
-      textLabel: 'Notes',
-      validate: () => true,
-      value: () => notes,
-      setValue: setNotes
     }
   };
 
@@ -119,6 +94,7 @@ const AppendJobModal = (props) => {
   const [curInput, setCurInput] = useState(inputTypeMap[listOfEntries[curIndex]]);
   const [reviewingJob, setReviewingJob] = useState(false);
   const toggleReviewingJob = () => setReviewingJob(!reviewingJob);
+  const inputTypeMapSize = Object.keys(inputTypeMap).length -1;
 
 
   const incrementIndex = () => {
@@ -128,7 +104,7 @@ const AppendJobModal = (props) => {
     if (!curInput.validate(element.value.toUpperCase())) return; //Validation Err
 
     curInput.setValue(element.value.toUpperCase());
-    if (curIndex < 9) {
+    if (curIndex < inputTypeMapSize) {
       element.value = nextController.value() || nextController.default || '';
       setCurIndex(curIndex + 1);
     }
@@ -136,7 +112,7 @@ const AppendJobModal = (props) => {
     element.focus();
     element.select();
 
-    if (curIndex === 9) {
+    if (curIndex === inputTypeMapSize) {
       toggleReviewingJob();
     } 
   };
