@@ -10,6 +10,8 @@ const { createJob, getJobs, getJobsRange, deepSearchJobs, getDeletedJobs, update
 require('../encryption/index.js');
 const session = require('./session.js');
 const { hash } = require('../encryption/index.js');
+const xl = require('../xlsx/index.js');
+const { JOBS } = require('../database/controllers.js');
 
 const publicUrl = path.join(__dirname, '..', 'public');
 
@@ -49,8 +51,8 @@ app.get('/unauthorized', (req, res) => {
 // State
 var state = {
   secretKey: '',
-  backupInterval: null,
-  lastBackup: 'unknown'
+  lastBackup: 'unknown',
+  nextBackup: null
 };
 
 // Login
@@ -92,17 +94,63 @@ app.get('/secretKey', adminInSession, (req, res) => {
   res.end(JSON.stringify(key));
 });
 
-app.post('/backup/interval', (req, res) => {
-  const { backupInterval } = req.body;
-  // backup now...
-  // set last backup
-  // clear current interval
-  // create new interval to save backup...
+const backup = async() => {
+  console.log('BACKING UP');
+  let jobs = await JOBS.findByField({});
+  let bkup = [];
+  jobs.forEach(job => {
+    const { 
+    jobNumber,
+    modelNumber,
+    serialNumber,
+    voltage,
+    unloaders,
+    statorStatus,
+    incomingNumber,
+    scrap,
+    notes,
+    enteredBy,
+    enteredOn,
+    _isDeleted,
+    deletedBy,
+    deletedOn,
+    warranty} = job;
+    bkup.push({
+      jobNumber,
+      modelNumber,
+      serialNumber,
+      voltage,
+      unloaders,
+      statorStatus,
+      incomingNumber,
+      scrap,
+      notes,
+      enteredBy,
+      enteredOn,
+      _isDeleted,
+      deletedBy,
+      deletedOn,
+      warranty
+    });
+  });
+  xl.writeToFile(bkup);
+  state.lastBackup = (new Date).toLocaleDateString() + (new Date).toLocaleTimeString();
+  if (state.nextBackup) clearTimeout(state.nextBackup);
+  state.nextBackup = setTimeout(async () => {
+    await backup();
+  }, 60000 * 30);
+};
+
+app.get('/backup', async(req, res) => {
+  await backup();
+  res.end(state.lastBackup);
 });
 
+app.get('/backup/time', (req, res) => res.end(state.lastBackup));
 
 app.listen(port, () => {
   require('../database/index.js');
+  backup();
   console.log('Server listening on port: ', port);
   exec('lt -p 8082 -s ncex', (err) => {
     if (err) {

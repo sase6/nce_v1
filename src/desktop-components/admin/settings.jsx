@@ -103,7 +103,7 @@ const Settings = props => {
             }
           }}
         >
-          Download Job Book
+          <a href="/backup/jobs.xlsx" download>Download Job Book</a>
         </Button>
         </div>
       </div>

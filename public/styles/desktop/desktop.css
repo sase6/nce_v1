@@ -313,6 +313,12 @@ option {
     width: 100px;
   }
 }
+a {
+  border: none;
+  text-decoration: none;
+  color: white;
+}
+
 .desktop-job-book-container {
   display: grid;
   grid-template-columns: -webkit-max-content auto;
