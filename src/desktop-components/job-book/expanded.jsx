@@ -99,7 +99,7 @@ const DesktopExpandedJob = props => {
       <div>Entered by {focusedJob.enteredBy}</div>
       <div>Unloaders:  {focusedJob.unloaders}</div>
       <div>Entered on {focusedJob.enteredOn}</div>
-      <div>CC Heater: <span className={`${focusedJob.ccHeater==="YES"? 'expanded-job-cc-heaters-text': 'expanded-job-cc-heaters-text-no'}`}>{focusedJob.ccHeater !== undefined? focusedJob.ccHeater : ""}</span></div>
+      <div>Warranty: <span>{focusedJob.warranty !== undefined? focusedJob.warranty : ""}</span></div>
     </div>
     <div className="desktop-job-book-notes-container">
       <TextField size={textFieldSize} InputLabelProps={{ ...InputLabelProps, shrink: true }} id="job-book-input-notes" minRows="6" maxRows="6" label="Notes" variant="outlined" disabled multiline value={focusedJob.notes} fullWidth/> 
