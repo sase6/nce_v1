@@ -134,7 +134,7 @@ const backup = async() => {
     });
   });
   xl.writeToFile(bkup);
-  state.lastBackup = (new Date).toLocaleDateString() + (new Date).toLocaleTimeString();
+  state.lastBackup = (new Date).toLocaleDateString() + ' ' + (new Date).toLocaleTimeString();
   if (state.nextBackup) clearTimeout(state.nextBackup);
   state.nextBackup = setTimeout(async () => {
     await backup();

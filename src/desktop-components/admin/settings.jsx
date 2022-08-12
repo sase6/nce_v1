@@ -12,6 +12,13 @@ const Settings = props => {
   const [secretKeyHelperText, setSecretKeyHelperText] = useState("Click to Copy");
   const [isPasswordDisabled, setIsPasswordDisabled] = useState(true);
   const handleBackupIntervalChange = (e) => setBackupInterval(e.target.value);
+  const [lastBackup, setLastBackup] = useState('Not Yet Backed Up');
+
+  useEffect(() => {
+    axios.get('/backup/time')
+    .then(res => setLastBackup(res.data))
+    .catch(err => err);
+  }, []);
 
   const onPasswordChange = (e) => {
     if (isPasswordDisabled) {
@@ -36,6 +43,12 @@ const Settings = props => {
       })
       .catch(err => err);
     }
+  };
+
+  const backup = () => {
+    axios.get('/backup')
+    .then(res => setLastBackup(res.data))
+    .catch(err => err);
   };
 
   const fetchSecretKey = () => {
@@ -73,7 +86,7 @@ const Settings = props => {
         <SectionComponent render={true} text="Security"/>
 
         <div className="desktop-admin-account-backup-container">
-          <TextField label="Backup Path" disabled value="@root/backup/jobs.xlsx" size="small" sx={{width: '28vw'}} helperText="Last Backed up on 06/20/2022 10:18:10am"/>
+          <TextField label="Backup Path" disabled value="@root/public/backup/jobs.xlsx" size="small" sx={{width: '28vw'}} helperText={lastBackup}/>
           <FormControl fullWidth>
             <InputLabel id="select-job-backup-time-label">Backup Interval</InputLabel>
             <Select
@@ -86,8 +99,8 @@ const Settings = props => {
               sx={{width: '300px'}}
             >
               <MenuItem value={"1800000"}>Bi-Hourly</MenuItem>
-              <MenuItem value={"3600000"}>Hourly</MenuItem>
-              <MenuItem value={"43200000"}>Bi-Daily</MenuItem>
+              {/* <MenuItem value={"3600000"}>Hourly</MenuItem>
+              <MenuItem value={"43200000"}>Bi-Daily</MenuItem> */}
             </Select>
         </FormControl>
         <Button
@@ -105,6 +118,8 @@ const Settings = props => {
         >
           <a href="/backup/jobs.xlsx" download>Download Job Book</a>
         </Button>
+
+        <div className="backup-now-btn" onClick={backup}>BACKUP NOW</div>
         </div>
       </div>
 

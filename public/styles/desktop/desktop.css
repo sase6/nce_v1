@@ -319,6 +319,27 @@ a {
   color: white;
 }
 
+.backup-now-btn {
+  font-weight: 900;
+  color: rgba(0, 0, 0, 0.65);
+  font-family: lato, sans-serif;
+  font-size: 14px;
+  border: 1px solid black;
+  width: -webkit-max-content !important;
+  width: -moz-max-content !important;
+  width: max-content !important;
+  height: -webkit-max-content !important;
+  height: -moz-max-content !important;
+  height: max-content !important;
+  padding: 10px;
+  border-radius: 5px;
+  border-color: rgba(0, 0, 0, 0.65);
+}
+
+.backup-now-btn:hover {
+  cursor: pointer;
+}
+
 .desktop-job-book-container {
   display: grid;
   grid-template-columns: -webkit-max-content auto;
