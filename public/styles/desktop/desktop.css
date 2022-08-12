@@ -766,6 +766,18 @@ option {
   margin-top: 10px !important;
 }
 
+.scrap-it-btn {
+  font-size: 14px !important;
+  border-bottom: 1px solid black;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+
+.scrap-text {
+  color: indianred;
+}
+
 .mobile-job-book-header {
   height: 75px;
   background-color: red;
@@ -779,4 +791,5 @@ option {
 
 body {
   max-height: 100vh;
+  overflow-x: hidden !important;
 }/*# sourceMappingURL=desktop.css.map */

@@ -1,9 +1,11 @@
 const React = require('react');
 const { useState, useEffect } = require('react');
+const { Button } = require('@mui/material');
+const axios = require('axios');
 
 const DesktopJobBookTable = props => {
 
-  const {jobs, setFocusedJob} = props;
+  const {jobs, setFocusedJob, fetchAndSetJobRange} = props;
   const [tableJobs, setTableJobs] = useState(jobs);
 
   const padJobs = jobs => {
@@ -12,6 +14,18 @@ const DesktopJobBookTable = props => {
       jobsArr.push({});
     }
     return jobsArr;
+  };
+
+  const toggleScrapJob = (jobNumber) => {
+    axios({
+      method: 'post',
+      url: '/jobs/update/scrapped',
+      data: {jobNumber}
+    })
+    .then(() => {
+      fetchAndSetJobRange();
+    })
+    .catch((err) => err);
   };
 
   useEffect(() => setTableJobs(padJobs(jobs)), [jobs]);
@@ -35,7 +49,6 @@ const DesktopJobBookTable = props => {
 
       <div className="job-book-table-job-items">
         {tableJobs.map((job, i) => {
-          let scrap = job.scrap === undefined? '' : job.scrap==='YES'? 'SCRAP' : '';
 
           return <div key={'test_fake_val-'+i} className={i%2==0? class1 : class2} onClick={() => setFocusedJob(job)}>
             <div className={`job-table-item-${i} ${job.warranty==="YES"? 'goldenrod-text' : ''}`} >{job.jobNumber}</div>
@@ -46,7 +59,25 @@ const DesktopJobBookTable = props => {
             <div>{job.unloaders}</div>
             <div className={`job-table-stator-status-text-${job.statorStatus==='GOOD'? 'green' : 'red'}`} >{job.statorStatus}</div>
             <div>{job.incomingNumber}</div>
-            <div className='job-book-scrapped-column' >{scrap}</div>
+            <div className='job-book-scrapped-column' >
+              {job.scrap === 'YES'? 
+                <div 
+                  className='scrap-text'
+                  onClick={() => toggleScrapJob(job.jobNumber)}
+                >
+                  SCRAP
+                </div>
+              :
+              job.scrap === undefined? ""
+              :
+                <div 
+                onClick={() => toggleScrapJob(job.jobNumber)}
+                className="scrap-it-btn"
+                >
+                  SCRAP IT
+                </div>
+              }
+            </div>
           </div>
         })}
       </div>

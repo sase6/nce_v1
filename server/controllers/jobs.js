@@ -152,7 +152,17 @@ const markAsDeleted = async(req, res) => {
   res.end();
 };
 
+const toggleScrappedJob = async(req, res) => {
+  const { jobNumber } = req.body;
+  try {
+    await JOBS.toggleScrap(jobNumber);
+    res.end();
+  } catch {
+    res.status(500).end();
+  }
+};
+
 module.exports = {
   createJob, getJobs, getJobsRange, deepSearchJobs, getDeletedJobs,
-  updateDeleteJob, deleteJob, getAllJobs, markAsDeleted
+  updateDeleteJob, deleteJob, getAllJobs, markAsDeleted, toggleScrappedJob
 };

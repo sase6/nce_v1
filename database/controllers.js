@@ -114,6 +114,25 @@ const JOBS = {
     } catch {
       return 'Err Deleting';
     }
+  },
+
+  toggleScrap: async(jobNumber) => {
+    try {
+      let jobs = await _model.Job.find({jobNumber});
+      if (jobs.length <= 0) return 'Cannot Find Job Number';
+      let job = jobs[0];
+
+      if (job.scrap === 'YES') {
+        job.scrap = 'NO';
+      } else {
+        job.scrap = 'YES';
+      }
+      
+      await job.save();
+      return true;
+    } catch {
+      return 'Err Deleting';
+    }
   }
 };
 

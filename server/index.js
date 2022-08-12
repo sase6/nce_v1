@@ -6,7 +6,7 @@ const cookieParser = require('cookie-parser');
 const userController = require('./controllers/user.js');
 const app = express();
 const port = process.env.port || 8082;
-const { createJob, getJobs, getJobsRange, deepSearchJobs, getDeletedJobs, updateDeleteJob, deleteJob, getAllJobs, markAsDeleted} = require('./controllers/jobs.js');
+const { createJob, getJobs, getJobsRange, deepSearchJobs, getDeletedJobs, updateDeleteJob, deleteJob, getAllJobs, markAsDeleted, toggleScrappedJob} = require('./controllers/jobs.js');
 require('../encryption/index.js');
 const session = require('./session.js');
 const { hash } = require('../encryption/index.js');
@@ -74,6 +74,7 @@ app.post('/jobs', inSession, getJobs);
 app.post('/jobs/deleted', inSession, getDeletedJobs);
 app.post('/jobs/update/deleted', inSession, updateDeleteJob);
 app.post('/jobs/delete', inSession, deleteJob);
+app.post('/jobs/update/scrapped', inSession, toggleScrappedJob);
 app.delete('/job', inSession, (req, res, next) => {
   if (req.body.secretKey === state.secretKey) next();
   else res.status(401).end('Wrong Secret Key!');
