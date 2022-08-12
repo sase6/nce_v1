@@ -26,7 +26,7 @@ const DesktopJobBookTable = props => {
         <div className="job-book-table-model-number-header">Model Number</div>
         <div className="job-book-table-serial-number-header">Serial Number</div>
         <div className="job-book-table-voltage-header">Voltage</div>
-        <div className="job-book-table-cc-heater-header">CC Heater</div>
+        <div className="job-book-table-warranty-header">Warranty</div>
         <div className="job-book-table-unloaders-header">Unloaders</div>
         <div className="job-book-table-stator-status-header">Stator Status</div>
         <div className="job-book-table-incoming-number-header">Incoming #</div>
@@ -35,7 +35,6 @@ const DesktopJobBookTable = props => {
 
       <div className="job-book-table-job-items">
         {tableJobs.map((job, i) => {
-          let ccHeater = job.ccHeater === undefined? '' : job.ccHeater;
           let scrap = job.scrap === undefined? '' : job.scrap==='YES'? 'SCRAP' : '';
 
           return <div key={'test_fake_val-'+i} className={i%2==0? class1 : class2} onClick={() => setFocusedJob(job)}>
@@ -43,7 +42,7 @@ const DesktopJobBookTable = props => {
             <div>{job.modelNumber}</div>
             <div>{job.serialNumber}</div>
             <div>{job.voltage}</div>
-            <div>{ccHeater}</div>
+            <div>{job.warranty}</div>
             <div>{job.unloaders}</div>
             <div className={`job-table-stator-status-text-${job.statorStatus==='GOOD'? 'green' : 'red'}`} >{job.statorStatus}</div>
             <div>{job.incomingNumber}</div>
