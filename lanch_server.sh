@@ -1,0 +1,1 @@
+cd nce && npm run god-run
