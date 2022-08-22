@@ -13,6 +13,7 @@ const Settings = props => {
   const [isPasswordDisabled, setIsPasswordDisabled] = useState(true);
   const handleBackupIntervalChange = (e) => setBackupInterval(e.target.value);
   const [lastBackup, setLastBackup] = useState('Not Yet Backed Up');
+  const [secretKeyHover, setSecretKeyHover] = useState(false);
 
   useEffect(() => {
     axios.get('/backup/time')
@@ -75,7 +76,7 @@ const Settings = props => {
           <TextField label="Username" disabled value={user.username} size="small" sx={{width: '28vw'}}/>
           <TextField id="admin-user-password-input" type="password" label="Password" defaultValue="passwordIsUnreadable" size="small" sx={{width: '28vw'}}/>
           <Button sx={{width: 'max-content', padding: '0px 0 0px 0', fontSize: '12px'}} onClick={onPasswordChange}>Reset Password</Button>
-          <TextField id="admin-secret-key-input" type="password" helperText={secretKeyHelperText} label="Secret Key" disabled value={secretKey} size="small" sx={{width: '28vw', '&:hover': {cursor: 'pointer'}}} onClick={e => {
+          <TextField onMouseEnter={() => setSecretKeyHover(true)} onMouseLeave={() => setSecretKeyHover(false)} id="admin-secret-key-input" type={secretKeyHover? 'text' : 'password'} helperText={secretKeyHelperText} label="Secret Key" disabled value={secretKey} size="small" sx={{width: '28vw', '&:hover': {cursor: 'pointer'}}} onClick={e => {
             window.navigator.clipboard.writeText(e.target.value);
             setSecretKeyHelperText("Copied!");
             setTimeout(() => setSecretKeyHelperText("Click to Copy!"), 3000);
@@ -99,8 +100,6 @@ const Settings = props => {
               sx={{width: '300px'}}
             >
               <MenuItem value={"1800000"}>Bi-Hourly</MenuItem>
-              {/* <MenuItem value={"3600000"}>Hourly</MenuItem>
-              <MenuItem value={"43200000"}>Bi-Daily</MenuItem> */}
             </Select>
         </FormControl>
         <Button
