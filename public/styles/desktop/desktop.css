@@ -805,6 +805,13 @@ a {
   color: indianred;
 }
 
+.append-job-volatge-options {
+  display: grid;
+  grid-template-columns: -webkit-max-content -webkit-max-content -webkit-max-content -webkit-max-content -webkit-max-content -webkit-max-content -webkit-max-content;
+  grid-template-columns: max-content max-content max-content max-content max-content max-content max-content;
+  grid-row-gap: 60px !important;
+}
+
 .mobile-job-book-header {
   height: 75px;
   background-color: red;

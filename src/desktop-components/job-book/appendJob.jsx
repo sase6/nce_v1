@@ -80,7 +80,7 @@ const AppendJobModal = (props) => {
     },
     warranty: {
       text: 'Is This A Warrany Return?',
-      textLabel: 'Warranty Return?',
+      textLabel: 'Warranty',
       helperText: 'PLEASE ENTER "YES" OR "Y" FOR YES, OR "NO" OR "N" FOR NO',
       default: '?',
       validate: (text) => withinValidation(text, ['YES', 'NO', 'Y', 'N', '?']),
@@ -96,16 +96,33 @@ const AppendJobModal = (props) => {
   const toggleReviewingJob = () => setReviewingJob(!reviewingJob);
   const inputTypeMapSize = Object.keys(inputTypeMap).length -1;
 
+  getInputValByIndex = (i) => {
+    switch (i) {
+      case 0:
+        return modelNumber;
+      case 1:
+        return serialNumber;        
+      case 2:
+        return voltage;
+      case 3:
+        return modelNumber;
+      case 4:
+        return modelNumber;
+      case 5:
+        return modelNumber;
+    }
+  };
 
-  const incrementIndex = () => {
+  const incrementIndex = (val) => {
     let nextController = inputTypeMap[listOfEntries[curIndex + 1]];
     let element = document.querySelector('#add-job-input-field');
 
     if (!curInput.validate(element.value.toUpperCase())) return; //Validation Err
 
-    curInput.setValue(element.value.toUpperCase());
+    curInput.setValue(val || element.value.toUpperCase());
     if (curIndex < inputTypeMapSize) {
-      element.value = nextController.value() || nextController.default || '';
+      let nextVal = nextController.value();
+      element.value = nextVal || '';
       setCurIndex(curIndex + 1);
     }
   
@@ -120,13 +137,14 @@ const AppendJobModal = (props) => {
     if (e.key === 'Enter') incrementIndex();
   };
 
-  const decrementIndex = () => {
+  const decrementIndex = (val) => {
     let element = document.querySelector('#add-job-input-field');
     let priorController = inputTypeMap[listOfEntries[curIndex - 1]];
-    curInput.setValue(element.value.toUpperCase());
+    curInput.setValue(val || element.value.toUpperCase());
 
     if (curIndex !== 0) {
-      element.value = priorController.value() || priorController.default || '';
+      let priorVal = priorController.value();
+      element.value = priorVal || '';
       setCurIndex(curIndex - 1);
     }
 
@@ -167,7 +185,8 @@ const AppendJobModal = (props) => {
         <div className="job-book-add-new-job-text">
           {curInput.text}
         </div>
-        <TextField helperText={curInput.helperText || ''} defaultValue={curInput.default} label={curInput.textLabel} className="add-job-input-field" id={'add-job-input-field'} fullWidth sx={{width: 'calc(100% - 20px)'}} autoFocus onKeyUp={incrementByEnter}/>
+        {/* <TextField helperText={curInput.helperText || ''} defaultValue={curInput.default} label={curInput.textLabel} className="add-job-input-field" id={'add-job-input-field'} fullWidth sx={{width: 'calc(100% - 20px)'}} autoFocus onKeyUp={incrementByEnter}/> */}
+        <ENTRY curInput={curInput} incrementByEnter={incrementByEnter} incrementIndex={incrementIndex}/>
         <div className="job-book-append-job-interactions-container">
           <div className="inner-job-book-interactions-container">
             <Button className="job-book-add-go-back" onClick={decrementIndex}>Go Back</Button>
@@ -179,6 +198,92 @@ const AppendJobModal = (props) => {
       </div>
     </div>
   );
+};
+
+const ENTRY = (props) => {
+  const {curInput, incrementByEnter, incrementIndex} = props;
+
+  if (curInput.textLabel === 'Voltage') {
+    return <VoltageEntry curInput={curInput} incrementByEnter={incrementByEnter} incrementIndex={incrementIndex}/>
+  } else if (curInput.textLabel === 'Unloaders') {
+    return <UnloadersEntry curInput={curInput} incrementIndex={incrementIndex}/>
+  } else if (curInput.textLabel === 'Stator Status') {
+    return <StatorStatusEntry curInput={curInput} incrementIndex={incrementIndex}/>
+  } else if (curInput.textLabel === 'Warranty') {
+    return <WarrantyEntry curInput={curInput} incrementIndex={incrementIndex}/>
+  } else {
+    return (
+      <TextField helperText={curInput.helperText || ''} defaultValue={curInput.default} label={curInput.textLabel} className="add-job-input-field" id={'add-job-input-field'} fullWidth sx={{width: 'calc(100% - 20px)'}} autoFocus onKeyUp={incrementByEnter}/>
+      );
+  }
+};
+
+const VoltageEntry = (props) => {
+  const {curInput, incrementByEnter, incrementIndex} = props;
+
+  const setVoltage = (value) => {
+    document.getElementById('add-job-input-field').value = value;
+    incrementIndex();
+  };
+
+  return <div className='append-job-voltage-options'>
+    <TextField sx={{width: '16% !important'}} helperText={curInput.helperText || ''} defaultValue={ curInput? curInput.value() || '' : curInput.default || ''} label={curInput.textLabel} className="add-job-input-field" id={'add-job-input-field'} fullWidth autoFocus onKeyUp={incrementByEnter}/>
+    <Button variant='outlined' sx={{marginLeft: '4%', width: '10%', height:'55px'}} onClick={() => setVoltage('460')}>460</Button>
+    <Button variant='outlined' sx={{marginLeft: '4%', width: '10%', height:'55px'}} onClick={() => setVoltage('208')}>208</Button>
+    <Button variant='outlined' sx={{marginLeft: '4%', width: '10%', height:'55px'}} onClick={() => setVoltage('MULTI')}>MULTI</Button>
+    <Button variant='outlined' sx={{marginLeft: '4%', width: '10%', height:'55px'}} onClick={() => setVoltage('OPEN')}>OPEN</Button>
+    <Button variant='outlined' sx={{marginLeft: '4%', width: '10%', height:'55px'}} onClick={() => setVoltage('208/230')}>208/230</Button>
+    <Button variant='outlined' sx={{marginLeft: '4%', width: '10%', height:'55px'}} onClick={() => setVoltage('575')}>575</Button>
+  </div>
+};
+
+const UnloadersEntry = (props) => {
+  const {curInput, incrementByEnter, incrementIndex} = props;
+
+  const setUnloaders = (value) => {
+    document.getElementById('add-job-input-field').value = value;
+    incrementIndex();
+  };
+
+  return <div>
+    <TextField sx={{width: '16% !important'}} defaultValue={ curInput? curInput.value() || '' : curInput.default || ''} label={curInput.textLabel} className="add-job-input-field" id={'add-job-input-field'} fullWidth autoFocus onKeyUp={incrementByEnter}/>
+    <Button variant='outlined' sx={{marginLeft: '4%', width: '10%', height:'55px'}} onClick={() => setUnloaders(0)}>0</Button>
+    <Button variant='outlined' sx={{marginLeft: '4%', width: '10%', height:'55px'}} onClick={() => setUnloaders(1)}>1</Button>
+    <Button variant='outlined' sx={{marginLeft: '4%', width: '10%', height:'55px'}} onClick={() => setUnloaders(2)}>2</Button>
+    <Button variant='outlined' sx={{marginLeft: '4%', width: '10%', height:'55px'}} onClick={() => setUnloaders('?')}>?</Button>
+  </div>
+};
+
+const StatorStatusEntry = (props) => {
+  const {curInput, incrementByEnter, incrementIndex} = props;
+
+  const setStatorStatus = (value) => {
+    document.getElementById('add-job-input-field').value = value;
+    incrementIndex();
+  };
+
+  return <div>
+    <TextField sx={{width: '20% !important'}} defaultValue={ curInput? curInput.value() || '' : curInput.default || ''} label={curInput.textLabel} className="add-job-input-field" id={'add-job-input-field'} fullWidth autoFocus onKeyUp={incrementByEnter}/>
+    <Button variant='outlined' sx={{marginLeft: '4%', width: '10%', height:'55px'}} onClick={() => setStatorStatus('GOOD')}>GOOD</Button>
+    <Button variant='outlined' sx={{marginLeft: '4%', width: '10%', height:'55px'}} onClick={() => setStatorStatus('BAD')}>BAD</Button>
+    <Button variant='outlined' sx={{marginLeft: '4%', width: '10%', height:'55px'}} onClick={() => setStatorStatus('?')}>?</Button>
+  </div>
+};
+
+const WarrantyEntry = (props) => {
+  const {curInput, incrementByEnter, incrementIndex} = props;
+
+  const setUnloaders = (value) => {
+    document.getElementById('add-job-input-field').value = value;
+    incrementIndex();
+  };
+
+  return <div>
+    <TextField sx={{width: '16% !important'}} defaultValue={ curInput? curInput.value() || '' : curInput.default || ''} label={curInput.textLabel} className="add-job-input-field" id={'add-job-input-field'} fullWidth autoFocus onKeyUp={incrementByEnter}/>
+    <Button variant='outlined' sx={{marginLeft: '4%', width: '10%', height:'55px'}} onClick={() => setUnloaders('YES')}>YES</Button>
+    <Button variant='outlined' sx={{marginLeft: '4%', width: '10%', height:'55px'}} onClick={() => setUnloaders('NO')}>NO</Button>
+    <Button variant='outlined' sx={{marginLeft: '4%', width: '10%', height:'55px'}} onClick={() => setUnloaders('?')}>?</Button>
+  </div>
 };
 
 module.exports = AppendJobModal;

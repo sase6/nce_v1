@@ -460,3 +460,15 @@
 .scrap-text {
   color: indianred;
 }
+
+.append-job-volatge-options {
+  display: grid;
+  grid-template-columns: max-content max-content max-content max-content max-content max-content max-content;
+  grid-row-gap: 60px !important;
+  // display: flex;
+  // flex-direction: row;
+  // row-gap: ;
+  // justify-content: space-between;
+  // row-gap: 4%;
+
+}
