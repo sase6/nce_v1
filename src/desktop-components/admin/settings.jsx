@@ -99,7 +99,7 @@ const Settings = props => {
               size="small"
               sx={{width: '300px'}}
             >
-              <MenuItem value={"1800000"}>Bi-Hourly</MenuItem>
+              <MenuItem value={"1800000"}>Bi-Hourly</MenuItem> 
             </Select>
         </FormControl>
         <Button
