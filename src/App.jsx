@@ -5,6 +5,7 @@ const DesktopLoginPage = require('./desktop-components/login/index.jsx');
 const DesktopAdmin = require('./desktop-components/admin/index.jsx');
 const DesktopJobBook = require('./desktop-components/job-book/index.jsx');
 const MobileJobBook = require('./mobile-components/job-book/MobileJobBook.jsx');
+const Paperworks = require('./desktop-components/paperworks/Paperworks.tsx');
 
 const App = () => {
   const [query, setQuery] = useState('');
@@ -50,8 +51,9 @@ const DesktopView = (props) => {
   return (
     <div className="main-content">
       <DesktopLoginPage page={page} setUser={setUser}/>
-      <DesktopAdmin page={page} user={user}/>
-      <DesktopJobBook page={page} query={query} user={user}/>
+      {/* <DesktopAdmin page={page} user={user}/> */}
+      {/* <DesktopJobBook page={page} query={query} user={user}/> */}
+      <Paperworks />
     </div>
   );
 };
