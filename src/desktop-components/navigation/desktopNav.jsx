@@ -3,7 +3,7 @@ const axios = require('axios');
 const { TextField } = require('@mui/material');
 const { useState } = require('react');
 
-const allPages = ['Admin', 'Job Book', 'Paperwork'];
+const allPages = ['Admin', 'Job Book', 'Paperworks'];
 
 const orderPages = (pages) => {
   let result = [];

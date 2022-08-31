@@ -34,8 +34,8 @@ const Login = props => {
   };
 
   const login = (e, signup=false) => {
-    let username = document.querySelector('#desktop-username-login').value;
-    let password = document.querySelector('#desktop-password-login').value;
+    let username = document.querySelector('#desktop-username-login').value?.toLowerCase();
+    let password = document.querySelector('#desktop-password-login').value?.toLowerCase();
     if (!validateInputs(username, password)) return;
 
     let url;
