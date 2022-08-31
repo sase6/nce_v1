@@ -818,6 +818,18 @@ a {
   width: 100%;
 }
 
+.paperworks-overlay {
+  opacity: 0.5;
+  width: 100vw;
+  height: calc(100vh - 100px);
+}
+
+.paperworks-new-button {
+  position: absolute;
+  top: 125px;
+  left: 25px;
+}
+
 * {
   margin: 0;
   padding: 0;
