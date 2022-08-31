@@ -3,7 +3,8 @@ const { useState, useEffect } = require('react');
 const { TextField, Button, FormControl, InputLabel, Select, MenuItem } = require('@mui/material'); 
 
 interface Props {
-  user: String;
+  user: string;
+  page: string;
 };
 
 const fileCategories = ['Motorshop'];
@@ -13,6 +14,7 @@ const dev = {
 };
 
 const Paperworks = (props:Props) => {
+  if (props.page !== 'Paperworks') return;
   
   const [isBrowsingFiles, setIsBrowsingFiles] = useState(true);
   const [fileCategory, setFileCategory] = useState(fileCategories[0]);
