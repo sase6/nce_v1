@@ -3,6 +3,14 @@ const axios = require('axios');
 const { TextField } = require('@mui/material');
 const { useState } = require('react');
 
+const allPages = ['Admin', 'Job Book', 'Paperwork'];
+
+const orderPages = (pages) => {
+  let result = [];
+  allPages.forEach(page => (pages.indexOf(page) !== -1)? result.push(page) : '' );
+  return result;
+};
+
 const DesktopNav = props => {
 
   const {page, pages, setPage} = props;
@@ -47,7 +55,7 @@ const RenderSearchBar = props => {
   return (
     <div className="nav-search-bar">
         <select name="" id="" className="nav-page-selector" onChange={setNewPage} >
-          {pages.map((page, i) => {
+          {orderPages(pages).map((page, i) => {
             return (
               <option key={`user-pages-select-${i}`} value={page}>{page}</option>
             );
