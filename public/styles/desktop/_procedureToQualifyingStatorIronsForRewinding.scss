@@ -1,0 +1,73 @@
+// procedure-to-qualifying-stator-irons-for-rewinding
+
+.procedure-to-qualifying-stator-irons-for-rewinding {
+  z-index: 1001;
+}
+
+.procedure-to-qualifying-stator-irons-for-rewinding-text {
+  position: absolute;
+  font-size: 32px;
+  font-weight: 900;
+  text-decoration: underline;
+  width: 100vw;
+  min-width: 1000px;
+  text-align: center;
+  top: 125px;
+}
+
+.procedure-to-qualifying-stator-irons-for-rewinding-sheet {
+  position: relative;
+  top: 125px;
+  width: 60vw;
+  min-width: 1000px;
+  height: 100vh; 
+  margin: auto;
+}
+
+.procedure-to-qualifying-stator-irons-for-rewinding-model-x-job {
+  display: grid;
+  grid-template-columns: 500px 400px;
+  justify-content: space-between;
+}
+
+.procedure-to-qualifying-stator-irons-for-rewinding-volt-meta {
+  display: grid;
+  grid-template-columns: 240px 240px 240px 240px;
+  justify-content: space-between;
+}
+
+.procedure-to-qualifying-stator-irons-for-rewinding-pass-or-fail {
+  display: grid;
+  grid-template-columns: 400px max-content;
+  grid-column-gap: 10px;
+}
+
+.procedure-to-qualifying-stator-irons-for-rewinding-pass-or-fail-text {
+  font-size: 22px;
+  margin-top: 25px;
+}
+
+.procedure-to-qualifying-stator-irons-for-rewinding-rotor-info {
+  display: grid;
+  grid-template-columns: 300px 240px 300px;
+  justify-content: space-between;    
+}
+
+.procedure-to-qualifying-stator-irons-for-rewinding-rotor-question-1, .procedure-to-qualifying-stator-irons-for-rewinding-rotor-question-2 {
+  margin-top: 25px;
+  display: grid;
+  grid-template-columns: 400px max-content max-content;
+  justify-content: space-between;
+}
+.procedure-to-qualifying-stator-irons-for-rewinding-rotor-question-1 *, .procedure-to-qualifying-stator-irons-for-rewinding-rotor-question-2 * {
+  font-size: 22px;
+}
+
+.procedure-to-qualifying-stator-irons-for-rewinding-section-2-text {
+  position: relative;
+  font-size: 22px;
+  font-weight: 900;
+  text-decoration: underline;
+  text-align: center;
+  margin-top: 50px;
+}

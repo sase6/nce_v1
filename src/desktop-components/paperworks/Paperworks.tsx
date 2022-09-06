@@ -1,6 +1,7 @@
 const React = require('react');
 const { useState, useEffect } = require('react');
 const { TextField, Button, FormControl, InputLabel, Select, MenuItem } = require('@mui/material'); 
+const ProcedureToQualifyingStatorIronsForRewinding = require('./ProcedureToQualifyingStatorIronsForRewinding.jsx');
 
 interface Props {
   user: string;
@@ -38,6 +39,8 @@ const Paperworks = (props:Props) => {
 
   return (
     <div className="paperworks">
+
+      <ProcedureToQualifyingStatorIronsForRewinding />
       
       <div className="paperworks-overlay">
         <div className="paperworks-new-button" hidden={!isBrowsingFiles} >
@@ -47,7 +50,6 @@ const Paperworks = (props:Props) => {
       <FormControl fullWidth>
         <InputLabel id="category-select-label"
         sx={{
-          top: '25px',
           left: '150px'
         }}
         >
@@ -62,7 +64,6 @@ const Paperworks = (props:Props) => {
           sx={{
             width: '200px',
             height: '35px',
-            top: '25px',
             left: '150px'
           }}
         >

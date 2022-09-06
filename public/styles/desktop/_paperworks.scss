@@ -1,13 +1,14 @@
 @import './variables';
 
 .paperworks-overlay {
+  position: absolute;
   opacity: 0.5;
   width: 100vw;
   height: calc(100vh - 100px);
+  top: 125px;
 }
 
 .paperworks-new-button {
   position: absolute;
-  top: 125px;
   left: 25px;
 }
