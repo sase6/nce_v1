@@ -144,6 +144,96 @@ module.exports = (props) => {
         REQUALIFIED STATOR OR REWOUND STATOR TEST PROCEDURE - RESISTANCE AND SURGE
       </div>
 
+      <div className={`${sheetName}-section-2-instructions-container`}>
+        <div className={`${sheetName}-section-2-instruction-text`}>
+          Test and fill out the figures below:
+        </div>
+        <div className={`${sheetName}-section-2-instruction-text-2`}>
+          ON 9 LEAD MUST TEST BOTH <br/>
+          VOLTAGES
+        </div>
+      </div>
+
+      {/* LEAD MOTOR TESTING */}
+      <div className={`${sheetName}-lead-testing`}>
+
+        <div className={`${sheetName}-lead-test`}>
+          <div className={`${sheetName}-lead-test-text`}>3 LEAD MOTOR ONLY</div>
+ 
+          <div className={`${sheetName}-lead-number-field`}>
+            <div className={`${sheetName}-lead-number-field-text`}>LEAD # 1-2: </div>
+            <div className={`${sheetName}-lead-number-field-input`}> <TextField variant='standard' /> </div>
+          </div>
+          <div className={`${sheetName}-lead-number-field`}>
+            <div className={`${sheetName}-lead-number-field-text`}>LEAD # 2-3: </div>
+            <div className={`${sheetName}-lead-number-field-input`}> <TextField variant='standard' /> </div>
+          </div>
+          <div className={`${sheetName}-lead-number-field`}>
+            <div className={`${sheetName}-lead-number-field-text`}>LEAD # 3-4: </div>
+            <div className={`${sheetName}-lead-number-field-input`}> <TextField variant='standard' /> </div>
+          </div>
+        </div>
+
+        <div className={`${sheetName}-lead-test`}>
+          <div className={`${sheetName}-lead-test-text`}>6 LEAD MOTOR</div>
+ 
+          <div className={`${sheetName}-lead-number-field`}>
+            <div className={`${sheetName}-lead-number-field-text`}>1-2: </div>
+            <div className={`${sheetName}-lead-number-field-input`}> <TextField variant='standard' /> </div>
+          </div>
+          <div className={`${sheetName}-lead-number-field`}>
+            <div className={`${sheetName}-lead-number-field-text`}>2-3: </div>
+            <div className={`${sheetName}-lead-number-field-input`}> <TextField variant='standard' /> </div>
+          </div>
+          <div className={`${sheetName}-lead-number-field`}>
+            <div className={`${sheetName}-lead-number-field-text`}>3-1: </div>
+            <div className={`${sheetName}-lead-number-field-input`}> <TextField variant='standard' /> </div>
+          </div>
+        </div>
+
+        <div className={`${sheetName}-lead-test`}>
+          <div className={`${sheetName}-lead-test-text`}>9 LEAD 440V</div>
+ 
+          <div className={`${sheetName}-lead-number-field`}>
+            <div className={`${sheetName}-lead-number-field-text`}>1-2: </div>
+            <div className={`${sheetName}-lead-number-field-input`}> <TextField variant='standard' /> </div>
+          </div>
+          <div className={`${sheetName}-lead-number-field`}>
+            <div className={`${sheetName}-lead-number-field-text`}>2-3: </div>
+            <div className={`${sheetName}-lead-number-field-input`}> <TextField variant='standard' /> </div>
+          </div>
+          <div className={`${sheetName}-lead-number-field`}>
+            <div className={`${sheetName}-lead-number-field-text`}>3-1: </div>
+            <div className={`${sheetName}-lead-number-field-input`}> <TextField variant='standard' /> </div>
+          </div>
+        </div>
+
+        <div className={`${sheetName}-lead-test`}>
+          <div className={`${sheetName}-lead-test-text`}>9 LEAD 208V</div>
+ 
+          <div className={`${sheetName}-lead-number-field`}>
+            <div className={`${sheetName}-lead-number-field-text`}>1-2: </div>
+            <div className={`${sheetName}-lead-number-field-input`}> <TextField variant='standard' /> </div>
+          </div>
+          <div className={`${sheetName}-lead-number-field`}>
+            <div className={`${sheetName}-lead-number-field-text`}>2-3: </div>
+            <div className={`${sheetName}-lead-number-field-input`}> <TextField variant='standard' /> </div>
+          </div>
+          <div className={`${sheetName}-lead-number-field`}>
+            <div className={`${sheetName}-lead-number-field-text`}>3-1: </div>
+            <div className={`${sheetName}-lead-number-field-input`}> <TextField variant='standard' /> </div>
+          </div>
+        </div>
+      </div>
+
+      {/* MEG OHM LEADS */}
+
+      <div className={`${sheetName}-meg-ohm-leads`}>
+        <TextField variant="standard" label="Meg-ohm Leads #1: " sx={{width: '250px'}}/>
+        <TextField variant="standard" label="#2: " sx={{width: '250px'}}/>
+        <TextField variant="standard" label="#3: " sx={{width: '250px'}}/>
+      </div>
+
       </div>
 
     </div>

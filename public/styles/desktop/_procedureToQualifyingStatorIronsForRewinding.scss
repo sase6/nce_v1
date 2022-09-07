@@ -71,3 +71,54 @@
   text-align: center;
   margin-top: 50px;
 }
+
+.procedure-to-qualifying-stator-irons-for-rewinding-section-2-instructions-container {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  margin-top: 20px;
+}
+
+.procedure-to-qualifying-stator-irons-for-rewinding-section-2-instructions-container * {
+  font-size: 20px;
+}
+
+.procedure-to-qualifying-stator-irons-for-rewinding-section-2-instruction-text-2 {
+  font-weight: 900;
+  text-align: center;
+} 
+
+.procedure-to-qualifying-stator-irons-for-rewinding-lead-testing {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  grid-column-gap: 15px;
+  margin-top: 25px;
+}
+ 
+.procedure-to-qualifying-stator-irons-for-rewinding-lead-test {
+  display: grid;
+  grid-template-rows: 20px 20px 20px 20px;
+  grid-row-gap: 15px;
+}
+
+.procedure-to-qualifying-stator-irons-for-rewinding-lead-number-field-text {
+  margin-top: 17px;
+}
+
+.procedure-to-qualifying-stator-irons-for-rewinding-lead-number-field {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-column-gap: 15px;
+}
+
+.procedure-to-qualifying-stator-irons-for-rewinding-lead-test-text {
+  font-size: 22px;
+  font-weight: 900;
+  text-decoration: underline;
+}
+
+.procedure-to-qualifying-stator-irons-for-rewinding-meg-ohm-leads {
+  margin-top: 25px;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  justify-content: space-between;
+}
