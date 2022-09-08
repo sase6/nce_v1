@@ -47,6 +47,8 @@
   margin-top: 25px;
   height: 75px;
   display: grid;
+  grid-template-columns: max-content max-content;
+  grid-column-gap: 15px;
   align-items: center;
 }
 
@@ -171,4 +173,10 @@
   display: grid;
   place-items: center;
   box-sizing: border-box;
+}
+
+.failed-text {
+  font-size: 20px;
+  font-weight: 900;
+  color: red;
 }

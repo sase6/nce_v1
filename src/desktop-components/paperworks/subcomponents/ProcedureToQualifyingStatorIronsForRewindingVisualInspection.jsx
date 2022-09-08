@@ -15,8 +15,9 @@ module.exports = (props) => {
       </div>
       <div className={`${sheetName}-pass-or-fail-checkbox`}>
         <_CheckBox value={ironDmgTest} set={setIronDmgTest} sheetName={sheetName}/>
+        <FailedText value={ironDmgTest}/>
       </div>
-
+ 
 
       <div className={`${sheetName}-pass-or-fail-text`}>
         .003 Max out of round <br/>
@@ -25,6 +26,7 @@ module.exports = (props) => {
       </div>
       <div className={`${sheetName}-pass-or-fail-checkbox`}>
         <_CheckBox value={coreLossTest} set={setCoreLossTest} sheetName={sheetName}/>
+        <FailedText value={coreLossTest}/>
       </div>
 
       <div className={`${sheetName}-pass-or-fail-text`}>
@@ -33,6 +35,7 @@ module.exports = (props) => {
       </div>
       <div className={`${sheetName}-pass-or-fail-checkbox`}>
         <_CheckBox value={hotSpotTest} set={setHotSpotTest} sheetName={sheetName}/>
+        <FailedText value={hotSpotTest}/>
       </div>
     </div>
   );
@@ -53,9 +56,16 @@ const _CheckBox = ({set, value, sheetName}) => {
               size="medium"
             />
           } 
-          label="Passed?" 
+          label="Passed" 
         />  
       </FormGroup>
     </div> 
+  );
+};
+
+const FailedText = ({value}) => {
+  if (value) return;
+  return (
+    <div className="failed-text">FAILED</div>
   );
 };
