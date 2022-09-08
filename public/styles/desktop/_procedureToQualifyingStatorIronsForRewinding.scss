@@ -4,6 +4,10 @@
   z-index: 1;
 }
 
+.procedure-to-qualifying-stator-irons-for-rewinding input {
+  text-transform: uppercase !important;
+}
+
 .procedure-to-qualifying-stator-irons-for-rewinding-text {
   position: absolute;
   font-size: 32px;
@@ -128,7 +132,7 @@
 .procedure-to-qualifying-stator-irons-for-rewinding-meg-ohm-leads {
   margin-top: 25px;
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: 240px 240px 240px 240px;
   justify-content: space-between;
 }
 
@@ -160,8 +164,8 @@
 
 .procedure-to-qualifying-stator-irons-for-rewinding-motor-protector-ending-questions {
   display: grid;
-  grid-template-columns: max-content max-content;
-  grid-column-gap: 50px;
+  grid-template-columns: 250px 250px 250px 250px;
+  justify-content: space-between;
   margin-top: 10px;
   padding-bottom: 75px;
 }
