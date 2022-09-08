@@ -38,13 +38,16 @@
 
 .procedure-to-qualifying-stator-irons-for-rewinding-pass-or-fail {
   display: grid;
-  grid-template-columns: 400px max-content;
+  grid-template-columns: 500px max-content;
   grid-column-gap: 10px;
 }
 
-.procedure-to-qualifying-stator-irons-for-rewinding-pass-or-fail-text {
+.procedure-to-qualifying-stator-irons-for-rewinding-pass-or-fail-text, .procedure-to-qualifying-stator-irons-for-rewinding-pass-or-fail-checkbox {
   font-size: 22px;
   margin-top: 25px;
+  height: 75px;
+  display: grid;
+  align-items: center;
 }
 
 .procedure-to-qualifying-stator-irons-for-rewinding-rotor-info {

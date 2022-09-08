@@ -1,12 +1,17 @@
 const React = require('react');
-const { useState } = require('react');
+const { useState, useEffect } = require('react');
 const sheetName = "procedure-to-qualifying-stator-irons-for-rewinding";
-const { TextField, FormGroup, FormControlLabel, Checkbox, FormControl, InputLabel, Select, MenuItem } = require('@mui/material');
+const { TextField, FormControl, InputLabel, Select, MenuItem } = require('@mui/material');
+const VisualInspection = require('./subcomponents/ProcedureToQualifyingStatorIronsForRewindingVisualInspection.jsx');
 const YesNoSelector = require('./subcomponents/YesNoSelector.jsx');
 
 module.exports = (props) => {
   const [isRewinding, setIsRewinding] = useState('Choose One');
   const [rotorFitShaft, setRotorFitShaft] = useState(null);
+  const [rotorMatchShaft, setRotorMatchShaft] = useState(null);
+  const [ironDmgTest, setIronDmgTest] = useState(null);
+  const [coreLossTest, setCoreLossTest] = useState(null);
+  const [hotSpotTest, setHotSpotTest] = useState(null);
 
   return (
     <div className="procedure-to-qualifying-stator-for-rewinding">
@@ -70,41 +75,15 @@ module.exports = (props) => {
           />
         </div>   
 
-        {/* REJECTTION QUESTIONS */}
-
-        <div className={`${sheetName}-pass-or-fail`}>
-          <div className={`${sheetName}-pass-or-fail-text`}>
-            Visual inspection for iron damage <br/>
-            Check stator inside diameter
-          </div>
-          <div className={`${sheetName}`}>
-          <FormGroup>
-            <FormControlLabel control={<Checkbox defaultChecked />} label="Passed?" sx={{width: '100px', height: '100px'}}/>
-          </FormGroup>
-          </div>
-
-          <div className={`${sheetName}-pass-or-fail-text`}>
-            .003 Max out of round <br/>
-            Check outside diameter <br/>
-            Act 39 core loss test
-          </div>
-          <div className={`${sheetName}`}>
-          <FormGroup>
-            <FormControlLabel control={<Checkbox defaultChecked />} label="Passed?" sx={{width: '100px', height: '100px'}}/>
-          </FormGroup>
-          </div>
-
-          <div className={`${sheetName}-pass-or-fail-text`}>
-            Core loss for hot spot test is required before <br/>
-            any repairs are initiated on the stator iron
-          </div>
-          <div className={`${sheetName}`}>
-          <FormGroup>
-            <FormControlLabel control={<Checkbox defaultChecked />} label="Passed?" sx={{width: '100px', height: '100px'}}/>  
-          </FormGroup>
-          </div>
-          
-        </div>
+        <VisualInspection 
+          sheetName={sheetName}
+          ironDmgTest={ironDmgTest}
+          setIronDmgTest={setIronDmgTest}
+          coreLossTest={coreLossTest}
+          setCoreLossTest={setCoreLossTest}
+          hotSpotTest={hotSpotTest}
+          setHotSpotTest={setHotSpotTest}
+        />
 
       {/* ROTOR INFO */}
       <div className={`${sheetName}-rotor-info`}>
@@ -138,7 +117,7 @@ module.exports = (props) => {
 
       <div className={`${sheetName}-rotor-question-2`}>
         <div className="rotor-question">Does the rotor match the stator?</div>
-        <div>YES</div>
+        <YesNoSelector value={rotorMatchShaft} set={setRotorMatchShaft}/>
         <div>IF "NO", <strong>DO NOT</strong> REWIND</div>
       </div>
 
