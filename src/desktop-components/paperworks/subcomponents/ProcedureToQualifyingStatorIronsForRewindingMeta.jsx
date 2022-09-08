@@ -12,20 +12,20 @@ module.exports = ({voltage, setVoltage, leads, setLeads, imp, setImp, phase, set
 
     {
       label: "LEADS: ",
-      update: leads,
-      value: setLeads
+      update: setLeads,
+      value: leads
     },
 
     {
       label: "IMP: ",
-      update: imp,
-      value: setImp
+      update: setImp,
+      value: imp
     },
 
     {
       label: "PHASE: ",
-      update: phase,
-      value: setPhase
+      update: setPhase,
+      value: phase
     },
   ];
 
@@ -39,7 +39,7 @@ module.exports = ({voltage, setVoltage, leads, setLeads, imp, setImp, phase, set
             variant='standard' 
             label={meta.label}
             defaultValue={meta.value || ""}
-            onClick={(e) => meta.update(e.target.value)}
+            onChange={(e) => meta.update(e.target.value)}
             sx={{
               width: "240px"
             }}

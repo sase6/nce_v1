@@ -1,5 +1,5 @@
 const React = require('react');
-const { useState } = require('react');
+const { useState, useEffect } = require('react');
 const sheetName = "procedure-to-qualifying-stator-irons-for-rewinding";
 const { TextField } = require('@mui/material');
 const VisualInspection = require('./subcomponents/ProcedureToQualifyingStatorIronsForRewindingVisualInspection.jsx');
@@ -58,7 +58,7 @@ module.exports = (props) => {
           variant='standard' 
           label="MODEL #:"
           defaultValue={modelNumber}
-          onClick={(e) => setModelNumber(e.target.value)}
+          onChange={(e) => setModelNumber(e.target.value)}
           sx={{
             width: "500px"
           }}
@@ -68,7 +68,7 @@ module.exports = (props) => {
           variant='standard' 
           label="JOB #:"
           defaultValue={jobNumber}
-          onClick={(e) => setJobNumber(e.target.value)}
+          onChange={(e) => setJobNumber(e.target.value)}
           sx={{
             width: "400px"
           }}
