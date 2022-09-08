@@ -1,5 +1,5 @@
 const React = require('react');
-const { useState, useEffect } = require('react');
+const { useState } = require('react');
 const sheetName = "procedure-to-qualifying-stator-irons-for-rewinding";
 const { TextField } = require('@mui/material');
 const VisualInspection = require('./subcomponents/ProcedureToQualifyingStatorIronsForRewindingVisualInspection.jsx');
@@ -9,43 +9,44 @@ const LeadTesting = require('./subcomponents/ProcedureToQualifyingStatorIronsFor
 const _CheckBox = require('./subcomponents/_CheckBox.jsx');
 const FailedText = require('./subcomponents/FailedText.jsx');
 
-module.exports = (props) => {
-  const [modelNumber, setModelNumber] = useState(null);
-  const [jobNumber, setJobNumber] = useState(null);
-  const [voltage, setVoltage] = useState(null);
-  const [leads, setLeads] = useState(null);
-  const [imp, setImp] = useState(null);
-  const [phase, setPhase] = useState(null);
-  const [rotorFitShaft, setRotorFitShaft] = useState(null);
-  const [rotorMatchShaft, setRotorMatchShaft] = useState(null);
-  const [ironDmgTest, setIronDmgTest] = useState(null);
-  const [coreLossTest, setCoreLossTest] = useState(null);
-  const [hotSpotTest, setHotSpotTest] = useState(null);
-  const [isRewinding, setIsRewinding] = useState('Choose One');
-  const [rotorNumber, setRotorNumber] = useState(null);
-  const [whoIsWinding, setWhoIsWinding] = useState(null);
-  const [megOhm1, setMegOhm1] = useState(null);
-  const [megOhm2, setMegOhm2] = useState(null);
-  const [megOhm3, setMegOhm3] = useState(null);
-  const [act44, setAct44] = useState(null);
-  const [act14, setAct14] = useState(null);
-  const [s1Sensors, setS1Sensors] = useState(null);
-  const [s2Sensors, setS2Sensors] = useState(null);
-  const [s3Sensors, setS3Sensors] = useState(null);
-  const [byThermal, setByThermal] = useState(null);
-  const [acrossSensor, setAcrossSensor] = useState(null);
-  const [lead3_1, setLead3_1] = useState(null);
-  const [lead3_2, setLead3_2] = useState(null);
-  const [lead3_3, setLead3_3] = useState(null);
-  const [lead6_1, setLead6_1] = useState(null);
-  const [lead6_2, setLead6_2] = useState(null);
-  const [lead6_3, setLead6_3] = useState(null);
-  const [lead9_440_1, setLead9_440_1] = useState(null);
-  const [lead9_440_2, setLead9_440_2] = useState(null);
-  const [lead9_440_3, setLead9_440_3] = useState(null);
-  const [lead9_208_1, setLead9_208_1] = useState(null);
-  const [lead9_208_2, setLead9_208_2] = useState(null);
-  const [lead9_208_3, setLead9_208_3] = useState(null);
+module.exports = ({preset}) => {
+
+  const [modelNumber, setModelNumber] = useState(preset?.modelNumber || null);
+  const [jobNumber, setJobNumber] = useState(preset?.jobNumber || null);
+  const [voltage, setVoltage] = useState(preset?.voltage || null);
+  const [leads, setLeads] = useState(preset?.leads || null);
+  const [imp, setImp] = useState(preset?.imp|| null);
+  const [phase, setPhase] = useState(preset?.phase || null);
+  const [rotorFitShaft, setRotorFitShaft] = useState(preset?.rotorFitShaft !== undefined? preset.rotorFitShaft : null);
+  const [rotorMatchShaft, setRotorMatchShaft] = useState(preset?.rotorMatchShaft !== undefined? preset.rotorMatchShaft : null);
+  const [ironDmgTest, setIronDmgTest] = useState(preset?.ironDmgTest || null);
+  const [coreLossTest, setCoreLossTest] = useState(preset?.coreLossTest || null);
+  const [hotSpotTest, setHotSpotTest] = useState(preset?.hotSpotTest || null);
+  const [isRewinding, setIsRewinding] = useState(preset?.isRewinding || 'Choose One');
+  const [rotorNumber, setRotorNumber] = useState(preset?.rotorNumber || null);
+  const [whoIsWinding, setWhoIsWinding] = useState(preset?.whoIsWinding || null);
+  const [megOhm1, setMegOhm1] = useState(preset?.megOhm1 || null);
+  const [megOhm2, setMegOhm2] = useState(preset?.megOhm2 || null);
+  const [megOhm3, setMegOhm3] = useState(preset?.megOhm3 || null);
+  const [act44, setAct44] = useState(preset?.act44 || null);
+  const [act14, setAct14] = useState(preset?.act14 || null);
+  const [s1Sensors, setS1Sensors] = useState(preset?.s1Sensors ||null);
+  const [s2Sensors, setS2Sensors] = useState(preset?.s2Sensors || null);
+  const [s3Sensors, setS3Sensors] = useState(preset?.s3Sensors || null);
+  const [byThermal, setByThermal] = useState(preset?.byThermal || null);
+  const [acrossSensor, setAcrossSensor] = useState(preset?.acrossSensor || null);
+  const [lead3_1, setLead3_1] = useState(preset?.lead3_1 || null);
+  const [lead3_2, setLead3_2] = useState(preset?.lead3_2 || null);
+  const [lead3_3, setLead3_3] = useState(preset?.lead3_3 || null);
+  const [lead6_1, setLead6_1] = useState(preset?.lead6_1 || null);
+  const [lead6_2, setLead6_2] = useState(preset?.lead6_2 || null);
+  const [lead6_3, setLead6_3] = useState(preset?.lead6_3 || null);
+  const [lead9_440_1, setLead9_440_1] = useState(preset?.setLead9_440_1 || null);
+  const [lead9_440_2, setLead9_440_2] = useState(preset?.setLead9_440_2 || null);
+  const [lead9_440_3, setLead9_440_3] = useState(preset?.setLead9_440_3 || null);
+  const [lead9_208_1, setLead9_208_1] = useState(preset?.setLead9_208_1 || null);
+  const [lead9_208_2, setLead9_208_2] = useState(preset?.setLead9_208_2 || null);
+  const [lead9_208_3, setLead9_208_3] = useState(preset?.setLead9_208_3 || null);
 
   return (
     <div className="procedure-to-qualifying-stator-for-rewinding">
