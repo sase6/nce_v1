@@ -3,15 +3,18 @@ const { useState, useEffect } = require('react');
 const sheetName = "procedure-to-qualifying-stator-irons-for-rewinding";
 const { TextField, FormControl, InputLabel, Select, MenuItem } = require('@mui/material');
 const VisualInspection = require('./subcomponents/ProcedureToQualifyingStatorIronsForRewindingVisualInspection.jsx');
+const RotorQuestions = require('./subcomponents/ProcedureToQualifyingStatorIronsForRewindingRotorQuestions.jsx');
 const YesNoSelector = require('./subcomponents/YesNoSelector.jsx');
 
 module.exports = (props) => {
-  const [isRewinding, setIsRewinding] = useState('Choose One');
   const [rotorFitShaft, setRotorFitShaft] = useState(null);
   const [rotorMatchShaft, setRotorMatchShaft] = useState(null);
   const [ironDmgTest, setIronDmgTest] = useState(null);
   const [coreLossTest, setCoreLossTest] = useState(null);
   const [hotSpotTest, setHotSpotTest] = useState(null);
+  const [isRewinding, setIsRewinding] = useState('Choose One');
+  const [rotorNumber, setRotorNumber] = useState(null);
+  const [whoIsWinding, setWhoIsWinding] = useState(null);
 
   return (
     <div className="procedure-to-qualifying-stator-for-rewinding">
@@ -83,10 +86,12 @@ module.exports = (props) => {
           setCoreLossTest={setCoreLossTest}
           hotSpotTest={hotSpotTest}
           setHotSpotTest={setHotSpotTest}
+          whoIsWinding={whoIsWinding}
+          setWhoIsWinding={setWhoIsWinding}
         />
 
       {/* ROTOR INFO */}
-      <div className={`${sheetName}-rotor-info`}>
+      {/* <div className={`${sheetName}-rotor-info`}>
         <TextField variant='standard' label='ROTOR #:' sx={{width: '300px'}}/>
         <div>
           <FormControl fullWidth sx={{marginTop: '13px'}}>
@@ -119,7 +124,16 @@ module.exports = (props) => {
         <div className="rotor-question">Does the rotor match the stator?</div>
         <YesNoSelector value={rotorMatchShaft} set={setRotorMatchShaft}/>
         <div>IF "NO", <strong>DO NOT</strong> REWIND</div>
-      </div>
+      </div> */}
+      <RotorQuestions 
+        isRewinding={isRewinding}
+        setIsRewinding={setIsRewinding}
+        sheetName={sheetName}
+        rotorFitShaft={rotorFitShaft}
+        rotorMatchShaft={rotorMatchShaft}
+        setRotorFitShaft={setRotorFitShaft}
+        setRotorMatchShaft={setRotorMatchShaft}
+      />
 
       <div className={`${sheetName}-section-2-text`}>
         REQUALIFIED STATOR OR REWOUND STATOR TEST PROCEDURE - RESISTANCE AND SURGE

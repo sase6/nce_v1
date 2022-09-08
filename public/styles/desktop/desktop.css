@@ -888,16 +888,19 @@ a {
 
 .procedure-to-qualifying-stator-irons-for-rewinding-rotor-info {
   display: grid;
-  grid-template-columns: 300px 240px 300px;
+  grid-template-columns: 300px 300px 300px;
   justify-content: space-between;
+  align-content: center;
+  margin-top: 20px;
 }
 
-.procedure-to-qualifying-stator-irons-for-rewinding-rotor-question-1, .procedure-to-qualifying-stator-irons-for-rewinding-rotor-question-2 {
+.procedure-to-qualifying-stator-irons-for-rewinding-rotor-question {
   margin-top: 25px;
   display: grid;
-  grid-template-columns: 400px -webkit-max-content -webkit-max-content;
-  grid-template-columns: 400px max-content max-content;
-  justify-content: space-between;
+  grid-template-columns: 500px 100px 400px;
+  height: 50px;
+  grid-column-gap: 15px;
+  align-items: center;
 }
 
 .procedure-to-qualifying-stator-irons-for-rewinding-rotor-question-1 *, .procedure-to-qualifying-stator-irons-for-rewinding-rotor-question-2 * {
@@ -1012,7 +1015,11 @@ a {
   box-sizing: border-box;
 }
 
-.failed-text {
+.yes-selector:hover, .no-selector:hover {
+  cursor: pointer;
+}
+
+.failed-text, .do-not-rewind-text {
   font-size: 20px;
   font-weight: 900;
   color: red;
