@@ -41,7 +41,7 @@ const Paperworks = (props:Props) => {
     <div className="paperworks">
 
       <ProcedureToQualifyingStatorIronsForRewinding />
-      
+{/*       
       <div className="paperworks-overlay">
         <div className="paperworks-new-button" hidden={!isBrowsingFiles} >
           <Button variant="outlined" sx={{width: '75px', height: '35px'}} onClick={createNewPaperWork}>New</Button>
@@ -81,7 +81,7 @@ const Paperworks = (props:Props) => {
             {saveMode === true? "Save" : "Edit"}
           </Button>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

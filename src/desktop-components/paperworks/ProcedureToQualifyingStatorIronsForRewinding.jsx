@@ -2,9 +2,11 @@ const React = require('react');
 const { useState } = require('react');
 const sheetName = "procedure-to-qualifying-stator-irons-for-rewinding";
 const { TextField, FormGroup, FormControlLabel, Checkbox, FormControl, InputLabel, Select, MenuItem } = require('@mui/material');
+const YesNoSelector = require('./subcomponents/YesNoSelector.jsx');
 
 module.exports = (props) => {
-  let [isRewinding, setIsRewinding] = useState('Choose One');
+  const [isRewinding, setIsRewinding] = useState('Choose One');
+  const [rotorFitShaft, setRotorFitShaft] = useState(null);
 
   return (
     <div className="procedure-to-qualifying-stator-for-rewinding">
@@ -130,7 +132,7 @@ module.exports = (props) => {
 
       <div className={`${sheetName}-rotor-question-1`}>
         <div className="rotor-question">Does the rotor fit on the shaft?</div>
-        <div>YES-CHANGEL8R</div>
+        <YesNoSelector value={rotorFitShaft} set={setRotorFitShaft} />
         <div></div>
       </div>
 
@@ -232,6 +234,31 @@ module.exports = (props) => {
         <TextField variant="standard" label="Meg-ohm Leads #1: " sx={{width: '250px'}}/>
         <TextField variant="standard" label="#2: " sx={{width: '250px'}}/>
         <TextField variant="standard" label="#3: " sx={{width: '250px'}}/>
+      </div>
+
+      {/* Acts */}
+      <div className={`${sheetName}-act-49`}>
+        ACT 49 - Varnish after curing, clean all excess varnish ID and OD of stator iron  
+      </div>
+      
+      <div className={`${sheetName}-act-44`}>
+        ACT 44 - Oscilloscope surge test: pass/fail?  
+      </div>
+
+      <div className={`${sheetName}-act-14`}>
+        ACT 14 - Stator Complete: APPROVED? 
+      </div>
+
+      {/* Motor Protector */}
+      <div className={`${sheetName}-motor-protector-text`}>MOTOR PROTECTOR TERMINALS</div>
+      <div className={`${sheetName}-meg-ohm-leads`}>
+        <TextField variant="standard" label="SENSORS COMMON TO #S1: " sx={{width: '250px'}}/>
+        <TextField variant="standard" label="#S2: " sx={{width: '250px'}}/>
+        <TextField variant="standard" label="#S3: " sx={{width: '250px'}}/>
+      </div>
+      <div className={`${sheetName}-motor-protector-ending-questions`}>
+        <TextField variant="standard" label="By Thermal: " sx={{width: '250px'}}/>
+        <TextField variant="standard" label="Across Sensor: " sx={{width: '250px'}}/>
       </div>
 
       </div>
