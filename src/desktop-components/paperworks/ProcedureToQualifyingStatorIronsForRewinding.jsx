@@ -4,9 +4,16 @@ const sheetName = "procedure-to-qualifying-stator-irons-for-rewinding";
 const { TextField, FormControl, InputLabel, Select, MenuItem } = require('@mui/material');
 const VisualInspection = require('./subcomponents/ProcedureToQualifyingStatorIronsForRewindingVisualInspection.jsx');
 const RotorQuestions = require('./subcomponents/ProcedureToQualifyingStatorIronsForRewindingRotorQuestions.jsx');
+const Meta = require('./subcomponents/ProcedureToQualifyingStatorIronsForRewindingMeta.jsx');
 const YesNoSelector = require('./subcomponents/YesNoSelector.jsx');
 
 module.exports = (props) => {
+  const [modelNumber, setModelNumber] = useState(null);
+  const [jobNumber, setJobNumber] = useState(null);
+  const [voltage, setVoltage] = useState(null);
+  const [leads, setLeads] = useState(null);
+  const [imp, setImp] = useState(null);
+  const [phase, setPhase] = useState(null);
   const [rotorFitShaft, setRotorFitShaft] = useState(null);
   const [rotorMatchShaft, setRotorMatchShaft] = useState(null);
   const [ironDmgTest, setIronDmgTest] = useState(null);
@@ -22,109 +29,51 @@ module.exports = (props) => {
       <div className={`${sheetName}-text`}>PROCEDURE TO QUALIFYING STATOR IRONS FOR REWINDING</div>
       <div className={`${sheetName}-sheet`}>
 
-        {/* MODEL AND JOB */}
-
-        <div className={`${sheetName}-model-x-job`}>
-          <TextField 
-            variant='standard' 
-            label="MODEL #:"
-            sx={{
-              width: "500px"
-            }}
-          />
-          
-          <TextField 
-            variant='standard' 
-            label="JOB #:"
-            sx={{
-              width: "400px"
-            }}
-          />
-        </div>  
-
-        {/* VOLTAGE META */}
-        
-        <div className={`${sheetName}-volt-meta`}>
-          <TextField 
-            variant='standard' 
-            label="VOLTAGE:"
-            sx={{
-              width: "240px"
-            }}
-          />
-          
-          <TextField 
-            variant='standard' 
-            label="LEADS:"
-            sx={{
-              width: "240px"
-            }}
-          />
-
-          <TextField 
-            variant='standard' 
-            label="IMP:"
-            sx={{
-              width: "240px"
-            }}
-          />
-
-          <TextField 
-            variant='standard' 
-            label="PHASE:"
-            sx={{
-              width: "240px"
-            }}
-          />
-        </div>   
-
-        <VisualInspection 
-          sheetName={sheetName}
-          ironDmgTest={ironDmgTest}
-          setIronDmgTest={setIronDmgTest}
-          coreLossTest={coreLossTest}
-          setCoreLossTest={setCoreLossTest}
-          hotSpotTest={hotSpotTest}
-          setHotSpotTest={setHotSpotTest}
-          whoIsWinding={whoIsWinding}
-          setWhoIsWinding={setWhoIsWinding}
+      {/* Model/ Job Number */}
+      <div className={`${sheetName}-model-x-job`}>
+        <TextField 
+          variant='standard' 
+          label="MODEL #:"
+          defaultValue={modelNumber}
+          onClick={(e) => setModelNumber(e.target.value)}
+          sx={{
+            width: "500px"
+          }}
         />
+          
+        <TextField 
+          variant='standard' 
+          label="JOB #:"
+          defaultValue={jobNumber}
+          onClick={(e) => setJobNumber(e.target.value)}
+          sx={{
+            width: "400px"
+          }}
+        />
+      </div>  
 
-      {/* ROTOR INFO */}
-      {/* <div className={`${sheetName}-rotor-info`}>
-        <TextField variant='standard' label='ROTOR #:' sx={{width: '300px'}}/>
-        <div>
-          <FormControl fullWidth sx={{marginTop: '13px'}}>
-            <InputLabel id="rewinding/requalifying-select">Requalify/Rewind</InputLabel>
-            <Select
-              labelId="rewinding/requalifying-select"
-              id="xxx-----doesnt-matter"
-              value={isRewinding}
-              label="Age"
-              onChange={(e) => setIsRewinding(e.target.value)}
-              size="small"
-              fullWidth
-            >
-              <MenuItem value={'Choose One'}>Choose One</MenuItem>
-              <MenuItem value={'Requalify'}>Requalify</MenuItem>
-              <MenuItem value={'Rewind'}>Rewind</MenuItem>
-            </Select>
-          </FormControl>
-        </div>
-        <TextField variant='standard' label='WHO IS WINDING?:' sx={{width: '300px'}}/>
-      </div>
+      <Meta 
+        voltage={voltage}
+        setVoltage={setVoltage}
+        leads={leads}
+        setLeads={setLeads}
+        imp={imp}
+        setImp={setImp}
+        phase={phase}
+        setPhase={setPhase}
+        sheetName={sheetName}
+      />
 
-      <div className={`${sheetName}-rotor-question-1`}>
-        <div className="rotor-question">Does the rotor fit on the shaft?</div>
-        <YesNoSelector value={rotorFitShaft} set={setRotorFitShaft} />
-        <div></div>
-      </div>
+      <VisualInspection 
+        sheetName={sheetName}
+        ironDmgTest={ironDmgTest}
+        setIronDmgTest={setIronDmgTest}
+        coreLossTest={coreLossTest}
+        setCoreLossTest={setCoreLossTest}
+        hotSpotTest={hotSpotTest}
+        setHotSpotTest={setHotSpotTest}
+      />
 
-      <div className={`${sheetName}-rotor-question-2`}>
-        <div className="rotor-question">Does the rotor match the stator?</div>
-        <YesNoSelector value={rotorMatchShaft} set={setRotorMatchShaft}/>
-        <div>IF "NO", <strong>DO NOT</strong> REWIND</div>
-      </div> */}
       <RotorQuestions 
         isRewinding={isRewinding}
         setIsRewinding={setIsRewinding}
@@ -133,6 +82,10 @@ module.exports = (props) => {
         rotorMatchShaft={rotorMatchShaft}
         setRotorFitShaft={setRotorFitShaft}
         setRotorMatchShaft={setRotorMatchShaft}
+        rotorNumber={rotorNumber}
+        setRotorNumber={setRotorNumber}
+        whoIsWinding={whoIsWinding}
+        setWhoIsWinding={setWhoIsWinding}
       />
 
       <div className={`${sheetName}-section-2-text`}>
