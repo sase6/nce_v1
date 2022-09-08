@@ -23,6 +23,9 @@ module.exports = (props) => {
   const [isRewinding, setIsRewinding] = useState('Choose One');
   const [rotorNumber, setRotorNumber] = useState(null);
   const [whoIsWinding, setWhoIsWinding] = useState(null);
+  const [megOhm1, setMegOhm1] = useState(null);
+  const [megOhm2, setMegOhm2] = useState(null);
+  const [megOhm3, setMegOhm3] = useState(null);
 
   return (
     <div className="procedure-to-qualifying-stator-for-rewinding">
@@ -105,84 +108,10 @@ module.exports = (props) => {
 
       <LeadTesting sheetName={sheetName}/>
 
-      {/* LEAD MOTOR TESTING */}
-      {/* <div className={`${sheetName}-lead-testing`}>
-
-        <div className={`${sheetName}-lead-test`}>
-          <div className={`${sheetName}-lead-test-text`}>3 LEAD MOTOR ONLY</div>
- 
-          <div className={`${sheetName}-lead-number-field`}>
-            <div className={`${sheetName}-lead-number-field-text`}>LEAD # 1-2: </div>
-            <div className={`${sheetName}-lead-number-field-input`}> <TextField variant='standard' /> </div>
-          </div>
-          <div className={`${sheetName}-lead-number-field`}>
-            <div className={`${sheetName}-lead-number-field-text`}>LEAD # 2-3: </div>
-            <div className={`${sheetName}-lead-number-field-input`}> <TextField variant='standard' /> </div>
-          </div>
-          <div className={`${sheetName}-lead-number-field`}>
-            <div className={`${sheetName}-lead-number-field-text`}>LEAD # 3-4: </div>
-            <div className={`${sheetName}-lead-number-field-input`}> <TextField variant='standard' /> </div>
-          </div>
-        </div>
-
-        <div className={`${sheetName}-lead-test`}>
-          <div className={`${sheetName}-lead-test-text`}>6 LEAD MOTOR</div>
- 
-          <div className={`${sheetName}-lead-number-field`}>
-            <div className={`${sheetName}-lead-number-field-text`}>1-2: </div>
-            <div className={`${sheetName}-lead-number-field-input`}> <TextField variant='standard' /> </div>
-          </div>
-          <div className={`${sheetName}-lead-number-field`}>
-            <div className={`${sheetName}-lead-number-field-text`}>2-3: </div>
-            <div className={`${sheetName}-lead-number-field-input`}> <TextField variant='standard' /> </div>
-          </div>
-          <div className={`${sheetName}-lead-number-field`}>
-            <div className={`${sheetName}-lead-number-field-text`}>3-1: </div>
-            <div className={`${sheetName}-lead-number-field-input`}> <TextField variant='standard' /> </div>
-          </div>
-        </div>
-
-        <div className={`${sheetName}-lead-test`}>
-          <div className={`${sheetName}-lead-test-text`}>9 LEAD 440V</div>
- 
-          <div className={`${sheetName}-lead-number-field`}>
-            <div className={`${sheetName}-lead-number-field-text`}>1-2: </div>
-            <div className={`${sheetName}-lead-number-field-input`}> <TextField variant='standard' /> </div>
-          </div>
-          <div className={`${sheetName}-lead-number-field`}>
-            <div className={`${sheetName}-lead-number-field-text`}>2-3: </div>
-            <div className={`${sheetName}-lead-number-field-input`}> <TextField variant='standard' /> </div>
-          </div>
-          <div className={`${sheetName}-lead-number-field`}>
-            <div className={`${sheetName}-lead-number-field-text`}>3-1: </div>
-            <div className={`${sheetName}-lead-number-field-input`}> <TextField variant='standard' /> </div>
-          </div>
-        </div>
-
-        <div className={`${sheetName}-lead-test`}>
-          <div className={`${sheetName}-lead-test-text`}>9 LEAD 208V</div>
- 
-          <div className={`${sheetName}-lead-number-field`}>
-            <div className={`${sheetName}-lead-number-field-text`}>1-2: </div>
-            <div className={`${sheetName}-lead-number-field-input`}> <TextField variant='standard' /> </div>
-          </div>
-          <div className={`${sheetName}-lead-number-field`}>
-            <div className={`${sheetName}-lead-number-field-text`}>2-3: </div>
-            <div className={`${sheetName}-lead-number-field-input`}> <TextField variant='standard' /> </div>
-          </div>
-          <div className={`${sheetName}-lead-number-field`}>
-            <div className={`${sheetName}-lead-number-field-text`}>3-1: </div>
-            <div className={`${sheetName}-lead-number-field-input`}> <TextField variant='standard' /> </div>
-          </div>
-        </div>
-      </div> */}
-
-      {/* MEG OHM LEADS */}
-
       <div className={`${sheetName}-meg-ohm-leads`}>
-        <TextField variant="standard" label="Meg-ohm Leads #1: " sx={{width: '250px'}}/>
-        <TextField variant="standard" label="#2: " sx={{width: '250px'}}/>
-        <TextField variant="standard" label="#3: " sx={{width: '250px'}}/>
+        <TextField defaultValue={megOhm1} onChange={(e) => setMegOhm1(e.target.value)} variant="standard" label="Meg-ohm Leads #1: " sx={{width: '250px'}}/>
+        <TextField defaultValue={megOhm2} onChange={(e) => setMegOhm2(e.target.value)} variant="standard" label="#2: " sx={{width: '250px'}}/>
+        <TextField defaultValue={megOhm3} onChange={(e) => setMegOhm3(e.target.value)} variant="standard" label="#3: " sx={{width: '250px'}}/>
       </div>
 
       {/* Acts */}
