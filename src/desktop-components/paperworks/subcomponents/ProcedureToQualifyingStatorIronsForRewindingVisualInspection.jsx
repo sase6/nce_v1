@@ -1,5 +1,6 @@
 const React = require('react');
-const { FormGroup, FormControlLabel, Checkbox } = require('@mui/material');
+const _CheckBox = require('./_CheckBox.jsx');
+const FailedText = require('./FailedText.jsx');
 
 module.exports = (props) => {
   const {ironDmgTest, setIronDmgTest, sheetName} = props;
@@ -38,34 +39,5 @@ module.exports = (props) => {
         <FailedText value={hotSpotTest}/>
       </div>
     </div>
-  );
-};
-
-const _CheckBox = ({set, value, sheetName}) => {
-  return (
-    <div className={`${sheetName}`}>
-      <FormGroup>
-        <FormControlLabel 
-          control={
-            <Checkbox 
-              checked={value || false} 
-              onChange={(e) => set(e.target.checked)}
-              sx={{
-                fontSize: "20px"
-              }}
-              size="medium"
-            />
-          } 
-          label="Passed" 
-        />  
-      </FormGroup>
-    </div> 
-  );
-};
-
-const FailedText = ({value}) => {
-  if (value) return;
-  return (
-    <div className="failed-text">FAILED</div>
   );
 };

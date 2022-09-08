@@ -6,7 +6,8 @@ const VisualInspection = require('./subcomponents/ProcedureToQualifyingStatorIro
 const RotorQuestions = require('./subcomponents/ProcedureToQualifyingStatorIronsForRewindingRotorQuestions.jsx');
 const Meta = require('./subcomponents/ProcedureToQualifyingStatorIronsForRewindingMeta.jsx');
 const LeadTesting = require('./subcomponents/ProcedureToQualifyingStatorIronsForRewindingLeadTesting.jsx');
-const YesNoSelector = require('./subcomponents/YesNoSelector.jsx');
+const _CheckBox = require('./subcomponents/_CheckBox.jsx');
+const FailedText = require('./subcomponents/FailedText.jsx');
 
 module.exports = (props) => {
   const [modelNumber, setModelNumber] = useState(null);
@@ -26,6 +27,8 @@ module.exports = (props) => {
   const [megOhm1, setMegOhm1] = useState(null);
   const [megOhm2, setMegOhm2] = useState(null);
   const [megOhm3, setMegOhm3] = useState(null);
+  const [act44, setAct44] = useState(null);
+  const [act14, setAct14] = useState(null);
 
   return (
     <div className="procedure-to-qualifying-stator-for-rewinding">
@@ -120,11 +123,15 @@ module.exports = (props) => {
       </div>
       
       <div className={`${sheetName}-act-44`}>
-        ACT 44 - Oscilloscope surge test: pass/fail?  
+        <span>ACT 44 - Oscilloscope surge test:  </span>
+        <_CheckBox value={act44} set={setAct44} sheetName={sheetName} label="Passed"/>
+        <FailedText value={act44}/>
       </div>
 
       <div className={`${sheetName}-act-14`}>
-        ACT 14 - Stator Complete: APPROVED? 
+        <span>ACT 14 - Stator Complete: </span>
+        <_CheckBox value={act14} set={setAct14} sheetName={sheetName} label="Approved"/>
+        <FailedText value={act14} text="NOT APPROVED"/>
       </div>
 
       {/* Motor Protector */}
