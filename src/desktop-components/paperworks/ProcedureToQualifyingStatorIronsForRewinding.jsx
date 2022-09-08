@@ -5,6 +5,7 @@ const { TextField, FormControl, InputLabel, Select, MenuItem } = require('@mui/m
 const VisualInspection = require('./subcomponents/ProcedureToQualifyingStatorIronsForRewindingVisualInspection.jsx');
 const RotorQuestions = require('./subcomponents/ProcedureToQualifyingStatorIronsForRewindingRotorQuestions.jsx');
 const Meta = require('./subcomponents/ProcedureToQualifyingStatorIronsForRewindingMeta.jsx');
+const LeadTesting = require('./subcomponents/ProcedureToQualifyingStatorIronsForRewindingLeadTesting.jsx');
 const YesNoSelector = require('./subcomponents/YesNoSelector.jsx');
 
 module.exports = (props) => {
@@ -102,8 +103,10 @@ module.exports = (props) => {
         </div>
       </div>
 
+      <LeadTesting sheetName={sheetName}/>
+
       {/* LEAD MOTOR TESTING */}
-      <div className={`${sheetName}-lead-testing`}>
+      {/* <div className={`${sheetName}-lead-testing`}>
 
         <div className={`${sheetName}-lead-test`}>
           <div className={`${sheetName}-lead-test-text`}>3 LEAD MOTOR ONLY</div>
@@ -172,7 +175,7 @@ module.exports = (props) => {
             <div className={`${sheetName}-lead-number-field-input`}> <TextField variant='standard' /> </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* MEG OHM LEADS */}
 
