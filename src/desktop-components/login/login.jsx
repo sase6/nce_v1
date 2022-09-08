@@ -69,14 +69,19 @@ const Login = props => {
       setUsernameError(err.response.data);
       setPasswordError(err.response.data);
     });
-  };
 
+  };
+  
+  const loginByEnter = (e) => {
+    if (e.key === 'Enter') login();
+  };
+  
   return (
     <div>
       <div className="desktop-login-form-container">
         <h1 className={'desktop-login-text'}>NCE Login</h1>
-        <TextField id="desktop-username-login" label="Username" variant="outlined" className={'desktop-username-login'} required fullWidth size={'small'} error={usernameValidationError} helperText={usernameError}/>
-        <TextField id="desktop-password-login" label="Password" variant="outlined" className={'desktop-password-login'} required fullWidth size={'small'} error={passwordValidationError} helperText={passwordError}/>
+        <TextField id="desktop-username-login" label="Username" variant="outlined" className={'desktop-username-login'} required fullWidth size={'small'} error={usernameValidationError} helperText={usernameError} onKeyUp={loginByEnter}/>
+        <TextField id="desktop-password-login" label="Password" variant="outlined" className={'desktop-password-login'} required fullWidth size={'small'} error={passwordValidationError} helperText={passwordError} onKeyUp={loginByEnter}/>
         <div className="desktop-login-button-container">
           <Button variant="outlined" className={'desktop-login-page-button desktop-login-button'} onClick={login}>Login</Button>
           <Button variant="outlined" className={'desktop-login-page-button desktop-signup-button'} onClick={e => login(e, true)}>Create Account</Button>
