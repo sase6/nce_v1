@@ -6,7 +6,7 @@ module.exports = ({isRewinding, setIsRewinding, sheetName, rotorFitShaft, rotorM
   return (
     <div>
       <div className={`${sheetName}-rotor-info`}>
-        <TextField defaultValue={rotorNumber || ''} variant='standard' label='ROTOR #:' sx={{width: '300px'}} onChange={(e) => setRotorNumber(e.target.value)}/>
+        <TextField InputLabelProps={{shrink: true}} defaultValue={rotorNumber || ''} variant='standard' label='ROTOR #:' sx={{width: '300px'}} onChange={(e) => setRotorNumber(e.target.value)}/>
         <div>
           <FormControl fullWidth sx={{marginTop: '3px'}}>
             <InputLabel id="rewinding/requalifying-select" sx={{transform: 'translateX(0px)', fontSize: "12px"}}>Requalify/Rewind</InputLabel>
@@ -27,7 +27,7 @@ module.exports = ({isRewinding, setIsRewinding, sheetName, rotorFitShaft, rotorM
             </Select>
           </FormControl>
         </div>
-        <TextField variant='standard' label='WHO IS WINDING?:' sx={{width: '300px'}} defaultValue={whoIsWinding || ""} onChange={(e) => setWhoIsWinding(e.target.value)}/>
+        <TextField InputLabelProps={{shrink: true}} variant='standard' label='WHO IS WINDING?:' sx={{width: '300px'}} defaultValue={whoIsWinding || ""} onChange={(e) => setWhoIsWinding(e.target.value)}/>
       </div>
 
       <div className={`${sheetName}-rotor-question-1 ${sheetName}-rotor-question`}>

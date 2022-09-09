@@ -38,7 +38,8 @@ module.exports = ({voltage, setVoltage, leads, setLeads, imp, setImp, phase, set
             key={`${sheetName}-meta-${i}`}
             variant='standard' 
             label={meta.label}
-            defaultValue={meta.value || ""}
+            value={meta.value || ""}
+            InputLabelProps={{shrink: true}}
             onChange={(e) => meta.update(e.target.value)}
             sx={{
               width: "240px"

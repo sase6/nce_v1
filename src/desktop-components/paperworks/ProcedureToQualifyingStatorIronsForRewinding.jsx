@@ -1,5 +1,5 @@
 const React = require('react');
-const { useState } = require('react');
+const { useState, useEffect } = require('react');
 const sheetName = "procedure-to-qualifying-stator-irons-for-rewinding";
 const { TextField } = require('@mui/material');
 const VisualInspection = require('./subcomponents/ProcedureToQualifyingStatorIronsForRewindingVisualInspection.jsx');
@@ -10,8 +10,7 @@ const _CheckBox = require('./subcomponents/_CheckBox.jsx');
 const FailedText = require('./subcomponents/FailedText.jsx');
 
 module.exports = ({preset}) => {
-
-  const [modelNumber, setModelNumber] = useState(preset?.modelNumber || null);
+  const [modelNumber, setModelNumber] = useState(preset.modelNumber);
   const [jobNumber, setJobNumber] = useState(preset?.jobNumber || null);
   const [voltage, setVoltage] = useState(preset?.voltage || null);
   const [leads, setLeads] = useState(preset?.leads || null);
@@ -48,6 +47,31 @@ module.exports = ({preset}) => {
   const [lead9_208_2, setLead9_208_2] = useState(preset?.setLead9_208_2 || null);
   const [lead9_208_3, setLead9_208_3] = useState(preset?.setLead9_208_3 || null);
 
+  const getSetStates = () => {
+    return {
+      setModelNumber, setJobNumber, setVoltage, setLeads, setImp, setPhase, setRotorFitShaft,
+      setRotorMatchShaft, setIronDmgTest, setCoreLossTest, setHotSpotTest, setIsRewinding, setRotorNumber,
+      setWhoIsWinding, setMegOhm1, setMegOhm2, setMegOhm3, setAct14, setAct44, setByThermal, setAcrossSensor,
+      setLead3_1, setLead3_2, setLead3_3, setLead6_1, setLead6_2, setLead6_3, setLead9_208_1, setLead9_208_2, setLead9_208_3,
+      setLead9_440_1, setLead9_440_2, setLead9_440_3
+    };
+  };
+
+  const getStateNameFromString = (setString) => {
+    let partedString = setString.slice(4);
+    return setString[3].toLowerCase() + partedString;
+  };
+
+  useEffect(() => {
+    let setStateObj = getSetStates();
+    for (key in setStateObj) {
+      let presetKey = getStateNameFromString(key);
+      setStateObj[key](preset[presetKey]);
+    }
+
+    if (!preset.isRewinding) setIsRewinding('Choose One');
+  }, [preset]);
+
   return (
     <div className="procedure-to-qualifying-stator-for-rewinding">
       <div className={`${sheetName}-text`}>PROCEDURE TO QUALIFYING STATOR IRONS FOR REWINDING</div>
@@ -58,8 +82,9 @@ module.exports = ({preset}) => {
         <TextField 
           variant='standard' 
           label="MODEL #:"
-          defaultValue={modelNumber}
+          value={modelNumber}
           onChange={(e) => setModelNumber(e.target.value)}
+          InputLabelProps={{shrink: true}}
           sx={{
             width: "500px"
           }}
@@ -68,8 +93,9 @@ module.exports = ({preset}) => {
         <TextField 
           variant='standard' 
           label="JOB #:"
-          defaultValue={jobNumber}
+          value={jobNumber}
           onChange={(e) => setJobNumber(e.target.value)}
+          InputLabelProps={{shrink: true}}
           sx={{
             width: "400px"
           }}
@@ -158,9 +184,9 @@ module.exports = ({preset}) => {
       />
 
       <div className={`${sheetName}-meg-ohm-leads`}>
-        <TextField defaultValue={megOhm1} onChange={(e) => setMegOhm1(e.target.value)} variant="standard" label="Meg-ohm Leads #1: " sx={{width: '250px'}}/>
-        <TextField defaultValue={megOhm2} onChange={(e) => setMegOhm2(e.target.value)} variant="standard" label="#2: " sx={{width: '250px'}}/>
-        <TextField defaultValue={megOhm3} onChange={(e) => setMegOhm3(e.target.value)} variant="standard" label="#3: " sx={{width: '250px'}}/>
+        <TextField InputLabelProps={{shrink: true}} defaultValue={megOhm1} onChange={(e) => setMegOhm1(e.target.value)} variant="standard" label="Meg-ohm Leads #1: " sx={{width: '250px'}}/>
+        <TextField InputLabelProps={{shrink: true}} defaultValue={megOhm2} onChange={(e) => setMegOhm2(e.target.value)} variant="standard" label="#2: " sx={{width: '250px'}}/>
+        <TextField InputLabelProps={{shrink: true}} defaultValue={megOhm3} onChange={(e) => setMegOhm3(e.target.value)} variant="standard" label="#3: " sx={{width: '250px'}}/>
       </div>
 
       {/* Acts */}
@@ -182,13 +208,13 @@ module.exports = ({preset}) => {
 
       <div className={`${sheetName}-motor-protector-text`}>MOTOR PROTECTOR TERMINALS</div>
       <div className={`${sheetName}-meg-ohm-leads`}>
-        <TextField defaultValue={s1Sensors} variant="standard" label="SENSORS COMMON TO #S1: " sx={{width: '250px'}} onChange={(e) => setS1Sensors(e.target.value.toUpperCase())}/>
-        <TextField defaultValue={s2Sensors} variant="standard" label="#S2: " sx={{width: '250px'}} onChange={(e) => setS2Sensors(e.target.value.toUpperCase())}/>
-        <TextField defaultValue={s3Sensors} variant="standard" label="#S3: " sx={{width: '250px'}} onChange={(e) => setS3Sensors(e.target.value.toUpperCase())}/>
+        <TextField InputLabelProps={{shrink: true}} defaultValue={s1Sensors} variant="standard" label="SENSORS COMMON TO #S1: " sx={{width: '250px'}} onChange={(e) => setS1Sensors(e.target.value.toUpperCase())}/>
+        <TextField InputLabelProps={{shrink: true}} defaultValue={s2Sensors} variant="standard" label="#S2: " sx={{width: '250px'}} onChange={(e) => setS2Sensors(e.target.value.toUpperCase())}/>
+        <TextField InputLabelProps={{shrink: true}} defaultValue={s3Sensors} variant="standard" label="#S3: " sx={{width: '250px'}} onChange={(e) => setS3Sensors(e.target.value.toUpperCase())}/>
       </div>
       <div className={`${sheetName}-motor-protector-ending-questions`}>
-        <TextField defaultValue={byThermal} variant="standard" label="By Thermal: " sx={{width: '250px'}} onChange={(e) => setByThermal(e.target.value.toUpperCase())}/>
-        <TextField defaultValue={acrossSensor} variant="standard" label="Across Sensor: " sx={{width: '250px'}} onChange={(e) => setAcrossSensor(e.target.value.toUpperCase())}/>
+        <TextField InputLabelProps={{shrink: true}} defaultValue={byThermal} variant="standard" label="By Thermal: " sx={{width: '250px'}} onChange={(e) => setByThermal(e.target.value.toUpperCase())}/>
+        <TextField InputLabelProps={{shrink: true}} defaultValue={acrossSensor} variant="standard" label="Across Sensor: " sx={{width: '250px'}} onChange={(e) => setAcrossSensor(e.target.value.toUpperCase())}/>
       </div>
 
       </div>

@@ -106,7 +106,7 @@ const LeadTest = ({header, sheetName, t1,t2,t3,t4,t5,t6, f1, f2, f3, setF1, setF
       <div className={`${sheetName}-lead-number-field`}>
         <div className={`${sheetName}-lead-number-field-text`}>{t1}</div>
         <div className={`${sheetName}-lead-number-field-input`}> 
-          <TextField variant='standard' defaultValue={f1} onChange={(e) => setF1(e.target.value.toUpperCase())}/> 
+          <TextField InputLabelProps={{shrink: true}} variant='standard' value={f1} onChange={(e) => setF1(e.target.value.toUpperCase())}/> 
         </div>
         <div className={`${sheetName}-lead-number-field-text`}>{t4}</div>
       </div>
@@ -114,7 +114,7 @@ const LeadTest = ({header, sheetName, t1,t2,t3,t4,t5,t6, f1, f2, f3, setF1, setF
       <div className={`${sheetName}-lead-number-field`}>
         <div className={`${sheetName}-lead-number-field-text`}>{t2}</div>
         <div className={`${sheetName}-lead-number-field-input`}> 
-          <TextField variant='standard' defaultValue={f2} onChange={(e) => setF2(e.target.value.toUpperCase())}/> 
+          <TextField InputLabelProps={{shrink: true}} variant='standard' value={f2} onChange={(e) => setF2(e.target.value.toUpperCase())}/> 
         </div>
         <div className={`${sheetName}-lead-number-field-text`}>{t5}</div>
       </div>
@@ -122,7 +122,7 @@ const LeadTest = ({header, sheetName, t1,t2,t3,t4,t5,t6, f1, f2, f3, setF1, setF
       <div className={`${sheetName}-lead-number-field`}>
         <div className={`${sheetName}-lead-number-field-text`}>{t3}</div>
         <div className={`${sheetName}-lead-number-field-input`}> 
-          <TextField variant='standard' defaultValue={f3} onChange={(e) => setF3(e.target.value.toUpperCase())}/> 
+          <TextField InputLabelProps={{shrink: true}} variant='standard' value={f3} onChange={(e) => setF3(e.target.value.toUpperCase())}/> 
         </div>
         <div className={`${sheetName}-lead-number-field-text`}>{t6}</div>
       </div>
