@@ -9,7 +9,7 @@ const LeadTesting = require('./subcomponents/ProcedureToQualifyingStatorIronsFor
 const _CheckBox = require('./subcomponents/_CheckBox.jsx');
 const FailedText = require('./subcomponents/FailedText.jsx');
 
-module.exports = ({preset}) => {
+module.exports = ({preset, saveDocument, documentStatus, setDocumentStatus}) => {
   const [modelNumber, setModelNumber] = useState(preset.modelNumber);
   const [jobNumber, setJobNumber] = useState(preset?.jobNumber || null);
   const [voltage, setVoltage] = useState(preset?.voltage || null);
@@ -66,7 +66,7 @@ module.exports = ({preset}) => {
     let setStateObj = getSetStates();
     for (key in setStateObj) {
       let presetKey = getStateNameFromString(key);
-      setStateObj[key](preset[presetKey] || "");
+      setStateObj[key](preset[presetKey] || null);
     }
 
     if (!preset.isRewinding) setIsRewinding('Choose One');
@@ -74,9 +74,24 @@ module.exports = ({preset}) => {
     if (preset.rotorMatchShaft === undefined) setRotorMatchShaft(null)
   }, [preset]);
 
+  // Save Data
+  useEffect(() => {
+    if (documentStatus === 'save') {
+      data = {data: {
+        modelNumber, jobNumber, voltage, leads, imp, phase, rotorFitShaft,
+        rotorMatchShaft, ironDmgTest, coreLossTest, hotSpotTest, isRewinding, rotorNumber,
+        whoIsWinding, megOhm1, megOhm2, megOhm3, act14, act44, byThermal, acrossSensor,
+        lead3_1, lead3_2, lead3_3, lead6_1, lead6_2, lead6_3, lead9_208_1, lead9_208_2, lead9_208_3,
+        lead9_440_1, lead9_440_2, lead9_440_3, s1Sensors, s2Sensors, s3Sensors
+      }};
+
+      saveDocument(data, false, () => setDocumentStatus('saved'));
+    }
+  }, [documentStatus]);
+
   return (
     <div className="procedure-to-qualifying-stator-for-rewinding">
-      <P1Overlay preset={preset}/>
+      <P1Overlay preset={preset} saveDocument={saveDocument}/>
       <div className={`${sheetName}-text`}>PROCEDURE TO QUALIFYING STATOR IRONS FOR REWINDING</div>
       <div className={`${sheetName}-sheet`}>
 
@@ -187,9 +202,9 @@ module.exports = ({preset}) => {
       />
 
       <div className={`${sheetName}-meg-ohm-leads`}>
-        <TextField InputLabelProps={{shrink: true}} defaultValue={megOhm1} onChange={(e) => setMegOhm1(e.target.value)} variant="standard" label="Meg-ohm Leads #1: " sx={{width: '250px'}}/>
-        <TextField InputLabelProps={{shrink: true}} defaultValue={megOhm2} onChange={(e) => setMegOhm2(e.target.value)} variant="standard" label="#2: " sx={{width: '250px'}}/>
-        <TextField InputLabelProps={{shrink: true}} defaultValue={megOhm3} onChange={(e) => setMegOhm3(e.target.value)} variant="standard" label="#3: " sx={{width: '250px'}}/>
+        <TextField InputLabelProps={{shrink: true}} value={megOhm1} onChange={(e) => setMegOhm1(e.target.value)} variant="standard" label="Meg-ohm Leads #1: " sx={{width: '250px'}}/>
+        <TextField InputLabelProps={{shrink: true}} value={megOhm2} onChange={(e) => setMegOhm2(e.target.value)} variant="standard" label="#2: " sx={{width: '250px'}}/>
+        <TextField InputLabelProps={{shrink: true}} value={megOhm3} onChange={(e) => setMegOhm3(e.target.value)} variant="standard" label="#3: " sx={{width: '250px'}}/>
       </div>
 
       {/* Acts */}
@@ -211,13 +226,13 @@ module.exports = ({preset}) => {
 
       <div className={`${sheetName}-motor-protector-text`}>MOTOR PROTECTOR TERMINALS</div>
       <div className={`${sheetName}-meg-ohm-leads`}>
-        <TextField InputLabelProps={{shrink: true}} defaultValue={s1Sensors} variant="standard" label="SENSORS COMMON TO #S1: " sx={{width: '250px'}} onChange={(e) => setS1Sensors(e.target.value.toUpperCase())}/>
-        <TextField InputLabelProps={{shrink: true}} defaultValue={s2Sensors} variant="standard" label="#S2: " sx={{width: '250px'}} onChange={(e) => setS2Sensors(e.target.value.toUpperCase())}/>
-        <TextField InputLabelProps={{shrink: true}} defaultValue={s3Sensors} variant="standard" label="#S3: " sx={{width: '250px'}} onChange={(e) => setS3Sensors(e.target.value.toUpperCase())}/>
+        <TextField InputLabelProps={{shrink: true}} value={s1Sensors} variant="standard" label="SENSORS COMMON TO #S1: " sx={{width: '250px'}} onChange={(e) => setS1Sensors(e.target.value.toUpperCase())}/>
+        <TextField InputLabelProps={{shrink: true}} value={s2Sensors} variant="standard" label="#S2: " sx={{width: '250px'}} onChange={(e) => setS2Sensors(e.target.value.toUpperCase())}/>
+        <TextField InputLabelProps={{shrink: true}} value={s3Sensors} variant="standard" label="#S3: " sx={{width: '250px'}} onChange={(e) => setS3Sensors(e.target.value.toUpperCase())}/>
       </div>
       <div className={`${sheetName}-motor-protector-ending-questions`}>
-        <TextField InputLabelProps={{shrink: true}} defaultValue={byThermal} variant="standard" label="By Thermal: " sx={{width: '250px'}} onChange={(e) => setByThermal(e.target.value.toUpperCase())}/>
-        <TextField InputLabelProps={{shrink: true}} defaultValue={acrossSensor} variant="standard" label="Across Sensor: " sx={{width: '250px'}} onChange={(e) => setAcrossSensor(e.target.value.toUpperCase())}/>
+        <TextField InputLabelProps={{shrink: true}} value={byThermal} variant="standard" label="By Thermal: " sx={{width: '250px'}} onChange={(e) => setByThermal(e.target.value.toUpperCase())}/>
+        <TextField InputLabelProps={{shrink: true}} value={acrossSensor} variant="standard" label="Across Sensor: " sx={{width: '250px'}} onChange={(e) => setAcrossSensor(e.target.value.toUpperCase())}/>
       </div>
 
       </div>
@@ -226,10 +241,11 @@ module.exports = ({preset}) => {
   );
 };
 
-const P1Overlay = ({preset}) => {
+const P1Overlay = ({preset, saveDocument}) => {
   const el = useRef(null);
 
   useEffect(() => {
+    console.log(preset);
     if (preset.jobNumber) {
       el.current.style.backdropFilter = "none";
       el.current.style.background = "none";      
@@ -248,7 +264,7 @@ const P1Overlay = ({preset}) => {
       <div className="p1-overlay-message">
         <div className="p1-overlay-message-text">ENTRY DOES NOT EXIST</div>
         <div className="p1-overlay-create-new-button">
-          <Button variant='outlined'>Create New</Button>
+          <Button variant='outlined' onClick={() => saveDocument(null, true)}>Create New</Button>
         </div>
       </div>
     </div>

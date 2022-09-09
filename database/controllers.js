@@ -150,9 +150,21 @@ const P1 = {
   save: async data => {
     let newp1 = new _model.P1(data);
     try {
-      newp1.save();
+      const oldP1 = await _model.P1.find({jobNumber: data.jobNumber});
+
+      if (oldP1[0]) {
+        for (x in data) {
+          oldP1[0][x] = data[x]
+        }
+
+        await _model.P1.findOneAndUpdate({jobNumber: data.jobNumber}, data);
+      } else {
+        await newp1.save();
+      }
+
       return true;
     } catch {
+      console.log('err');
       return false;
     }
   }

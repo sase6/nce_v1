@@ -3,9 +3,13 @@ const { useState, useEffect } = require('react');
 const { Button, FormControl, InputLabel, Select, MenuItem } = require('@mui/material');
 
 module.exports = (props) => {
-  const {query, paperworkName, setPaperworkName, currentJobNumber, setCurrentJobNumber} = props;
+  const {query, paperworkName, setPaperworkName, currentJobNumber, setCurrentJobNumber, documentStatus, setDocumentStatus} = props;
   const increaseJobNumber = () => setCurrentJobNumber(currentJobNumber + 1);
   const decreaseJobNumber = () => setCurrentJobNumber(currentJobNumber - 1);
+
+  const setTheDocumentStatus = () => {
+    if (documentStatus !== 'save') setDocumentStatus('save');
+  };
 
   useEffect(() => {
     if (query !== '' && query) setCurrentJobNumber(parseInt(query) || currentJobNumber);
@@ -30,7 +34,7 @@ module.exports = (props) => {
         </div>
 
         <div className="paperworks-toolbar-save-button">
-          <Button size='small' sx={{height: '39px'}} variant="outlined">SAVE</Button>
+          <Button size='small' sx={{height: '39px'}} variant="outlined" onClick={setTheDocumentStatus}>SAVE</Button>
         </div>
       </div>
 
