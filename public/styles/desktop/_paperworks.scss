@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&family=Roboto&display=swap');
 @import './variables';
 
 .paperworks-overlay {
@@ -12,4 +13,46 @@
 .paperworks-new-button {
   position: absolute;
   left: 25px;
+}
+
+.paperworks-toolbar {
+  margin: auto;
+  position: relative;
+  width: 60vw;
+  min-width: 1000px;
+  height: 75px;
+  background: rgba(0,0,0,0.0525);
+  display: grid;
+  grid-template-columns: max-content max-content;
+  justify-content: space-between;
+  margin-top: 20px;
+  align-items: center;
+  padding: 0 10px 0 10px;
+}
+
+.paperworks-toolbar-left-float {
+  width: max-content;
+  display: grid;
+  grid-template-columns: minmax(300px, 400px) max-content;
+  grid-column-gap: 10px;
+}
+
+.paperworks-toolbar-right-float {
+  display: grid;
+  grid-template-columns: max-content max-content max-content;
+  grid-column-gap: 10px;
+}
+
+.paperworks-toolbar-job-number-text {
+  min-width: 65px;
+  max-width: 85px;
+  width: max-content;
+  height: 100%;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  font-weight: 400;
+  font-size: 20px;
+  color: rgba(0,0,0,0.65);
+  font-family: Lato, Roboto, sans-serif !important;
 }

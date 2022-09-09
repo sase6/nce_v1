@@ -53,7 +53,7 @@ const DesktopView = (props) => {
       <DesktopLoginPage page={page} setUser={setUser}/>
       <DesktopAdmin page={page} user={user}/>
       <DesktopJobBook page={page} query={query} user={user}/>
-      <Paperworks page={page}/>
+      <Paperworks page={page} query={query}/>
     </div>
   );
 };
