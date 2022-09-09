@@ -234,10 +234,12 @@ const P1Overlay = ({preset}) => {
       el.current.style.backdropFilter = "none";
       el.current.style.background = "none";      
       el.current.style.visibility = "hidden";      
+      el.current.style.opacity = "0";      
     } else {
       el.current.style.backdropFilter = "blur(3px)";
       el.current.style.background = "rgba(255,255,255,0.5)";      
       el.current.style.visibility = "visible";      
+      el.current.style.opacity = "1";      
     }
   }, [preset]);
   

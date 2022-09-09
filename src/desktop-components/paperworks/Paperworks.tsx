@@ -18,7 +18,7 @@ const Paperworks = (props:Props) => {
   const [paperworkName, setPaperworkName] = useState('p1');
   const [currentJobNumber, setCurrentJobNumber] = useState(0);
   const [preset, setPreset] = useState({});
-  const timeBeforeSearch = 500;
+  const timeBeforeSearch = 200;
 
   const fetchDocument = () => {
     axios({
