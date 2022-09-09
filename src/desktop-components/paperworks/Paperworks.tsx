@@ -17,7 +17,7 @@ const Paperworks = (props:Props) => {
 
   const [paperworkName, setPaperworkName] = useState('p1');
   const [currentJobNumber, setCurrentJobNumber] = useState(0);
-  const [document, setDocument] = useState({});
+  const [preset, setPreset] = useState({});
   const timeBeforeSearch = 500;
 
   const fetchDocument = () => {
@@ -26,7 +26,7 @@ const Paperworks = (props:Props) => {
       url: `/${paperworkName}/${currentJobNumber}`
     })
     .then((res) => {
-      setDocument(res.data || {});
+      setPreset(res.data || {});
     })
     .catch(err => console.log({err}));
   };
@@ -52,7 +52,7 @@ const Paperworks = (props:Props) => {
         currentJobNumber={currentJobNumber}
         setCurrentJobNumber={setCurrentJobNumber}
       />
-      <ProcedureToQualifyingStatorIronsForRewinding preset={document}/>
+      <ProcedureToQualifyingStatorIronsForRewinding preset={preset}/>
     </div>
   );
 };

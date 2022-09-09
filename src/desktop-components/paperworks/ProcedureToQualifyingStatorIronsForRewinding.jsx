@@ -1,7 +1,7 @@
 const React = require('react');
-const { useState, useEffect } = require('react');
+const { useState, useEffect, useRef } = require('react');
 const sheetName = "procedure-to-qualifying-stator-irons-for-rewinding";
-const { TextField } = require('@mui/material');
+const { TextField, Button } = require('@mui/material');
 const VisualInspection = require('./subcomponents/ProcedureToQualifyingStatorIronsForRewindingVisualInspection.jsx');
 const RotorQuestions = require('./subcomponents/ProcedureToQualifyingStatorIronsForRewindingRotorQuestions.jsx');
 const Meta = require('./subcomponents/ProcedureToQualifyingStatorIronsForRewindingMeta.jsx');
@@ -66,14 +66,17 @@ module.exports = ({preset}) => {
     let setStateObj = getSetStates();
     for (key in setStateObj) {
       let presetKey = getStateNameFromString(key);
-      setStateObj[key](preset[presetKey]);
+      setStateObj[key](preset[presetKey] || "");
     }
 
     if (!preset.isRewinding) setIsRewinding('Choose One');
+    if (preset.rotorFitShaft === undefined) setRotorFitShaft(null)
+    if (preset.rotorMatchShaft === undefined) setRotorMatchShaft(null)
   }, [preset]);
 
   return (
     <div className="procedure-to-qualifying-stator-for-rewinding">
+      <P1Overlay preset={preset}/>
       <div className={`${sheetName}-text`}>PROCEDURE TO QUALIFYING STATOR IRONS FOR REWINDING</div>
       <div className={`${sheetName}-sheet`}>
 
@@ -219,6 +222,33 @@ module.exports = ({preset}) => {
 
       </div>
 
+    </div>
+  );
+};
+
+const P1Overlay = ({preset}) => {
+  const el = useRef(null);
+
+  useEffect(() => {
+    if (preset.jobNumber) {
+      el.current.style.backdropFilter = "none";
+      el.current.style.background = "none";      
+      el.current.style.visibility = "hidden";      
+    } else {
+      el.current.style.backdropFilter = "blur(3px)";
+      el.current.style.background = "rgba(255,255,255,0.5)";      
+      el.current.style.visibility = "visible";      
+    }
+  }, [preset]);
+  
+  return (
+    <div className="p1-overlay" ref={el}>
+      <div className="p1-overlay-message">
+        <div className="p1-overlay-message-text">ENTRY DOES NOT EXIST</div>
+        <div className="p1-overlay-create-new-button">
+          <Button variant='outlined'>Create New</Button>
+        </div>
+      </div>
     </div>
   );
 };
