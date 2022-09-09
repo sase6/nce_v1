@@ -12,6 +12,7 @@ const session = require('./session.js');
 const { hash } = require('../encryption/index.js');
 const xl = require('../xlsx/index.js');
 const { JOBS } = require('../database/controllers.js');
+const p1Controllers = require('./controllers/p1.js');
 
 const publicUrl = path.join(__dirname, '..', 'public');
 
@@ -81,6 +82,10 @@ app.delete('/job', inSession, (req, res, next) => {
   if (req.body.secretKey === state.secretKey) next();
   else res.status(401).end('Wrong Secret Key!');
 },markAsDeleted);
+
+// PROCEDURE TO QUALIFYING STATOR IRONS FOR REWINDING (P1)
+app.get('/p1/:jobNumber', p1Controllers.load);
+app.post('/p1', p1Controllers.save);
 
 //Keys & Backup
 const createSecretKey = async() => {

@@ -139,7 +139,7 @@ const JOBS = {
 const P1 = {
   find: async jobNumber => {
     try {
-      let results = await_model.P1.find({jobNumber});
+      let results = await _model.P1.find({jobNumber});
       if (results.length < 1) return null;
       return results[0];
     } catch {
