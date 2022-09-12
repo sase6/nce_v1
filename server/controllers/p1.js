@@ -20,11 +20,22 @@ const save = async (req, res) => {
 
 const load = async(req, res) => {
   const {jobNumber} = req.params;
-  errorCheck(
-    async() => await P1.find(jobNumber), 
-    'Cannot Find Job, Try Refreshing', 
-    res
-  );
+
+  if (jobNumber < 1 || isNaN(jobNumber)) {
+    errorCheck(
+      async() => await P1.getMostRecent(),
+      'Cannot Get Job, Try Refreshing',
+      res
+    );
+
+  } else {
+    errorCheck(
+      async() => await P1.find(jobNumber), 
+      'Cannot Find Job, Try Refreshing', 
+      res
+    );
+  }
+
 };
 
 module.exports = {

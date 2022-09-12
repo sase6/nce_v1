@@ -167,7 +167,16 @@ const P1 = {
       console.log('err');
       return false;
     }
-  }
+  },
+
+  getMostRecent: async () => {
+    try {
+      const result = await _model.P1.find({}).sort({jobNumber: -1}).limit(1);
+      return result;
+    } catch {
+      return [];
+    }
+  },
 };
 
 module.exports = {

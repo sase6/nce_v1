@@ -84,7 +84,7 @@ app.delete('/job', inSession, (req, res, next) => {
 },markAsDeleted);
 
 // PROCEDURE TO QUALIFYING STATOR IRONS FOR REWINDING (P1)
-app.get('/p1/:jobNumber', inSession, p1Controllers.load);
+app.get('/p1/:jobNumber', p1Controllers.load);
 app.post('/p1', inSession, p1Controllers.save);
 
 //Keys & Backup
