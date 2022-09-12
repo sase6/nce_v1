@@ -10,6 +10,7 @@ interface Props {
   user: string;
   page: string;
   query: string;
+  setAppStatus:any;
 };
 
 const Paperworks = (props:Props) => {
@@ -42,6 +43,7 @@ const Paperworks = (props:Props) => {
     })
     .then(() => {
       setPreset(sending.data);
+      props.setAppStatus({type: 'success', msg: 'Saved!'});
       if (cb) cb();
     })
     .catch((err:any) => console.log({err}));
@@ -76,6 +78,7 @@ const Paperworks = (props:Props) => {
         saveDocument={saveDocument}
         documentStatus={documentStatus}
         setDocumentStatus={setDocumentStatus}
+        setAppStatus={props.setAppStatus}
       />
     </div>
   );

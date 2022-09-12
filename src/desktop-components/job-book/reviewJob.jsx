@@ -17,7 +17,8 @@ const ReviewJob = props => {
     cancelHandler,
     user,
     fetchAndSetJobRange,
-    warranty
+    warranty,
+    setAppStatus
   } = props;
 
   const [notes, setNotes] = useState('');
@@ -62,8 +63,9 @@ const ReviewJob = props => {
     .then(response => {
       cancelHandler();
       fetchAndSetJobRange();
+      setAppStatus({type: 'success', msg: "Added Job!"});
     })
-    .catch(err => err);
+    .catch(() => setAppStatus({type: "error", msg: "Failed to Add Job!"}));
   };
 
   return (

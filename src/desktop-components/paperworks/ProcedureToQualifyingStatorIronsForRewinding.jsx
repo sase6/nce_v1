@@ -9,7 +9,7 @@ const LeadTesting = require('./subcomponents/ProcedureToQualifyingStatorIronsFor
 const _CheckBox = require('./subcomponents/_CheckBox.jsx');
 const FailedText = require('./subcomponents/FailedText.jsx');
 
-module.exports = ({preset, saveDocument, documentStatus, setDocumentStatus}) => {
+module.exports = ({preset, saveDocument, documentStatus, setDocumentStatus, setAppStatus}) => {
   const [modelNumber, setModelNumber] = useState(preset.modelNumber);
   const [jobNumber, setJobNumber] = useState(preset?.jobNumber || null);
   const [voltage, setVoltage] = useState(preset?.voltage || null);
@@ -92,7 +92,9 @@ module.exports = ({preset, saveDocument, documentStatus, setDocumentStatus}) => 
         lead9_440_1, lead9_440_2, lead9_440_3, s1Sensors, s2Sensors, s3Sensors
       }};
 
-      saveDocument(data, false, () => setDocumentStatus('saved'));
+      saveDocument(data, false, () => {
+        setDocumentStatus('saved');
+      });
     }
   }, [documentStatus]);
 

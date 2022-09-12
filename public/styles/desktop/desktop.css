@@ -1167,4 +1167,39 @@ a {
 body {
   max-height: 100vh;
   overflow-x: hidden !important;
+}
+
+.system-status {
+  position: fixed;
+  top: 120px;
+  right: 20px;
+  width: 200px;
+  -webkit-animation: 350ms status_fly_left;
+          animation: 350ms status_fly_left;
+}
+
+@-webkit-keyframes status_fly_left {
+  0% {
+    transform: translateX(100px);
+    opacity: 0;
+  }
+}
+
+@keyframes status_fly_left {
+  0% {
+    transform: translateX(100px);
+    opacity: 0;
+  }
+}
+@-webkit-keyframes status_fly_more_left {
+  100% {
+    transform: translateX(-100px);
+    opacity: 0;
+  }
+}
+@keyframes status_fly_more_left {
+  100% {
+    transform: translateX(-100px);
+    opacity: 0;
+  }
 }/*# sourceMappingURL=desktop.css.map */

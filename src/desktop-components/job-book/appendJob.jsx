@@ -5,7 +5,7 @@ const ReviewJob = require('./reviewJob.jsx');
 const axios = require('axios');
 
 const AppendJobModal = (props) => {
-  const { addJobModal, setAddJobModal, user, fetchAndSetJobRange } = props;
+  const { addJobModal, setAddJobModal, user, fetchAndSetJobRange, setAppStatus } = props;
   if (!addJobModal) return;
 
   const blankValidation = (text) => {
@@ -41,6 +41,14 @@ const AppendJobModal = (props) => {
         method: 'post',
         url: '/jobs/many',
         data: {binary: e.target.result}
+      })
+      .then(() => {
+        setAddJobModal(false);
+        // Show Success Message
+        setAppStatus({type: 'success', msg: 'Added Jobs!'});
+      })
+      .catch(() => {
+        setAppStatus({type: 'error', msg: 'Failed to Add Jobs!'});
       });
   	};
 	  reader.onerror = function(e) {
@@ -194,6 +202,7 @@ const AppendJobModal = (props) => {
           user={user}
           warranty={warranty}
           fetchAndSetJobRange={fetchAndSetJobRange}
+          setAppStatus={setAppStatus}
         />
       </div>
     );
