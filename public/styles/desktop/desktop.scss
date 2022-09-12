@@ -22,6 +22,7 @@ body {
   right: 20px;
   width: 200px;
   animation: 350ms status_fly_left;
+  z-index: 1001;
 }
 
 @keyframes status_fly_left {

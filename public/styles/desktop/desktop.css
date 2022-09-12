@@ -1176,6 +1176,7 @@ body {
   width: 200px;
   -webkit-animation: 350ms status_fly_left;
           animation: 350ms status_fly_left;
+  z-index: 1001;
 }
 
 @-webkit-keyframes status_fly_left {
