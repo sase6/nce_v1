@@ -117,7 +117,7 @@ module.exports = ({preset, saveDocument, documentStatus, setDocumentStatus}) => 
           variant='standard' 
           label="JOB #:"
           value={jobNumber}
-          onChange={(e) => setJobNumber(e.target.value)}
+          onChange={(e) => e.preventDefault()}
           InputLabelProps={{shrink: true}}
           sx={{
             width: "400px"
