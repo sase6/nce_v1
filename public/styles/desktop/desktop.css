@@ -813,6 +813,12 @@ a {
   grid-row-gap: 60px !important;
 }
 
+#job-book-file-selector {
+  position: absolute;
+  opacity: 0;
+  top: -150vh;
+}
+
 .mobile-job-book-header {
   height: 75px;
   background-color: red;

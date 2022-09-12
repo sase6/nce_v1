@@ -15,3 +15,10 @@ module.exports.extractFromFile = (path) => {
   let obj = xlsx.utils.sheet_to_json(sheet);
   return obj;
 };
+
+module.exports.extractJSONFromBinary = (binary) => {
+  let wb = xlsx.read(binary, {type: 'binary'});
+  let sheet = wb.Sheets[wb.SheetNames[0]];
+  let obj = xlsx.utils.sheet_to_json(sheet);
+  return obj;
+};

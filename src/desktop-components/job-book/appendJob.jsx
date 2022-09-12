@@ -2,6 +2,7 @@ const React = require('react');
 const { TextField, Button } = require('@mui/material');
 const { useState, useEffect } = require('react');
 const ReviewJob = require('./reviewJob.jsx');
+const axios = require('axios');
 
 const AppendJobModal = (props) => {
   const { addJobModal, setAddJobModal, user, fetchAndSetJobRange } = props;
@@ -29,6 +30,25 @@ const AppendJobModal = (props) => {
   const [scrap, setScrap] = useState('');
   const [warranty, setWarranty] = useState('');
   const [notes, setNotes] = useState('');
+
+  const importSpreadsheet = (e) => {
+    const file = e.target.files[0];
+
+    var reader = new FileReader();
+  	reader.onload = function(e) {
+      // Binary
+      axios({
+        method: 'post',
+        url: '/jobs/many',
+        data: {binary: e.target.result}
+      });
+  	};
+	  reader.onerror = function(e) {
+	  	console.log('Error : ' + e.type);
+	  };
+	  
+    reader.readAsBinaryString(file);
+  };
 
   const inputTypeMap = {
     modelNumber: {
@@ -182,6 +202,7 @@ const AppendJobModal = (props) => {
   return (
     <div className='job-book-add-job-screen-overlay'>
       <div className="job-book-add-new-job-container">
+        <input type="file" id="job-book-file-selector" onChange={importSpreadsheet}/>
         <div className="job-book-add-new-job-text">
           {curInput.text}
         </div>
@@ -202,7 +223,7 @@ const AppendJobModal = (props) => {
         <div className="job-book-append-job-interactions-container">
           <div className="inner-job-book-interactions-container">
             <Button className="job-book-add-go-back" onClick={decrementIndex}>Go Back</Button>
-            <Button className="job-book-add-import">Import</Button>
+            <Button className="job-book-add-import" onClick={() => document.querySelector('#job-book-file-selector').click()}>Import</Button>
             <Button className="job-book-add-cancel" sx={{background: 'indianred', color: 'white'}} onClick={() => setAddJobModal(false)} >Cancel</Button>
           </div>
           <Button variant="contained" className="job-book-add-go-forward" onClick={incrementIndex}>Next</Button>

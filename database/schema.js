@@ -34,7 +34,7 @@ const Job = new mongoose.model('job', jobSchema);
 
 const procedureToQualifyingStatorIronsForRewindingSchema = new mongoose.Schema({
   modelNumber: String,
-  jobNumber: String,
+  jobNumber: {type: String, index: true},
   voltage: String,
   leads: String,
   imp: String,

@@ -1,5 +1,6 @@
 // Controllers for Job Book
 const { JOBS } = require('../../database/controllers.js');
+const EXCEL = require('../../xlsx/index.js');
 
 class JobsQueue {
   constructor() {
@@ -36,11 +37,6 @@ class JobsQueue {
 };
 
 var JOBQUEUE = new JobsQueue;
-
-
-const getJobByRange = (req, res, next) => {
-  //
-};
 
 const createJob = (req, res, next) => {
   let jobData = req.body;
@@ -162,7 +158,41 @@ const toggleScrappedJob = async(req, res) => {
   }
 };
 
+const addManyJobs = async (req, res) => {
+  const {binary} = req.body;
+  const extractedJobs = EXCEL.extractJSONFromBinary(binary);
+  const filteredExtractedJobs = extractedJobs.filter(job => job.jobNumber !== undefined);
+
+  filteredExtractedJobs.forEach(async job => {
+    job.enteredOn = (new Date).toLocaleDateString();
+    job._isDeleted = false;
+    job.deletedBy = 'N/A';
+    job.deletedOn = 'N/A';
+    job.enteredBy = "spreadsheet"
+
+    const jobs = await JOBS.findByField({jobNumber: job.jobNumber});
+    const foundJob = jobs[0];
+
+    try {
+      if (foundJob !== undefined && !isNaN(parseInt(foundJob.jobNumber))) {
+        // Update Existing Job
+        for (col in job) {
+          foundJob[col] = job[col];
+        }
+        await foundJob.save();
+      } else {
+        const newJob = JOBS.create(job);
+        await newJob.save();
+      }
+
+      res.end();
+    } catch {
+      res.status(500).end();
+    }
+  });
+};
+
 module.exports = {
   createJob, getJobs, getJobsRange, deepSearchJobs, getDeletedJobs,
-  updateDeleteJob, deleteJob, getAllJobs, markAsDeleted, toggleScrappedJob
+  updateDeleteJob, deleteJob, getAllJobs, markAsDeleted, toggleScrappedJob, addManyJobs
 };
