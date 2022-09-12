@@ -44,7 +44,7 @@ const procedureToQualifyingStatorIronsForRewindingSchema = new mongoose.Schema({
   ironDmgTest: Boolean,
   coreLossTest: Boolean,
   hotSpotTest: Boolean,
-  isRewinding: String,
+  isRewinding: String, 
   rotorNumber: String,
   whoIsWinding: String,
   megOhm1: String,

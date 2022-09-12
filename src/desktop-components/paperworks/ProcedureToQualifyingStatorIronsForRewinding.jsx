@@ -53,7 +53,7 @@ module.exports = ({preset, saveDocument, documentStatus, setDocumentStatus}) => 
       setRotorMatchShaft, setIronDmgTest, setCoreLossTest, setHotSpotTest, setIsRewinding, setRotorNumber,
       setWhoIsWinding, setMegOhm1, setMegOhm2, setMegOhm3, setAct14, setAct44, setByThermal, setAcrossSensor,
       setLead3_1, setLead3_2, setLead3_3, setLead6_1, setLead6_2, setLead6_3, setLead9_208_1, setLead9_208_2, setLead9_208_3,
-      setLead9_440_1, setLead9_440_2, setLead9_440_3
+      setLead9_440_1, setLead9_440_2, setLead9_440_3, setS1Sensors, setS2Sensors, setS3Sensors
     };
   };
 
@@ -66,12 +66,17 @@ module.exports = ({preset, saveDocument, documentStatus, setDocumentStatus}) => 
     let setStateObj = getSetStates();
     for (key in setStateObj) {
       let presetKey = getStateNameFromString(key);
-      setStateObj[key](preset[presetKey] || null);
+      setStateObj[key](preset[presetKey] || "");
     }
 
     if (!preset.isRewinding) setIsRewinding('Choose One');
-    if (preset.rotorFitShaft === undefined) setRotorFitShaft(null)
-    if (preset.rotorMatchShaft === undefined) setRotorMatchShaft(null)
+    if (preset.rotorFitShaft === undefined || preset.rotorFitShaft === "") setRotorFitShaft(null)
+    if (preset.rotorMatchShaft === undefined || preset.rotorMatchShaft === "") setRotorMatchShaft(null)
+    if (!preset.act14 && preset.act14 !== false) setAct14(null);
+    if (!preset.act44 && preset.act44 !== false) setAct44(null);
+    if (!preset.ironDmgTest && preset.ironDmgTest !== false) setIronDmgTest(null);
+    if (!preset.coreLossTest && preset.coreLossTest !== false) setCoreLossTest(null);
+    if (!preset.hotSpotTest && preset.hotSpotTest !== false) setHotSpotTest(null);
   }, [preset]);
 
   // Save Data
@@ -226,9 +231,9 @@ module.exports = ({preset, saveDocument, documentStatus, setDocumentStatus}) => 
 
       <div className={`${sheetName}-motor-protector-text`}>MOTOR PROTECTOR TERMINALS</div>
       <div className={`${sheetName}-meg-ohm-leads`}>
-        <TextField InputLabelProps={{shrink: true}} value={s1Sensors} variant="standard" label="SENSORS COMMON TO #S1: " sx={{width: '250px'}} onChange={(e) => setS1Sensors(e.target.value.toUpperCase())}/>
-        <TextField InputLabelProps={{shrink: true}} value={s2Sensors} variant="standard" label="#S2: " sx={{width: '250px'}} onChange={(e) => setS2Sensors(e.target.value.toUpperCase())}/>
-        <TextField InputLabelProps={{shrink: true}} value={s3Sensors} variant="standard" label="#S3: " sx={{width: '250px'}} onChange={(e) => setS3Sensors(e.target.value.toUpperCase())}/>
+        <TextField InputLabelProps={{shrink: true}} value={s1Sensors} variant="standard" label="SENSORS COMMON TO #S1: " sx={{width: '250px'}} onChange={(e) => setS1Sensors(e.target.value)}/>
+        <TextField InputLabelProps={{shrink: true}} value={s2Sensors} variant="standard" label="#S2: " sx={{width: '250px'}} onChange={(e) => setS2Sensors(e.target.value)}/>
+        <TextField InputLabelProps={{shrink: true}} value={s3Sensors} variant="standard" label="#S3: " sx={{width: '250px'}} onChange={(e) => setS3Sensors(e.target.value)}/>
       </div>
       <div className={`${sheetName}-motor-protector-ending-questions`}>
         <TextField InputLabelProps={{shrink: true}} value={byThermal} variant="standard" label="By Thermal: " sx={{width: '250px'}} onChange={(e) => setByThermal(e.target.value.toUpperCase())}/>

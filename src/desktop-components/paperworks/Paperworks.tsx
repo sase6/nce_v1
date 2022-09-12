@@ -16,7 +16,7 @@ const Paperworks = (props:Props) => {
   if (props.page !== 'Paperworks') return;
 
   const [paperworkName, setPaperworkName] = useState('p1');
-  const [currentJobNumber, setCurrentJobNumber] = useState(0);
+  const [currentJobNumber, setCurrentJobNumber] = useState(1);
   const [preset, setPreset] = useState({});
   const [documentStatus, setDocumentStatus] = useState(null);
   const timeBeforeSearch = 200;
