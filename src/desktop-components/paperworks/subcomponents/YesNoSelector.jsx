@@ -10,7 +10,8 @@ module.exports = (props) => {
     yesEl.current.style.border = "none";
     noEl.current.style.border = "none";
 
-    if (value !== null && value !== undefined) (value === true? yesEl.current : noEl.current).style.border = "1px solid red";
+    if (value === true)  yesEl.current.style.border = "1px solid red";
+    else if (value === false) noEl.current.style.border = "1px solid red"; 
   }, [value]);
 
   const setState = (val) => {

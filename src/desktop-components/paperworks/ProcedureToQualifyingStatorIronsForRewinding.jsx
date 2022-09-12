@@ -66,7 +66,9 @@ module.exports = ({preset, saveDocument, documentStatus, setDocumentStatus}) => 
     let setStateObj = getSetStates();
     for (key in setStateObj) {
       let presetKey = getStateNameFromString(key);
-      setStateObj[key](preset[presetKey] || "");
+      let val = preset[presetKey];
+      let setFunc = setStateObj[key];
+      setFunc(val);
     }
 
     if (!preset.isRewinding) setIsRewinding('Choose One');
