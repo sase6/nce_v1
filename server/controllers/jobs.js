@@ -181,8 +181,7 @@ const addManyJobs = async (req, res) => {
         }
         await foundJob.save();
       } else {
-        const newJob = JOBS.create(job);
-        await newJob.save();
+        await JOBS.create(job);
       }
 
       res.end();

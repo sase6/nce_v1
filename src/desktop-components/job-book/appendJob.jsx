@@ -43,11 +43,12 @@ const AppendJobModal = (props) => {
         data: {binary: e.target.result}
       })
       .then(() => {
+        // Successfully Imported
         setAddJobModal(false);
-        // Show Success Message
         setAppStatus({type: 'success', msg: 'Added Jobs!'});
+        fetchAndSetJobRange();
       })
-      .catch(() => {
+      .catch((err) => {
         setAppStatus({type: 'error', msg: 'Failed to Add Jobs!'});
       });
   	};
