@@ -172,9 +172,9 @@ const P1 = {
   getMostRecent: async () => {
     try {
       const result = await _model.P1.find({}).sort({jobNumber: -1}).limit(1);
-      return result;
+      return result[0];
     } catch {
-      return [];
+      return {};
     }
   },
 };

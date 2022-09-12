@@ -16,7 +16,7 @@ const Paperworks = (props:Props) => {
   if (props.page !== 'Paperworks') return;
 
   const [paperworkName, setPaperworkName] = useState('p1');
-  const [currentJobNumber, setCurrentJobNumber] = useState(1);
+  const [currentJobNumber, setCurrentJobNumber] = useState(-1);
   const [preset, setPreset] = useState({});
   const [documentStatus, setDocumentStatus] = useState(null);
   const timeBeforeSearch = 200;
@@ -28,6 +28,7 @@ const Paperworks = (props:Props) => {
     })
     .then((res) => {
       setPreset(res.data || {});
+      setCurrentJobNumber(parseInt(res.data.jobNumber) || 1);
     })
     .catch(err => console.log({err}));
   };
