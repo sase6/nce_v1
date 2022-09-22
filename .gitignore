@@ -3,3 +3,4 @@ node_modules
 public/dist
 /dist
 /backup
+/public/backup/
