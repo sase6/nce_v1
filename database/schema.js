@@ -73,8 +73,23 @@ const procedureToQualifyingStatorIronsForRewindingSchema = new mongoose.Schema({
 
 const P1 = new mongoose.model('P1', procedureToQualifyingStatorIronsForRewindingSchema);
 
+const rfidTagsSchema = new mongoose.Schema({
+  tagNumber: String,
+  tagName: {type: String, index: true},
+  readerId: String,
+  readerName: String,
+  subzone: {type: String, index: true},
+  jobNumber: {type: String, index: true},
+  modelNumber: {type: String, index: true},
+  voltage: String,
+  type: String,
+  other: String,
+});
+
+const RFIDTag = new mongoose.model('rfidTag', rfidTagsSchema);
+
 module.exports = {
-  User, Job, P1
+  User, Job, P1, RFIDTag,
 };
 
 //Key:

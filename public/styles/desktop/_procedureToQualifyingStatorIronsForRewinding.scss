@@ -3,6 +3,7 @@
 .procedure-to-qualifying-stator-irons-for-rewinding {
   z-index: 1;
   transition: all 500ms;
+  height: max-content;
 }
 
 .procedure-to-qualifying-stator-irons-for-rewinding input {
@@ -206,7 +207,7 @@
 .p1-overlay {
   position: absolute;
   width: 100%;
-  height: calc(200vh - 500px);
+  height: 160%;
   backdrop-filter: blur(3px);
   z-index: 1000;
   background-color: rgba(255,255,255,0.5);
