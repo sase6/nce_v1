@@ -6,12 +6,13 @@ const DesktopAdmin = require('./desktop-components/admin/index.jsx');
 const DesktopJobBook = require('./desktop-components/job-book/index.jsx');
 const MobileJobBook = require('./mobile-components/job-book/MobileJobBook.jsx');
 const Paperworks = require('./desktop-components/paperworks/Paperworks.tsx');
+const Bartender = require('./desktop-components/barcode-bartender/Bartender.jsx');
 const SystemStatus = require('./helpers/Status.jsx');
 
 const App = () => {
   const [query, setQuery] = useState('');
-  const [pages, setPages] = useState(['Login']);
-  const [page, setPage] = useState('Login');
+  const [pages, setPages] = useState(['Bartender']);  //Login
+  const [page, setPage] = useState('Bartender');  //Login
   const [user, setUser] = useState({});
   const [viewType, setViewType] = useState("Desktop");
   const [appStatus, setAppStatus] = useState(null);
@@ -57,6 +58,7 @@ const DesktopView = (props) => {
       <DesktopAdmin page={page} user={user}/>
       <DesktopJobBook page={page} query={query} user={user} setAppStatus={setAppStatus}/>
       <Paperworks page={page} query={query} setAppStatus={setAppStatus}/>
+      <Bartender page={page}/>
     </div>
   );
 };
