@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato&family=VT323&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Lato&family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Libre+Barcode+128&display=swap");
 .desktop-login-form-container {
   display: grid;
   justify-content: center;
@@ -918,9 +919,7 @@ a {
 .bartender {
   position: relative;
   margin: auto;
-  width: 80vw;
-  min-width: 1200px;
-  max-width: 1600px;
+  width: 100vw;
   display: grid;
   grid-template-rows: 100px -webkit-max-content -webkit-max-content;
   grid-template-rows: 100px max-content max-content;
@@ -950,12 +949,56 @@ a {
 }
 
 .bartender-barcode-display {
+  position: relative;
   width: 100%;
   height: 100vh;
-  background: indianred;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.bartender-barcode-display-container {
+  position: relative;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  display: grid;
+  grid-row-gap: 5px;
+  grid-template-rows: -webkit-max-content -webkit-max-content -webkit-max-content -webkit-max-content;
+  grid-template-rows: max-content max-content max-content max-content;
+  justify-content: center;
+  transform: scale(3);
+}
+
+.bartender-barcode-display-container * {
+  font-size: 20px;
+  margin: auto;
+}
+
+.barcode-display-company {
+  font-size: 15px !important;
+  margin-top: 3px;
+}
+
+.barcode-display {
+  height: 60px;
+  position: relative;
+  display: grid;
+  place-items: center;
+  margin-top: 10px;
+}
+
+.barcode-display-barcode-text {
+  position: relative;
+  bottom: 5px;
+  width: 100%;
 }
 
 .shop-floor-process-sheet {
+  position: relative;
   height: 100vh;
   width: 100%;
   background-color: skyblue;
@@ -964,6 +1007,14 @@ a {
 .custom-checkbox-root .MuiSvgIcon-root {
   width: 30px;
   height: 30px;
+}
+
+.bar128 {
+  font-family: "Libre Barcode 128", sans-serif !important;
+  font-size: 30px;
+  font-weight: lighter !important;
+  margin-top: 15px;
+  transform: scaleY(2.5);
 }
 
 .procedure-to-qualifying-stator-irons-for-rewinding {

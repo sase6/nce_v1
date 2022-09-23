@@ -1,8 +1,24 @@
 const React = require('react');
+const {useEffect} = require('react');
 const { TextField, InputLabelProps, Button, FormGroup, FormControlLabel, Checkbox, FormControl, InputLabel, MenuItem, Select } = require('@mui/material');
 const { fontSize } = require('@mui/system');
 
 module.exports = ({sheet, setSheet, setSerialNumber, setModelNumber, setVoltage}) => {
+    useEffect(() => {
+    window.addEventListener('beforeprint', () => {
+      document.querySelector('.desktop-nav').style.display = "none";
+      document.querySelector('.bartender-toolbar').style.display = "none";
+      document.querySelector('.bartender-barcode-display-container').style.transform = "scale(1)";
+    });
+
+    window.addEventListener("afterprint", () => {
+      document.querySelector('.desktop-nav').style.display = "grid";
+      document.querySelector('.bartender-toolbar').style.display = "grid";
+      document.querySelector('.bartender-barcode-display-container').style.transform = "scale(3)";
+
+    });
+  }, []);
+
   return (
     <div className='bartender-toolbar'>
       <div className="bartender-toolbar-model-number-container">
@@ -60,6 +76,7 @@ module.exports = ({sheet, setSheet, setSerialNumber, setModelNumber, setVoltage}
         <Button
           variant="outlined"
           sx={{width: 100}}
+          onClick={() => window.print()}
         >
           Print
         </Button>
