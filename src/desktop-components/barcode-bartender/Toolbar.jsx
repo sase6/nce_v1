@@ -2,8 +2,8 @@ const React = require('react');
 
 module.exports = ({}) => {
   return (
-    <div>
-      //bruh
+    <div className='bartender-toolbar'>
+      Toolbar
     </div>
   );
 };

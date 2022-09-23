@@ -1,0 +1,31 @@
+.bartender {
+  position: relative;
+  margin: auto;
+  width: 80vw;
+  min-width: 1200px;
+  max-width: 1600px;
+  display: grid;
+  grid-template-rows: 100px max-content max-content;
+  grid-row-gap: 25px;
+  min-height: 100vh;
+}
+.bartender * {position: relative}
+
+.bartender-toolbar {
+  width: 100%;
+  height: 100%;
+  margin-top: 12.5px;
+  background-color: whitesmoke;
+}
+
+.bartender-barcode-display {
+  width: 100%;
+  height: 100vh;
+  background: indianred;
+}
+
+.shop-floor-process-sheet {
+  height: 100vh;
+  width: 100%;
+  background-color: skyblue;
+}
