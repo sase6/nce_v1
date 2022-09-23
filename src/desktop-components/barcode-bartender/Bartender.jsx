@@ -6,7 +6,7 @@ const ShopFloorProcessSheet = require('./ShopFloorProcessSheet.jsx');
 
 const Bartender = ({page}) => {
   if (page !== 'Bartender') return;
-  const [showP2, setShowP2] = useState(false);
+  const [sheet, setSheet] = useState('barcode');
   const [serialNumber, setSerialNumber] = useState("");
   const [modelNumber, setModelNumber] = useState("");
   const [voltage, setVoltage] = useState("");
@@ -14,20 +14,22 @@ const Bartender = ({page}) => {
   return (
     <div className="bartender">
       <Toolbar 
-        setShowP2={setShowP2}
+        sheet={sheet}
+        setSheet={setSheet}
         setSerialNumber={setSerialNumber}
         setModelNumber={setModelNumber}
         setVoltage={setVoltage}
       />
 
       <BarcodeDisplay 
+        sheet={sheet}
         serialNumber={serialNumber}
         modelNumber={modelNumber}
         voltage={voltage}
       />
 
       <ShopFloorProcessSheet 
-        render={showP2}
+        sheet={sheet}
         serialNumber={serialNumber}
         modelNumber={modelNumber}
         voltage={voltage}

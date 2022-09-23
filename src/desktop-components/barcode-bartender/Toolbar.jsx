@@ -1,9 +1,69 @@
 const React = require('react');
+const { TextField, InputLabelProps, Button, FormGroup, FormControlLabel, Checkbox, FormControl, InputLabel, MenuItem, Select } = require('@mui/material');
+const { fontSize } = require('@mui/system');
 
-module.exports = ({}) => {
+module.exports = ({sheet, setSheet, setSerialNumber, setModelNumber, setVoltage}) => {
   return (
     <div className='bartender-toolbar'>
-      Toolbar
+      <div className="bartender-toolbar-model-number-container">
+        <TextField 
+          label="Model Number"
+          variant="outlined"
+          size="small"
+          InputLabelProps={{shrink: true}}
+          onChange={(e) => setModelNumber(e.target.value.toUpperCase())}
+          fullWidth
+        />
+      </div>
+
+      <div className="bartender-toolbar-serial-number-container">
+        <TextField 
+          label="Serial Number"
+          variant="outlined"
+          size="small"
+          InputLabelProps={{shrink: true}}
+          onChange={(e) => setSerialNumber(e.target.value.toUpperCase())}
+          fullWidth
+        />
+      </div>
+      
+      <div className="bartender-toolbar-voltage-container">
+        <TextField 
+          label="Voltage"
+          variant="outlined"
+          size="small"
+          InputLabelProps={{shrink: true}}
+          onChange={(e) => setVoltage(e.target.value.toUpperCase())}
+          fullWidth
+        />
+      </div>
+      
+      <div className="bartender-toolbar-toggle-p2-container">
+        <FormControl fullWidth size='small'>
+        <InputLabel id="select-bartender-sheet">Sheet</InputLabel>
+        <Select
+            labelId="select-bartender-sheet"
+            id="select-bartender-sheet"
+            value={sheet}
+            label="Sheet"
+            sx={{minHeight: 40, height: 40}}
+            onChange={(e) => setSheet(e.target.value)}
+        >
+            <MenuItem value={'barcode'}>Barcode Only</MenuItem>
+            <MenuItem value={'paperwork'}>Shop Floor Process Sheet</MenuItem>
+            <MenuItem value={'both'}>Both</MenuItem>
+        </Select>
+        </FormControl>
+      </div>
+
+      <div className="bartender-print-button">
+        <Button
+          variant="outlined"
+          sx={{width: 100}}
+        >
+          Print
+        </Button>
+      </div>
     </div>
   );
 };
