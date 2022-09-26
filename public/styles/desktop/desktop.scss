@@ -4,11 +4,13 @@
 @import './jobBook';
 @import '../mobile/job-book';
 @import './paperworks';
+@import './bartender';
 @import './procedureToQualifyingStatorIronsForRewinding';
 
 * {
   margin: 0;
   padding: 0;
+  print-color-adjust: exact !important;
 }
 
 body {
