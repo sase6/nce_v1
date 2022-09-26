@@ -1,4 +1,5 @@
 const React = require('react');
+const {FormGroup, FormControlLabel, Checkbox, TextField, InputLabelProps} = require('@mui/material');
 const P2Meta = require('./P2Meta.jsx');
 
 module.exports = ({sheet, modelNumber, serialNumber, voltage, partNumber, revision, description, stock, oil, customerName, discus, delta, resistorKit}) => {
@@ -11,19 +12,38 @@ module.exports = ({sheet, modelNumber, serialNumber, voltage, partNumber, revisi
 
         <P2Meta />
 
-        {/* <div className="p2-customer-info-container">
+        <div className="p2-customer-info-container">
           <div className="p2-customer-info-boxes">
-            <div className="stock-checkbox">[] Stock</div>
-            <div className="oil-checkbox">[] Oil</div>
-            <div className="no-oil-checkbox">[] No Oil</div>
+            <div className="stock-checkbox">
+              <FormGroup>
+                <FormControlLabel control={<Checkbox defaultChecked disableRipple sx={{ '& .MuiSvgIcon-root': { fontSize: 30 } }}/>} label="Stock" />
+              </FormGroup>
+            </div>
+
+            <div className="p2-oil-boxes">
+            <div className="oil-checkbox">
+              <FormGroup>
+                <FormControlLabel control={<Checkbox defaultChecked disableRipple sx={{ '& .MuiSvgIcon-root': { fontSize: 30 } }}/>} label="Oil" />
+              </FormGroup>
+            </div>
+            <div className="no-oil-checkbox">
+              <FormGroup>
+                <FormControlLabel control={<Checkbox defaultChecked disableRipple sx={{ '& .MuiSvgIcon-root': { fontSize: 30 } }}/>} label="No-Oil" />
+              </FormGroup>
+            </div>
+            </div>
+
           </div>
+
+          
           <div className="p2-customer-name-container">
-            <div className="customer-name-text">CUSTOMER NAME: </div>
-            <div className="cusstomer-name-inputxxxx"></div>
+            <div className="customer-name-input">
+              <TextField InputLabelProps={{shrink: true}} variant='standard' fullWidth size='small' sx={{height: 50}} label="Customer Name"/>
+            </div>
           </div>
         </div>
 
-        <div className="p2-copeland-info-box">
+        {/* <div className="p2-copeland-info-box">
           <div className="copeland-text">COPELAND: </div>
           <div className="discus-checkbox">[] Discus</div>
           <div className="delta-checkbox">[] Delta</div>
