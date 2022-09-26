@@ -6,7 +6,7 @@ const ShopFloorProcessSheet = require('./ShopFloorProcessSheet.jsx');
 
 const Bartender = ({page}) => {
   if (page !== 'Bartender') return;
-  const [sheet, setSheet] = useState('barcode');
+  const [sheet, setSheet] = useState('paperwork');
   const [serialNumber, setSerialNumber] = useState("");
   const [modelNumber, setModelNumber] = useState("");
   const [voltage, setVoltage] = useState("");
