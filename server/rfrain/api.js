@@ -207,8 +207,8 @@ const pipe = async (arrOfFuncs=[], preStorage={}, errHandler=empty_func, success
 
       promiseIndex++;
       return await furfilPromise();
-    } catch {
-      return errHandler({pipeErr: "PIPING FAILED"});
+    } catch (err) {
+      return errHandler({pipeErr: err});
     }
   };
 
