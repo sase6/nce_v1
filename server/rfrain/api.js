@@ -136,12 +136,12 @@ const getTagStatusAndData = (storage={}, next=empty_func) => {
     }
   });
 
-  return Object.values(results);
+  return next({tagStatusAndCustomInfo: Object.values(results), ...storage});
 };
 
 const syncToReaders = async (storage={}, next=empty_func) => {
   const {readersToSync, sessionkey, customTagData} = storage;
-  if (!readersToSync || !sessionkey || !customTagData) return next({error: 'Sync To Readers: MISSING PARAMETERS'});
+  if (readersToSync === undefined || sessionkey === undefined || customTagData === undefined) return next({error: 'Sync To Readers: MISSING PARAMETERS'});
 
   const syncToReadersPromises = [];
   const amtOfDataToSync = readersToSync.length * customTagData.length;
@@ -181,12 +181,46 @@ const syncToReaders = async (storage={}, next=empty_func) => {
   }
 };
 
-const test = async() => {
-  let {sessionkey} = await getSessionKey();
-  let {tags} = await getRecentlyScannedTags({sessionkey}); 
-  let {customTagData} = await getCustomTagInfo({sessionkey, tags});
-  let {sync} = await syncToReaders({sessionkey, customTagData, readersToSync: ['B827EB873D0D']});
-  console.log(sync);
+const queryDataSet = (storage, next=empty_func) => {
+  const {queries} = storage;
+  if (queries === undefined) return next({...storage});
+  let results = [];
+
+  queries.forEach(query => {
+    let result = storage;
+    query.forEach(prop => result = result[prop]);
+    results.push(result);
+  });
+
+  return next({queriedDataSet: results});
 };
 
-test();
+const pipe = async (arrOfFuncs=[], preStorage={}, errHandler=empty_func, successHandler=empty_func) => {
+  let promiseIndex = 0; 
+  let storage = preStorage;
+  
+  const furfilPromise = async () => {
+    if (promiseIndex === arrOfFuncs.length) return successHandler(storage);
+    try {
+      storage = await arrOfFuncs[promiseIndex](storage);
+      if (storage.error) return errHandler(storage.error);
+
+      promiseIndex++;
+      return await furfilPromise();
+    } catch {
+      return errHandler({pipeErr: "PIPING FAILED"});
+    }
+  };
+
+  return await furfilPromise();
+};
+
+module.exports = {
+  pipe,
+  getSessionKey, 
+  getRecentlyScannedTags,
+  getCustomTagInfo,
+  getTagStatusAndData,
+  syncToReaders,
+  queryDataSet
+};
