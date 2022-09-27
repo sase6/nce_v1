@@ -2,7 +2,7 @@ const axios = require('axios');
 require('dotenv').config();
 
 // Variables
-const empty_func = () => null;
+const empty_func = (data) => data;
 const rfrain_user = process.env.rfrain_user;
 const rfrain_pass = process.env.rfrain_pass;
 const rfrain_cname = "nce";
@@ -31,3 +31,162 @@ const getSessionKey = async (storage={}, next=empty_func) => {
     return next({error: "Get Session Key: REQUEST FAILED"});
   }
 };
+
+const getRecentlyScannedTags = async (storage={}, next=empty_func) => {
+  const payload = {
+    sessionkey: storage.sessionkey
+  };
+
+  const filterStatusResults = (arrOfStatusObj) => {
+    const results = {};
+    arrOfStatusObj.forEach(statusObj => {
+      const {tagnumb, current_access_utc} = statusObj;
+      
+      if (results[tagnumb] && results[tagnumb].utc_access > parseFloat(current_access_utc)) return;
+      const {tagname, subzone, current_access, current_reader, current_readername} = statusObj;
+      results[tagnumb] = {
+        tagnumb, tagname, utc_access: parseFloat(current_access_utc),
+        current_access, subzone, current_reader, current_readername
+      };
+    });
+
+    return Object.values(results);
+  };
+
+  try {
+    const {data} = await axios({
+      method: 'post',
+      url: `${rfrain_api_url}get_list_of_tags_status`,
+      data: payload
+    });
+
+    let results = data.results?.record_details;
+    if (!results) return next({error: data.message});
+
+    return next({...storage, tags: filterStatusResults(results)});
+  } catch {
+    return next({error: "Get Recent Tags: REQUEST FAILED"});
+  }
+};
+
+const getCustomTagInfo = async (storage={}, next=empty_func) => {
+  const {sessionkey, tags} = storage;
+  const tagDataPromises = [];
+
+  const filterArrOfTagHistory = (arrOfCustomTagInfoHistory) => {
+    const result = arrOfCustomTagInfoHistory[0];
+    arrOfCustomTagInfoHistory.forEach(tagData => {
+      if (parseFloat(result.access_utc) < parseFloat(tagData.access_utc)) result = tagData;
+    });
+
+    return {
+      tagnumb: result.tagnumb,
+      tagname: result.tagname,
+      modelNumber: result.custom1,
+      jobNumber: result.custom2,
+      voltage: result.custom3,
+      type: result.custom4,
+      other: result.custom5,
+      lastAccess: result.access,
+      inputBy: result.reader
+    };
+  };
+
+  tags.forEach(({tagnumb}) => {
+    tagDataPromises.push(axios({
+      method: 'post',
+      url: `${rfrain_api_url}get_tag_custom_information`,
+      data: {
+        sessionkey,
+        tagnumb,
+        dbname: rfrain_api_dbname
+      }
+    }));
+  });
+
+  try {
+    let resolvedTagDataPromises = await Promise.all(tagDataPromises);
+    const results = [];
+    resolvedTagDataPromises.forEach(({data}) => {
+      if (data.success) {
+        results.push(filterArrOfTagHistory(data.results?.results));
+      } else results.push(null);
+    });
+
+    return next({...storage, customTagData: results.filter(data => data!==null)});
+  } catch {
+    console.log('errr');
+    return next({error: "Get Custom Tag Information: REQUEST FAILED"});
+  }
+};
+
+const getTagStatusAndData = (storage={}, next=empty_func) => {
+  const {customTagData, tags} = storage;
+  if (!customTagData || !tags) return next({error: "Missing 1 or More Required Field In Storage Object"});
+
+  const results = {};
+  customTagData.forEach(tagData => {
+    results[tagData.tagnumb] = tagData;
+  });
+
+  tags.forEach(tagData => {
+    const tagnumb = tagData.tagnumb;
+    if (results[tagnumb]) {
+      results[tagnumb] = {...results[tagnumb], ...tagData}
+    }
+  });
+
+  return Object.values(results);
+};
+
+const syncToReaders = async (storage={}, next=empty_func) => {
+  const {readersToSync, sessionkey, customTagData} = storage;
+  if (!readersToSync || !sessionkey || !customTagData) return next({error: 'Sync To Readers: MISSING PARAMETERS'});
+
+  const syncToReadersPromises = [];
+  const amtOfDataToSync = readersToSync.length * customTagData.length;
+
+  readersToSync.forEach(readerid => {
+    customTagData.forEach((tagData) => {
+      const {tagname, modelNumber, jobNumber, voltage, type, other} = tagData;
+      const arrOfTagData = [tagname || '', modelNumber || '', jobNumber || '', voltage || '', type || '', other || ''];
+
+      const payload = {
+        sessionkey,
+        readerid,
+        tagnumb: tagData.tagnumb,
+        tagdata: arrOfTagData.join(',')
+      };
+
+      syncToReadersPromises.push(axios({
+        method: 'post',
+        url: `${rfrain_api_url}set_tag_custom_information`,
+        data: payload
+      }));
+    });
+  });
+
+  try {
+    const results = await Promise.all(syncToReadersPromises);
+    let count = 0;
+    results.forEach(result => count = result.data.success? count + 1 : count);
+    return next({...storage, sync: {
+      amtToProcess: amtOfDataToSync,
+      amtSuccess: count,
+      time: (new Date).toLocaleTimeString()
+    }});
+
+  } catch {
+    return next({error: 'Sync To Readers: REQUEST FAILED'});
+  }
+};
+
+const test = async() => {
+  let {sessionkey} = await getSessionKey();
+  let {tags} = await getRecentlyScannedTags({sessionkey}); 
+  let {customTagData} = await getCustomTagInfo({sessionkey, tags});
+  let {sync} = await syncToReaders({sessionkey, customTagData, readersToSync: ['B827EB873D0D']});
+  console.log(sync);
+};
+
+test();
