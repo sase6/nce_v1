@@ -13,6 +13,7 @@ const { hash } = require('../encryption/index.js');
 const xl = require('../xlsx/index.js');
 const { JOBS } = require('../database/controllers.js');
 const p1Controllers = require('./controllers/p1.js');
+const rfrain = require('./rfrain/index.js');
 
 const publicUrl = path.join(__dirname, '..', 'public');
 
@@ -87,6 +88,10 @@ app.delete('/job', inSession, (req, res, next) => {
 // PROCEDURE TO QUALIFYING STATOR IRONS FOR REWINDING (P1)
 app.get('/p1/:jobNumber', inSession, p1Controllers.load);
 app.post('/p1', inSession, p1Controllers.save);
+
+// Rfrain
+app.get('/rfrain/sync', inSession, rfrain.syncNow);
+app.get('/rfrain/sync/data', inSession, rfrain.requestSyncData);
 
 //Keys & Backup
 const createSecretKey = async() => {

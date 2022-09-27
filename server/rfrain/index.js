@@ -18,7 +18,7 @@ class RfidSyncControl {
     setInterval(() => this.sync(), this.syncInterval);
   }
 
-  sync() {
+  sync(cb) {
     api.pipe(
       // Functions
       [
@@ -40,11 +40,25 @@ class RfidSyncControl {
 
       // Success Handler
       (data) => {
-        console.log(data.sync);
         this.syncData = data.sync;
+        cb(data.sync);
       }
     );
   }
 };
 
-new RfidSyncControl();
+let RfidControl = new RfidSyncControl();
+
+const syncNow = (req, res) => {
+  RfidControl.sync((data) => {
+    res.end(JSON.stringify(data));
+  });
+};
+
+const requestSyncData = (req, res) => {
+  res.end(JSON.stringify({...RfidControl.syncData, readers: readerIds}));
+};
+
+module.exports = {
+  syncNow, requestSyncData
+};
