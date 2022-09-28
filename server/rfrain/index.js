@@ -41,7 +41,7 @@ class RfidSyncControl {
       // Success Handler
       (data) => {
         this.syncData = data.sync;
-        cb(data.sync);
+        if (cb) cb(data.sync);
       }
     );
   }
@@ -60,5 +60,5 @@ const requestSyncData = (req, res) => {
 };
 
 module.exports = {
-  syncNow, requestSyncData
+  syncNow, requestSyncData,
 };

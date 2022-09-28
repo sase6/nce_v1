@@ -1,0 +1,31 @@
+.rfid-sync {
+  width: 300px;
+  height: 500px;
+  border: 1px solid black;
+  display: grid;
+  grid-template-rows: 45px 45px 345px 45px;
+  grid-row-gap: 5px;
+  padding: 25px;
+  position: relative;
+  top: calc(50vh - 250px - 75px);
+  left: 100px;
+  border-radius: 5px;
+  font-family: Roboto, sans-serif;
+}
+
+.rfrid-sync-last-updated {
+  color: indianred;
+}
+
+.rfid-sync-header {
+  font-size: 20px;
+  font-weight: 900;
+  border-bottom: 2px solid black;
+  display: grid;
+  align-items: center;
+}
+
+.rfid-sync-reader-list {
+  display: grid;
+  grid-template-columns: 150px 150px;
+}

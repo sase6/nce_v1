@@ -7,6 +7,7 @@ const DesktopJobBook = require('./desktop-components/job-book/index.jsx');
 const MobileJobBook = require('./mobile-components/job-book/MobileJobBook.jsx');
 const Paperworks = require('./desktop-components/paperworks/Paperworks.tsx');
 const Bartender = require('./desktop-components/barcode-bartender/Bartender.jsx');
+const RfidTools = require('./desktop-components/rfid/RfidTools.jsx');
 const SystemStatus = require('./helpers/Status.jsx');
 
 const App = () => {
@@ -59,6 +60,7 @@ const DesktopView = (props) => {
       <DesktopJobBook page={page} query={query} user={user} setAppStatus={setAppStatus}/>
       <Paperworks page={page} query={query} setAppStatus={setAppStatus}/>
       <Bartender page={page}/>
+      <RfidTools page={page} setAppStatus={setAppStatus}/>
     </div>
   );
 };
