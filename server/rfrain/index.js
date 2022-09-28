@@ -15,6 +15,7 @@ class RfidSyncControl {
     this.syncData = {};
     this.syncInterval = 180000;
 
+    this.sync();
     setInterval(() => this.sync(), this.syncInterval);
   }
 

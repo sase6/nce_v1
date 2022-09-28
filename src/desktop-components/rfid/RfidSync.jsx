@@ -38,7 +38,7 @@ const RfidSync = ({setAppStatus, setLastSyncInterval}) => {
 
   useEffect(() => {
     updateLastSyncedTime();
-    setLastSyncInterval(setInterval(async () => await updateLastSyncedTime(), 15000));
+    setLastSyncInterval(setInterval(async () => await updateLastSyncedTime(), 60000));
     return;
   }, []);
 
