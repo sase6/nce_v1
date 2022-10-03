@@ -6,7 +6,7 @@ const RfidDataComponent = require("./RfidDataComponent.jsx");
 const fakeData = {
   readerName: "b74398dw9",
   subzone: "Maspeth OUT",
-  type: "Compressor",
+  type: "Compressors",
   rfidNumber: "53478",
   jobNumber: 423890,
   modelNumber: "06ds8246bc3200",
@@ -17,7 +17,7 @@ const fakeData = {
 const fakeData2 = {
   readerName: "fhwikehn",
   subzone: "Maspeth IN",
-  type: "STATOR",
+  type: "STATORs",
   rfidNumber: "4328",
   jobNumber: 45349,
   modelNumber: "ordm429dh",
@@ -37,20 +37,34 @@ module.exports = ({page}) => {
   const [modelNumber, setModelNumber] = useState("");
   const [voltage, setVoltage] = useState("");
   const [data, setData] = useState([fakeData, fakeData2, fakeData, fakeData2, fakeData, fakeData, fakeData2]);
+  const [queriedData, setQueriedData] = useState(data);
 
   const setHeaderState = (event, set) => {
     set(event.target.value.toString().toLowerCase());
   };
 
   const queryDb = () => {
-    console.log("querying db");
-    console.log({readerName});
-    console.log({subzone});
-    console.log({jobNumber});
-    console.log({modelNumber});
-    console.log({type});
-    console.log({rfidNumber});
-    console.log({voltage});
+    const results = [];
+    const query = {readerName, subzone, type, rfidNumber, jobNumber, modelNumber, voltage};
+
+    data.forEach(dataObj => {
+      let err = 0;
+
+      for (prop in dataObj) {
+        if (query[prop] === undefined) continue;
+        const dataFromDataObj = dataObj[prop].toString().toLowerCase();
+        const queryData = query[prop].toString().toLowerCase();
+        
+        if (queryData !== "all" && dataFromDataObj.indexOf(queryData) === -1) {
+          err++;
+        }
+      }
+
+      if (err > 0) return;
+      results.push(dataObj);
+    });
+
+    setQueriedData(results);
   };
 
   return (
@@ -83,7 +97,7 @@ module.exports = ({page}) => {
       </div>
 
       <div className="rfid-tags-container">
-        {data.map((dataObj, i) => {
+        {queriedData.map((dataObj, i) => {
           return (
             <RfidDataComponent 
               key={`rfid-data-component-${i}`}
