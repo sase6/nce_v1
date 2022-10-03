@@ -8,11 +8,12 @@ const MobileJobBook = require('./mobile-components/job-book/MobileJobBook.jsx');
 const Paperworks = require('./desktop-components/paperworks/Paperworks.tsx');
 const Bartender = require('./desktop-components/barcode-bartender/Bartender.jsx');
 const RfidTools = require('./desktop-components/rfid/RfidTools.jsx');
+const RfidLog = require('./desktop-components/rfid/RfidLog.jsx');
 const SystemStatus = require('./helpers/Status.jsx');
 
 const App = () => {
   const [query, setQuery] = useState('');
-  const [pages, setPages] = useState(['Login']);  //Login
+  const [pages, setPages] = useState(["Login"]);  //Login
   const [page, setPage] = useState('Login');  //Login
   const [user, setUser] = useState({});
   const [viewType, setViewType] = useState("Desktop");
@@ -61,6 +62,7 @@ const DesktopView = (props) => {
       <Paperworks page={page} query={query} setAppStatus={setAppStatus}/>
       <Bartender page={page}/>
       <RfidTools page={page} setAppStatus={setAppStatus}/>
+      <RfidLog page={page}/>
     </div>
   );
 };
