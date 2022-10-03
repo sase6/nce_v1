@@ -1504,6 +1504,28 @@ a {
   grid-template-columns: 150px 150px;
 }
 
+.rfid-query-container {
+  position: relative;
+  min-width: 1000px;
+  width: 80vw;
+  height: 125px;
+  background-color: rgba(0, 0, 0, 0.085);
+  top: 50px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 22% 22% 22% 22%;
+  grid-template-rows: 45% 45%;
+  justify-content: space-between;
+  grid-row-gap: 10%;
+  box-sizing: border-box;
+  padding: 10px;
+}
+
+.rfid-query-container:nth-child(n) {
+  display: grid;
+  align-items: center;
+}
+
 * {
   margin: 0;
   padding: 0;

@@ -13,8 +13,8 @@ const SystemStatus = require('./helpers/Status.jsx');
 
 const App = () => {
   const [query, setQuery] = useState('');
-  const [pages, setPages] = useState(["Login"]);  //Login
-  const [page, setPage] = useState('Login');  //Login
+  const [pages, setPages] = useState(["RFID Log"]);  //Login
+  const [page, setPage] = useState('RFID Log');  //Login
   const [user, setUser] = useState({});
   const [viewType, setViewType] = useState("Desktop");
   const [appStatus, setAppStatus] = useState(null);
