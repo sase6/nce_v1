@@ -1,17 +1,30 @@
 const React = require("react");
 const {useState} = require("react");
 const {TextField, Button, InputLabelProps, FormControl, InputLabel, Select, MenuItem} = require("@mui/material");
+const RfidDataComponent = require("./RfidDataComponent.jsx");
 
 const fakeData = {
   readerName: "b74398dw9",
-  subzone: "Maspeth In",
+  subzone: "Maspeth OUT",
   type: "Compressor",
-  tagName: "53478",
+  rfidNumber: "53478",
   jobNumber: 423890,
   modelNumber: "06ds8246bc3200",
   voltage: "multi",
   date: (new Date).toLocaleDateString()
 }
+
+const fakeData2 = {
+  readerName: "fhwikehn",
+  subzone: "Maspeth IN",
+  type: "STATOR",
+  rfidNumber: "4328",
+  jobNumber: 45349,
+  modelNumber: "ordm429dh",
+  voltage: "460",
+  date: (new Date).toLocaleDateString()
+}
+
 
 module.exports = ({page}) => {
   if (page !== "RFID Log") return;
@@ -23,6 +36,7 @@ module.exports = ({page}) => {
   const [jobNumber, setJobNumber] = useState("");
   const [modelNumber, setModelNumber] = useState("");
   const [voltage, setVoltage] = useState("");
+  const [data, setData] = useState([fakeData, fakeData2, fakeData, fakeData2, fakeData, fakeData, fakeData2]);
 
   const setHeaderState = (event, set) => {
     set(event.target.value.toString().toLowerCase());
@@ -67,6 +81,25 @@ module.exports = ({page}) => {
           <Button variant="outlined" onClick={queryDb}>Search</Button>
         </div>
       </div>
+
+      <div className="rfid-tags-container">
+        {data.map((dataObj, i) => {
+          return (
+            <RfidDataComponent 
+              key={`rfid-data-component-${i}`}
+              readerName={dataObj.readerName}
+              subzone={dataObj.subzone}
+              type={dataObj.type}
+              date={dataObj.date}
+              jobNumber={dataObj.jobNumber}
+              modelNumber={dataObj.modelNumber}
+              voltage={dataObj.voltage}
+              rfidNumber={dataObj.rfidNumber}
+              colorId={i}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 };
@@ -90,8 +123,8 @@ const HeaderFieldMenu = ({label, state, setState, values=[]}) => {
       <InputLabel id={`rfid-query-label-${label}`}>{label}</InputLabel>
       <Select
         labelId={`rfid-query-label-${label}`}
-        value={state}
-        label={state}
+        value={state.toUpperCase()}
+        label={label}
         onChange={(e) => setState(e.target.value.toLowerCase())}
       >
         {values.map((value, i) => {
