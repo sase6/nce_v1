@@ -44,8 +44,8 @@ const RfidSync = ({setAppStatus, setLastSyncInterval}) => {
 
   return (
     <div className="rfid-sync">
-      <div className="rfid-sync-header">RFID SYNC</div>
-      <div className="rfrid-sync-last-updated">{`LAST SYNC: ${date}`}</div>
+      <div className="rfid-sync-header">RFID Reader Sync</div>
+      <div className="rfrid-sync-last-updated">{`Last Synced at: ${date}`}</div>
      
       <div className="rfid-sync-reader-list">
         <div className="rfid-reader-id">B827EB3C1135</div>

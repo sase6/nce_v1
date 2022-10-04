@@ -187,6 +187,10 @@ const RFIDTags = {
     for (let i = 0; i < arrayOfTagData.length; i++) {
       const {tagnumb, tagname, modelNumber, jobNumber, voltage, type, other, current_access, inputBy, subzone, current_reader} = arrayOfTagData[i];
       // Verify tagname, make new if needed
+      if (tagnumb === undefined) {
+        console.error("NO TAG NUMBER");
+        return;
+      }
 
       const dbData = {
         tagNumber: tagnumb,
@@ -208,7 +212,11 @@ const RFIDTags = {
         await tagData.save();
         newTagCount++;
       } else {
-        await _model.RFIDTag.findOneAndUpdate({tagNumber: tagnumb}, dbData);
+        for (prop in dbData) {
+          dbResults[0][prop] = dbData[prop];
+        }
+
+        await dbResults[0].save();
         modifiedTagCount++;
       }
     }

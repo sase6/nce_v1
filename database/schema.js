@@ -74,7 +74,7 @@ const procedureToQualifyingStatorIronsForRewindingSchema = new mongoose.Schema({
 const P1 = new mongoose.model('P1', procedureToQualifyingStatorIronsForRewindingSchema);
 
 const rfidTagsSchema = new mongoose.Schema({
-  tagNumber: String,
+  tagNumber: {type: String, unique: true},
   tagName: {type: String, index: true},
   readerId: String,
   readerName: String,

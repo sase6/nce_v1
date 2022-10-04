@@ -1,6 +1,7 @@
 const React = require('react');
 const {useState} = require('react');
 const RfidSync = require('./RfidSync.jsx');
+const RfidDatabaseSync = require("./RfidDatabaseSync.jsx");
 
 const RfidTools = ({page, setAppStatus}) => {
   const [lastSyncInterval, setLastSyncInterval] = useState(null);
@@ -12,6 +13,7 @@ const RfidTools = ({page, setAppStatus}) => {
   return (
     <div className="rfid-tools">
       <RfidSync setAppStatus={setAppStatus} page={page} setLastSyncInterval={setLastSyncInterval}/>
+      <RfidDatabaseSync />
     </div>
   );
 };

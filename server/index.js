@@ -39,7 +39,7 @@ const inSession = (req, res, next) => {
 };
 
 app.use(express.static(publicUrl));
-app.use(express.json());
+app.use(express.json({limit: '50mb'}));
 app.use(cookieParser());
 
 app.get('/', (req, res) => {
@@ -93,7 +93,7 @@ app.post('/p1', inSession, p1Controllers.save);
 app.get('/rfrain/sync', inSession, rfrain.syncNow);
 app.get('/rfrain/sync/data', inSession, rfrain.requestSyncData);
 app.get('/rfrain/database/sync', inSession, rfrain.syncRecentDataToDatabase);
-app.get('/rfrain/database/sync/external', inSession, rfrain.syncExternalDataToDatabase);
+app.post('/rfrain/database/sync/external', inSession, rfrain.syncExternalDataToDatabase);
 
 //Keys & Backup
 const createSecretKey = async() => {
