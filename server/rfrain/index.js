@@ -90,6 +90,21 @@ const syncRecentDataToDatabase = async (req, res) => {
   else res.end("Good");
 };
 
+const syncExternalDataToDatabase = async (req, res) => {
+  console.log("Syncing External Data To Database");
+  const {data} = req.body;
+    try {
+      const parsedData = JSON.parse(data);
+      const status = await RFIDTags.updateRecords(parsedData);
+      console.log(`Synced Database, Status: ${JSON.stringify(status)}`);
+      res.end("Good");
+
+    } catch (err) {
+      console.log("Could Not Sync Data", err);
+      res.status(500).end(err);
+    }
+};
+
 module.exports = {
-  syncNow, requestSyncData, syncRecentDataToDatabase,
+  syncNow, requestSyncData, syncRecentDataToDatabase, syncExternalDataToDatabase,
 };

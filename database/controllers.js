@@ -191,15 +191,15 @@ const RFIDTags = {
       const dbData = {
         tagNumber: tagnumb,
         tagName: tagname,
-        readerId: inputBy,
-        readerName: current_reader,
-        subzone,
-        jobNumber,
-        modelNumber,
-        voltage,
-        type,
-        other,
-        date: current_access
+        readerId: inputBy || "Not Yet Scanned",
+        readerName: current_reader || "Not Yet Scanned",
+        subzone: subzone || "Not Yet Scanned",
+        jobNumber: jobNumber || "Missing Data",
+        modelNumber: modelNumber || "Missing Data",
+        voltage: voltage || "Missing data",
+        type: type || "Missing Data",
+        other : other || "",
+        date: current_access || "Not Yet Scanned"
       };
 
       const dbResults = await _model.RFIDTag.find({tagNumber: tagnumb});
