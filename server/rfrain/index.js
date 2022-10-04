@@ -26,6 +26,7 @@ class RfidSyncControl {
         api.getSessionKey,
         api.getRecentlyScannedTags,
         api.getCustomTagInfo,
+        api.saveTagStatusAndData,
         api.syncToReaders,
       ],
 

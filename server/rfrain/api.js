@@ -1,3 +1,4 @@
+const fs = require("fs");
 const axios = require('axios');
 require('dotenv').config();
 
@@ -120,7 +121,7 @@ const getCustomTagInfo = async (storage={}, next=empty_func) => {
   }
 };
 
-const getTagStatusAndData = (storage={}, next=empty_func) => {
+const saveTagStatusAndData = async (storage={}, next=empty_func) => {
   const {customTagData, tags} = storage;
   if (!customTagData || !tags) return next({error: "Missing 1 or More Required Field In Storage Object"});
 
@@ -136,6 +137,7 @@ const getTagStatusAndData = (storage={}, next=empty_func) => {
     }
   });
 
+  fs.writeFileSync("./recentTagData.json", JSON.stringify(Object.values(results)));
   return next({tagStatusAndCustomInfo: Object.values(results), ...storage});
 };
 
@@ -220,7 +222,7 @@ module.exports = {
   getSessionKey, 
   getRecentlyScannedTags,
   getCustomTagInfo,
-  getTagStatusAndData,
+  saveTagStatusAndData,
   syncToReaders,
   queryDataSet
 };

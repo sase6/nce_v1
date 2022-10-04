@@ -86,6 +86,16 @@
   padding: 5px;
 }
 
+.pending-user-bottom-container {
+  max-width: 600px !important;
+  overflow: scroll;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+.pending-user-bottom-container::-webkit-scrollbar {
+  display: none;
+}
+
 .pending-user-top-container {
   display: grid;
   grid-template-columns: 75% 21%;

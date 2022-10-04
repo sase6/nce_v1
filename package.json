@@ -12,7 +12,9 @@
     "build-win64": "electron-builder build -w --x64",
     "react-build": "webpack --mode production",
     "pre-electron": "npm install && npm install electron && npx kill-port 8082 npm run react-build && node server/index.js",
-    "god-run": "npm install && npx kill-port 8082 npm run react-build && node server/index.js"
+    "god-run": "npm install && npx kill-port 8082 npm run react-build && node server/index.js",
+    "server": "node server",
+    "dev-start": "concurrently \"node server\" \"webpack --mode development -w\""
   },
   "keywords": [],
   "author": "",
@@ -29,7 +31,7 @@
     "@types/react-dom": "^18.0.6",
     "axios": "^0.27.2",
     "bcrypt": "^5.0.1",
-    "concurrently": "^7.3.0",
+    "concurrently": "^7.4.0",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
