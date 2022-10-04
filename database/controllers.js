@@ -179,6 +179,48 @@ const P1 = {
   },
 };
 
+const RFIDTags = {
+  updateRecords: async (arrayOfTagData) => {
+    let newTagCount = 0;
+    let modifiedTagCount = 0;
+
+    for (let i = 0; i < arrayOfTagData.length; i++) {
+      const {tagnumb, tagname, modelNumber, jobNumber, voltage, type, other, current_access, inputBy, subzone, current_reader} = arrayOfTagData[i];
+      // Verify tagname, make new if needed
+
+      const dbData = {
+        tagNumber: tagnumb,
+        tagName: tagname,
+        readerId: inputBy,
+        readerName: current_reader,
+        subzone,
+        jobNumber,
+        modelNumber,
+        voltage,
+        type,
+        other,
+        date: current_access
+      };
+
+      const dbResults = await _model.RFIDTag.find({tagNumber: tagnumb});
+      if (dbResults.length <= 0) {
+        const tagData = new _model.RFIDTag(dbData);
+        await tagData.save();
+        newTagCount++;
+      } else {
+        await _model.RFIDTag.findOneAndUpdate({tagNumber: tagnumb}, dbData);
+        modifiedTagCount++;
+      }
+    }
+  
+    return {newTagCount, modifiedTagCount};
+  },
+
+  getAll: () => {
+    //
+  }
+};
+
 module.exports = {
-  find, make, remove, update, JOBS, P1,
+  find, make, remove, update, JOBS, P1, RFIDTags
 };

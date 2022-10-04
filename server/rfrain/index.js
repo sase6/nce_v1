@@ -1,3 +1,5 @@
+const {RFIDTags} = require("../../database/controllers.js");
+const fs = require("fs");
 const api = require('./api');
 
 const readerIds = [
@@ -13,13 +15,16 @@ const readerIds = [
 class RfidSyncControl {
   constructor() {
     this.syncData = {};
-    this.syncInterval = 180000;
+    this.readerSyncInterval = 1800000;
+    this.databaseSyncInterval = 2700000;
 
-    this.sync();
-    setInterval(() => this.sync(), this.syncInterval);
+    this.syncReader();
+    try{this.syncDatabase()}catch{}
+    setInterval(() => this.syncReader(), this.readerSyncInterval);
+    setInterval(() => this.syncDatabase(), this.databaseSyncInterval);
   }
 
-  sync(cb) {
+  syncReader(cb) {
     api.pipe(
       // Functions
       [
@@ -47,6 +52,24 @@ class RfidSyncControl {
       }
     );
   }
+
+  async syncDatabase() {
+    console.log("Syncing Recent Data To Database");
+    try {
+      const data = JSON.parse(fs.readFileSync("./recentTagData.json"));
+      const status = await RFIDTags.updateRecords(data);
+      console.log(`Synced Database, Status: ${JSON.stringify(status)}`);
+      return status;
+
+    } catch (err) {
+      console.log("Could Not Read './recentTagData.json'", err);
+      return null;
+    }
+  }
+
+  async purgeDatabase() {
+    //
+  }
 };
 
 let RfidControl = new RfidSyncControl();
@@ -61,6 +84,12 @@ const requestSyncData = (req, res) => {
   res.end(JSON.stringify({...RfidControl.syncData, readers: readerIds}));
 };
 
+const syncRecentDataToDatabase = async (req, res) => {
+  const status = await RfidControl.syncDatabase();
+  if (status === null) res.status(500).end("Error Sync To Database");
+  else res.end("Good");
+};
+
 module.exports = {
-  syncNow, requestSyncData,
+  syncNow, requestSyncData, syncRecentDataToDatabase,
 };

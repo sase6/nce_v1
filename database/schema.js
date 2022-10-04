@@ -84,6 +84,7 @@ const rfidTagsSchema = new mongoose.Schema({
   voltage: String,
   type: String,
   other: String,
+  date: String
 });
 
 const RFIDTag = new mongoose.model('rfidTag', rfidTagsSchema);
