@@ -163,13 +163,6 @@ app.listen(port, () => {
   require('../database/index.js');
   backup();
   console.log('Server listening on port: ', port);
-  exec('lt -p 8082 -s ncex', (err) => {
-    if (err) {
-      console.log('Err Deploying Server: ', err);
-    } else {
-      console.log('Server Deployed @ncex.loca.lt');
-    }
-  });
 
   // Secret Key
   createSecretKey();
