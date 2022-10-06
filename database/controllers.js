@@ -224,8 +224,8 @@ const RFIDTags = {
     return {newTagCount, modifiedTagCount};
   },
 
-  getAll: () => {
-    //
+  getAll: async() => {
+    return (await _model.RFIDTag.find({}));
   }
 };
 

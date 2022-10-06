@@ -157,7 +157,7 @@ const syncToReaders = async (storage={}, next=empty_func) => {
         sessionkey,
         readerid,
         tagnumb: tagData.tagnumb,
-        tagdata: arrOfTagData.join(',')
+        tagdata: arrOfTagData.join(','),
       };
 
       syncToReadersPromises.push(axios({
@@ -171,15 +171,18 @@ const syncToReaders = async (storage={}, next=empty_func) => {
   try {
     const results = await Promise.all(syncToReadersPromises);
     let count = 0;
-    results.forEach(result => count = result.data.success? count + 1 : count);
+    results.forEach(result =>  {
+      count = result.data.success? count + 1 : count;
+    });
+
     return next({...storage, sync: {
       amtToProcess: amtOfDataToSync,
       amtSuccess: count,
       time: (new Date).toLocaleTimeString()
     }});
 
-  } catch {
-    return next({error: 'Sync To Readers: REQUEST FAILED'});
+  } catch (err) {
+    return next({error: 'Sync To Readers: REQUEST FAILED', err});
   }
 };
 

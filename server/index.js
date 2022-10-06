@@ -94,6 +94,7 @@ app.get('/rfrain/sync', inSession, rfrain.syncNow);
 app.get('/rfrain/sync/data', inSession, rfrain.requestSyncData);
 app.get('/rfrain/database/sync', inSession, rfrain.syncRecentDataToDatabase);
 app.post('/rfrain/database/sync/external', inSession, rfrain.syncExternalDataToDatabase);
+app.get('/rfrain/database/sync/reader', rfrain.syncDatabaseToreader);
 
 //Keys & Backup
 const createSecretKey = async() => {

@@ -3,13 +3,13 @@ const fs = require("fs");
 const api = require('./api');
 
 const readerIds = [
-  "B827EB3C1135", // 1900-H
-  "B827EB63FA85", // Dubon-H
-  "B827EB3D721C", // Dubon-H1
-  "B827EBC91692", // Georgia-H1
-  "B827EB873D0D", // Maspeth-H
-  "B827EBFF41D2", // Maspeth-H
-  "B827EBD8148B"  // MaspethDoor
+  // "B827EB3C1135", // 1900-H
+  // "B827EB63FA85", // Dubon-H
+  // "B827EB3D721C", // Dubon-H1
+  // "B827EBC91692", // Georgia-H1
+  // "B827EB873D0D", // Maspeth-H
+  // "B827EBFF41D2", // Maspeth-H
+  // "B827EBD8148B"  // MaspethDoor
 ];
 
 class RfidSyncControl {
@@ -67,15 +67,40 @@ class RfidSyncControl {
     }
   }
 
-  async purgeDatabase() {
-    //
+  async syncDatabaseToreader(cb) {
+    const customTagData = await RFIDTags.getAll();
+
+    api.pipe(
+      // Functions
+      [
+        api.getSessionKey,
+        api.syncToReaders,
+      ],
+
+      // Pre Storage
+      {
+        readersToSync: readerIds,
+        customTagData
+      },
+
+      // Error Handler
+      (err) => {
+        console.log('Error Syncing RFID', err);
+      },
+
+      // Success Handler
+      (data) => {
+        this.syncData = data.sync;
+        if (cb) cb(data.sync);
+      }
+    );
   }
 };
 
 let RfidControl = new RfidSyncControl();
 
 const syncNow = (req, res) => {
-  RfidControl.sync((data) => {
+  RfidControl.syncReader((data) => {
     res.end(JSON.stringify(data));
   });
 };
@@ -105,6 +130,19 @@ const syncExternalDataToDatabase = async (req, res) => {
     }
 };
 
+const syncDatabaseToreader = async(req, res) => {
+  console.log("Syncing Database to Readers");
+  try {
+    await RfidControl.syncDatabaseToreader(() => {
+      console.log("Finished Syncing Database to Readers");
+      res.end("DONE");
+    });
+  } catch {
+    console.log("Failed to Sync Database to Readers");
+    res.status(500).end("Erro Syncing Database to Readers");
+  }
+};
+
 module.exports = {
-  syncNow, requestSyncData, syncRecentDataToDatabase, syncExternalDataToDatabase,
+  syncNow, requestSyncData, syncRecentDataToDatabase, syncExternalDataToDatabase, syncDatabaseToreader
 };
