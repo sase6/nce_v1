@@ -15,9 +15,9 @@ module.exports = ({readerName, subzone, type, date, jobNumber, modelNumber, volt
 
   return (
     <div className="rfid-data-container" style={{background: colorId%2===0? "whitesmoke" : "white"}}>
-      <div className="rfid-data-location">MASPETH</div>
+      <div className="rfid-data-location">{readerName.toUpperCase()}</div>
       <div className="rfid-data-meta-container">
-        <div className="rfid-data-subzone-type" style={{backgroundColor: inInString(subzone)? "" : "rgba(205, 92, 92, 0.45)"}}>{inInString(subzone)? "IN" : "OUT"}</div>
+        <div className="rfid-data-subzone-type" style={{backgroundColor: inInString(subzone)? "" : "rgba(205, 92, 92, 0.45)"}}>{subzone.toUpperCase()}</div>
         <DataField label="Type" value={type.toUpperCase()}/>
         <DataField label="Date" value={date}/>
         <DataField label="Job Number" value={jobNumber}/>
