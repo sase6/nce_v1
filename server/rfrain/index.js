@@ -143,6 +143,28 @@ const syncDatabaseToreader = async(req, res) => {
   }
 };
 
+const readFromDatabase = async(req, res) => {
+  const {tagName="ALL", readerName="ALL", jobNumber="ALL", modelNumber="ALL", voltage="ALL", type="ALL", subzone="ALL", page=0} = req.body;
+  const clientQuery = {tagName, readerName, jobNumber, modelNumber, voltage};
+
+  const query = {};
+  for (prop in clientQuery) {
+    if (clientQuery[prop] !== "" && clientQuery[prop] !== "ALL") query[prop] = clientQuery[prop]
+  }
+
+  try {
+    const data = await RFIDTags.getAll(query, type, subzone);
+    const results = {
+      results: data.slice(page*100, (page*100 + 100)),
+      amount: data.length
+    };
+
+    res.end(JSON.stringify(results));
+  } catch {
+    res.status(500).end();
+  }
+};
+
 module.exports = {
-  syncNow, requestSyncData, syncRecentDataToDatabase, syncExternalDataToDatabase, syncDatabaseToreader
+  syncNow, requestSyncData, syncRecentDataToDatabase, syncExternalDataToDatabase, syncDatabaseToreader, readFromDatabase
 };

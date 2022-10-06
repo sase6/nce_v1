@@ -1,71 +1,58 @@
 const React = require("react");
-const {useState} = require("react");
+const {useState, useEffect} = require("react");
 const {TextField, Button, InputLabelProps, FormControl, InputLabel, Select, MenuItem} = require("@mui/material");
 const RfidDataComponent = require("./RfidDataComponent.jsx");
-
-const fakeData = {
-  readerName: "b74398dw9",
-  subzone: "Maspeth OUT",
-  type: "Compressors",
-  rfidNumber: "53478",
-  jobNumber: 423890,
-  modelNumber: "06ds8246bc3200",
-  voltage: "multi",
-  date: (new Date).toLocaleDateString()
-}
-
-const fakeData2 = {
-  readerName: "fhwikehn",
-  subzone: "Maspeth IN",
-  type: "STATORs",
-  rfidNumber: "4328",
-  jobNumber: 45349,
-  modelNumber: "ordm429dh",
-  voltage: "460",
-  date: (new Date).toLocaleDateString()
-}
-
+const axios = require('axios');
 
 module.exports = ({page}) => {
   if (page !== "RFID Log") return;
-
   const [readerName, setReaderName] = useState("ALL");
   const [subzone, setSubzone] = useState("ALL");
-  const [type, setType] = useState("COMPRESSORS");
+  const [type, setType] = useState("COMPRESSOR");
   const [rfidNumber, setRfidNumber] = useState("");
   const [jobNumber, setJobNumber] = useState("");
   const [modelNumber, setModelNumber] = useState("");
   const [voltage, setVoltage] = useState("");
-  const [data, setData] = useState([fakeData, fakeData2, fakeData, fakeData2, fakeData, fakeData, fakeData2]);
-  const [queriedData, setQueriedData] = useState(data);
+  const [maxPageIndex, setMaxPageIndex] = useState(0);
+  const [pageIndex, setPageIndex] = useState(0);
+  const [queriedData, setQueriedData] = useState([]);
+
+  const getDatabaseData = () => {
+    axios({
+      method: "post",
+      url: "/rfrain/database/data",
+      data: {
+        tagName: rfidNumber, 
+        readerName, 
+        jobNumber, 
+        modelNumber, 
+        voltage,
+        type,
+        subzone,
+        page: 0
+      }
+    })
+    .then(({data}) => {
+      setMaxPageIndex(data.amount);
+      setQueriedData(data.results);
+      const result = [];
+
+      data.results.forEach(dataObj => {
+        if (type !== "ALL" && dataObj.type.indexOf(type) === -1) return;
+      });
+    })
+    .catch((err) => {
+      console.log("Error Fetching Rfrain Database: ", err);
+    });
+  };
 
   const setHeaderState = (event, set) => {
     set(event.target.value.toString().toLowerCase());
   };
 
-  const queryDb = () => {
-    const results = [];
-    const query = {readerName, subzone, type, rfidNumber, jobNumber, modelNumber, voltage};
-
-    data.forEach(dataObj => {
-      let err = 0;
-
-      for (prop in dataObj) {
-        if (query[prop] === undefined) continue;
-        const dataFromDataObj = dataObj[prop].toString().toLowerCase();
-        const queryData = query[prop].toString().toLowerCase();
-        
-        if (queryData !== "all" && dataFromDataObj.indexOf(queryData) === -1) {
-          err++;
-        }
-      }
-
-      if (err > 0) return;
-      results.push(dataObj);
-    });
-
-    setQueriedData(results);
-  };
+  useEffect(() => {
+    getDatabaseData();
+  }, []);
 
   return (
     <div className="rfid-log">
@@ -77,7 +64,7 @@ module.exports = ({page}) => {
           <HeaderFieldMenu state={subzone} setState={setSubzone} label="Subzone Type" values={["ALL", "IN", "OUT"]}/>
         </div>
         <div className="rfid-query-type">
-          <HeaderFieldMenu state={type} setState={setType} label="Data Type" values={["ALL", "COMPRESSORS", "STATORS"]}/>
+          <HeaderFieldMenu state={type} setState={setType} label="Data Type" values={["ALL", "COMPRESSOR", "STATOR"]}/>
         </div>
         <div className="rfid-query-rfid-number">
           <HeaderField label="Rfid Number" onChangeCb={(e) => setHeaderState(e, setRfidNumber)}/>
@@ -92,28 +79,34 @@ module.exports = ({page}) => {
           <HeaderField label="Voltage" onChangeCb={(e) => setHeaderState(e, setVoltage)}/>
         </div>
         <div className="rfid-query-button">
-          <Button variant="outlined" onClick={queryDb}>Search</Button>
+          <Button variant="outlined" onClick={getDatabaseData}>Search</Button>
         </div>
       </div>
 
-      <div className="rfid-tags-container">
-        {queriedData.map((dataObj, i) => {
-          return (
-            <RfidDataComponent 
-              key={`rfid-data-component-${i}`}
-              readerName={dataObj.readerName}
-              subzone={dataObj.subzone}
-              type={dataObj.type}
-              date={dataObj.date}
-              jobNumber={dataObj.jobNumber}
-              modelNumber={dataObj.modelNumber}
-              voltage={dataObj.voltage}
-              rfidNumber={dataObj.rfidNumber}
-              colorId={i}
-            />
-          );
-        })}
-      </div>
+      <RfidTagsContainer queriedData={queriedData}/>
+    </div>
+  );
+};
+
+const RfidTagsContainer = ({queriedData}) => {
+  return (
+    <div className="rfid-tags-container">
+      {queriedData.map((dataObj, i) => {
+        return (
+          <RfidDataComponent 
+            key={`rfid-data-component-${i}`}
+            readerName={dataObj.readerName}
+            subzone={dataObj.subzone}
+            type={dataObj.type}
+            date={dataObj.date}
+            jobNumber={dataObj.jobNumber}
+            modelNumber={dataObj.modelNumber}
+            voltage={dataObj.voltage}
+            rfidNumber={dataObj.tagName}
+            colorId={i}
+          />
+        );
+      })}
     </div>
   );
 };

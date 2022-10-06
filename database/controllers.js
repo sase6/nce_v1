@@ -224,8 +224,10 @@ const RFIDTags = {
     return {newTagCount, modifiedTagCount};
   },
 
-  getAll: async() => {
-    return (await _model.RFIDTag.find({}));
+  getAll: async(query={}, type, subzone) => {
+    if (JSON.stringify(type).toLowerCase().indexOf('all') === -1) query = {...query, type: {$regex: type, $options: "$i"}};
+    if (JSON.stringify(subzone).toLowerCase().indexOf('all') === -1) query = {...query, subzone: {$regex: subzone, $options: "$i"}};
+    return (await _model.RFIDTag.find(query));
   }
 };
 
