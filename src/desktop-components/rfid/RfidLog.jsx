@@ -29,11 +29,12 @@ module.exports = ({page}) => {
         voltage,
         type,
         subzone,
-        page: 0
+        page: pageIndex
       }
     })
     .then(({data}) => {
-      setMaxPageIndex(data.amount);
+      console.log("returned: ", data.amount);
+      setMaxPageIndex(Math.floor(data.amount/ 100));
       setQueriedData(data.results);
       const result = [];
 
@@ -53,6 +54,16 @@ module.exports = ({page}) => {
   useEffect(() => {
     getDatabaseData();
   }, []);
+
+  const changePageIndexNumber = (val) => {
+    if (val === -1 && pageIndex > 0) {
+      setPageIndex(pageIndex - 1);
+    } else if (pageIndex < maxPageIndex) {
+      setPageIndex(pageIndex + 1);
+    }
+
+    getDatabaseData();
+  };
 
   return (
     <div className="rfid-log">
@@ -79,7 +90,12 @@ module.exports = ({page}) => {
           <HeaderField label="Voltage" onChangeCb={(e) => setHeaderState(e, setVoltage)}/>
         </div>
         <div className="rfid-query-button">
-          <Button variant="outlined" onClick={getDatabaseData}>Search</Button>
+          <Button variant="outlined" onClick={() => {getDatabaseData(); setPageIndex(0)}}>Search</Button>
+          <div className="rfid-query-page-container">
+            <div className="rfid-query-left-button" onClick={() => changePageIndexNumber(-1)}> {`<`} </div>
+            <div className="rfid-query-page-number">{`${pageIndex}/${maxPageIndex}`}</div>
+            <div className="rfid-query-right-button" onClick={changePageIndexNumber}> {`>`} </div>
+          </div>
         </div>
       </div>
 

@@ -168,7 +168,11 @@ const addManyJobs = async (req, res) => {
     job._isDeleted = false;
     job.deletedBy = 'N/A';
     job.deletedOn = 'N/A';
-    job.enteredBy = "spreadsheet"
+    job.enteredBy = "Spreadsheet";
+    job.unloaders = "?";
+    job.statorStatus = "?";
+    job.scrap = "?";
+    job.warranty = "?"
 
     const jobs = await JOBS.findByField({jobNumber: job.jobNumber});
     const foundJob = jobs[0];

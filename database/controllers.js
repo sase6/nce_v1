@@ -212,11 +212,7 @@ const RFIDTags = {
         await tagData.save();
         newTagCount++;
       } else {
-        for (prop in dbData) {
-          dbResults[0][prop] = dbData[prop];
-        }
-
-        await dbResults[0].save();
+        await _model.RFIDTag.findOneAndUpdate({tagNumber: tagnumb}, dbData);
         modifiedTagCount++;
       }
     }
@@ -227,7 +223,8 @@ const RFIDTags = {
   getAll: async(query={}, type, subzone) => {
     if (JSON.stringify(type).toLowerCase().indexOf('all') === -1) query = {...query, type: {$regex: type, $options: "$i"}};
     if (JSON.stringify(subzone).toLowerCase().indexOf('all') === -1) query = {...query, subzone: {$regex: subzone, $options: "$i"}};
-    return (await _model.RFIDTag.find(query));
+    if (query.modelNumber) query = {...query, modelNumber: {$regex: query.modelNumber, $options: "$i"}};
+    return (await _model.RFIDTag.find(query).sort({_id: -1}));
   }
 };
 

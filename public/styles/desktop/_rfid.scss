@@ -140,3 +140,33 @@
   border-radius: 5px;
   padding: 25px;
 }
+
+.rfid-query-button {
+  position: relative;
+  display: grid;
+  grid-template-columns: max-content max-content;
+  justify-content: space-between;
+}
+
+.rfid-query-page-container {
+  width: 140px;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 40px max-content 40px;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+.rfid-query-right-button, .rfid-query-left-button {
+  display: grid;
+  place-items: center;
+  height: 40px;
+  border-radius: 100%;
+  background: rgba(0,0,0,0.0225);
+}
+
+.rfid-query-right-button:hover, .rfid-query-left-button:hover {
+  cursor: pointer;
+}

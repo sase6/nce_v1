@@ -61,8 +61,8 @@ const DesktopView = (props) => {
       <DesktopJobBook page={page} query={query} user={user} setAppStatus={setAppStatus}/>
       <Paperworks page={page} query={query} setAppStatus={setAppStatus}/>
       <Bartender page={page}/>
-      <RfidTools page={page} setAppStatus={setAppStatus}/>
-      <RfidLog page={page}/>
+      {/* <RfidTools page={page} setAppStatus={setAppStatus}/> */}
+      {/* <RfidLog page={page}/> */}
     </div>
   );
 };

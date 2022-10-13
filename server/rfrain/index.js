@@ -97,7 +97,7 @@ class RfidSyncControl {
   }
 };
 
-let RfidControl = new RfidSyncControl();
+// let RfidControl = new RfidSyncControl();
 
 const syncNow = (req, res) => {
   RfidControl.syncReader((data) => {
@@ -144,7 +144,7 @@ const syncDatabaseToreader = async(req, res) => {
 };
 
 const readFromDatabase = async(req, res) => {
-  const {tagName="ALL", readerName="ALL", jobNumber="ALL", modelNumber="ALL", voltage="ALL", type="ALL", subzone="ALL", page=0} = req.body;
+  const {tagName="ALL", readerName="ALL", jobNumber="ALL", modelNumber="ALL", voltage="ALL", type="ALL", subzone="ALL", page} = req.body;
   const clientQuery = {tagName, readerName, jobNumber, modelNumber, voltage};
 
   const query = {};
